@@ -1,6 +1,9 @@
 package tetris;
 
 import javafx.application.Application;
+import javafx.scene.input.InputEvent;
+import javafx.scene.input.KeyCode;
+import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
 
@@ -8,6 +11,8 @@ import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
+
+import java.util.Random;
 
 public class App extends Application {
 
@@ -37,10 +42,24 @@ public class App extends Application {
             }
         }
 
-
-
+        Straight straight = new Straight();
+        root.getChildren().add(straight);
 
         Scene scene = new Scene(root, 280, 560);
+        scene.setOnKeyPressed(new EventHandler<KeyEvent>() {
+            @Override
+            public void handle(KeyEvent event) {
+
+                if(event.getCode() == KeyCode.A) {straight.moveLeft();}
+                if(event.getCode() == KeyCode.D) {straight.moveRight();}
+                if(event.getCode() == KeyCode.S) {straight.moveDown();}
+                if(event.getCode() == KeyCode.W) {straight.rotate();}
+
+                event.consume();
+            }
+        });
+
+
 
         primaryStage.setTitle("Hello World!");
         primaryStage.setScene(scene);
