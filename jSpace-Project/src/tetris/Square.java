@@ -1,12 +1,9 @@
 package tetris;
 
-import javafx.event.EventHandler;
-import javafx.scene.input.KeyCode;
-import javafx.scene.input.KeyEvent;
-import javafx.scene.paint.Color;
-import javafx.scene.shape.Rectangle;
 
-public class Square extends Rectangle{
+import javafx.scene.paint.Color;
+
+public class Square extends Block{
     final int TILE_SIZE = 28;
 
     public Square() {
@@ -15,20 +12,4 @@ public class Square extends Rectangle{
         setFill(Color.YELLOW);
     }
 
-
-    public void moveLeft(){
-        setLayoutX(getLayoutX()-TILE_SIZE);
-    }
-
-    public void moveRight(){
-        setLayoutX(getLayoutX()+TILE_SIZE);
-    }
-
-    public void moveDown(){
-        setLayoutY(getLayoutY()+TILE_SIZE);
-    }
-
-    public void rotate(){
-
-    }
 }
