@@ -1,15 +1,13 @@
 package tetris;
 
 import javafx.application.Application;
+import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
 
-import javafx.application.Application;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
-import javafx.scene.layout.StackPane;
-import javafx.stage.Stage;
 
 public class App extends Application {
 
@@ -25,10 +23,24 @@ public class App extends Application {
             }
         });
 
-        StackPane root = new StackPane();
+        Pane root = new Pane();
         root.getChildren().add(btn);
+        root.getChildren().add(new BackgroundTile());
 
-        Scene scene = new Scene(root, 300, 250);
+        //Programatically create background
+        for(int y = 0; y < 20; y++){
+            for(int x = 0; x < 10; x++){
+                BackgroundTile tile = new BackgroundTile();
+                tile.setLayoutX(28.*x);
+                tile.setLayoutY(28.*y);
+                root.getChildren().add(tile);
+            }
+        }
+
+
+
+
+        Scene scene = new Scene(root, 280, 560);
 
         primaryStage.setTitle("Hello World!");
         primaryStage.setScene(scene);
