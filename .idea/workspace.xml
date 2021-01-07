@@ -64,16 +64,17 @@
         </entry>
       </map>
     </option>
+    <option name="oldMeFiltersMigrated" value="true" />
   </component>
   <component name="WindowStateProjectService">
     <state x="414" y="175" key="#com.intellij.execution.impl.EditConfigurationsDialog" timestamp="1610012872452">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
     <state x="414" y="175" key="#com.intellij.execution.impl.EditConfigurationsDialog/0.0.1920.1040/-1080.-407.1080.1880@0.0.1920.1040" timestamp="1610012872452" />
-    <state x="740" y="275" key="FileChooserDialogImpl" timestamp="1610012891554">
+    <state x="740" y="275" key="FileChooserDialogImpl" timestamp="1610024712476">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state x="740" y="275" key="FileChooserDialogImpl/0.0.1920.1040/-1080.-407.1080.1880@0.0.1920.1040" timestamp="1610012891554" />
+    <state x="740" y="275" key="FileChooserDialogImpl/0.0.1920.1040/-1080.-407.1080.1880@0.0.1920.1040" timestamp="1610024712476" />
     <state x="440" y="94" key="SettingsEditor" timestamp="1610012795413">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
