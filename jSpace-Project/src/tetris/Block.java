@@ -85,6 +85,9 @@ public class Block extends Rectangle{
     }
 
     public void drop() {
+
         shape.setLayoutY(19*TILE_SIZE);
+
+
     }
 }
