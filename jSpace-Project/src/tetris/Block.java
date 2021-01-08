@@ -1,7 +1,8 @@
 package tetris;
 
-
+import tetris.GameData;
 import javafx.scene.Node;
+import javafx.scene.paint.Color;
 import javafx.scene.shape.Path;
 import javafx.scene.shape.Rectangle;
 import javafx.scene.shape.Shape;
@@ -94,14 +95,22 @@ public class Block extends Rectangle{
     }
 
     public boolean checkCollision (Shape shape) {
-        for(Shape target: App.shapeList) {
+        for(Shape target: GameData.getShapeList()) {
             if(!Shape.intersect(shape, target).getLayoutBounds().isEmpty()) {
-                System.out.println("Collision");
                 return true;
             }
         }
         return false;
     }
+
+    //Alternativ collision check - virker ikke hvis man placerer en straight horisontalt
+//    public boolean checkCollision (Shape shape) {
+//        if(!Shape.intersect(shape, App.totalMass).getLayoutBounds().isEmpty()) {
+//            return true;
+//        } else {
+//            return false;
+//        }
+//    }
 
 
     private boolean premoveCollision(Shape shape, String dir) {
@@ -123,14 +132,70 @@ public class Block extends Rectangle{
                 shape.setLayoutY(shape.getLayoutY()-TILE_SIZE);
                 break;
         }
-        if(collision) {System.out.println("Collided");}
         return collision;
     }
 
+    public boolean checkLine() {
+        Rectangle tile = new Rectangle();
+        tile.setWidth(TILE_SIZE);
+        tile.setHeight(TILE_SIZE);
+
+        int correctCollisions = 0;
+
+        for(int y = 19; y >= 0; y--){
+            for(int x = 0; x < 10; x++) {
+                tile.setLayoutY(y*TILE_SIZE);
+                tile.setLayoutX(x*TILE_SIZE);
+                if(checkCollision(tile)){
+                    correctCollisions++;
+                }
+            }
+            if(correctCollisions == 10){
+                System.out.println("CLEAR");
+                clearLine(y);
+                return true;
+            } else if(correctCollisions == 0) {
+                return false;
+            }
+            correctCollisions = 0;
+        }
+        return false;
+    }
+
+//    public void clearLine(int lineNo) {
+//        Rectangle structureElement = new Rectangle();
+//        structureElement.setWidth(10 * TILE_SIZE);
+//        structureElement.setHeight(TILE_SIZE);
+//
+//        structureElement.setLayoutY(lineNo);
+//        structureElement.setFill(Color.WHITE);
+//        GameData.getTotalMass().setFill(Color.WHITE);
+////      App.totalMass = Shape.subtract(App.totalMass, structureElement);
+//        System.out.println("Subtracted");
+//    }
+    public void clearLine(int lineNo) {
+        Rectangle tile = new Rectangle();
+        tile.setWidth(TILE_SIZE);
+        tile.setHeight(TILE_SIZE);
+
+
+        tile.setLayoutY(lineNo*TILE_SIZE);
+        for(int x = 0; x < 10; x++) {
+            tile.setLayoutX(x*TILE_SIZE);
+            GameData.removeShape(tile);
+        }
+    }
     public void drop() {
         while(!premoveCollision(shape, "DOWN"))
             move("DOWN");
-        App.shapeList.add(shape);
+        if(GameData.getShapeList().size() > 1) {
+            GameData.setTotalMass(Shape.union(GameData.getTotalMass(), shape));
+        } else {
+            GameData.setTotalMass(shape);
+        }
+        GameData.getShapeList().add(shape);
+
+        checkLine();
     }
 
 }

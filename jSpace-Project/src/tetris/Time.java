@@ -7,9 +7,7 @@ import javafx.util.Duration;
 public class Time {
 
     private Timeline timeline;
-    private
-
-    public void initTimer() {
+    private void initTimer() {
 
         if ( !(timeline == null) ) {
             throw new IllegalArgumentException("Time class may only be instantiated once!");

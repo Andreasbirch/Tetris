@@ -17,8 +17,8 @@ import java.util.Random;
 
 public class App {
     final int TILE_SIZE = 28;
-    public static List <Shape> shapeList = new ArrayList<Shape>();
-
+//    public static List <Shape> shapeList = new ArrayList<Shape>();
+//    public static Shape totalMass;
     private Pane root;
 
     public App (Stage primaryStage) {
@@ -29,15 +29,18 @@ public class App {
         for(int y = 0; y < 20; y++){
             for(int x = 0; x < 10; x++){
                 BackgroundTile tile = new BackgroundTile();
-                tile.setLayoutX(28.*x);
-                tile.setLayoutY(28.*y);
+                tile.setLayoutX(TILE_SIZE * x);
+                tile.setLayoutY(TILE_SIZE * y);
                 root.getChildren().add(tile);
             }
         }
         //Vi skal lige overveje om det her kan være en permanent løsning til bunden.
         Shape bottomBorder = new BottomBorder().getBottomBorder();
         root.getChildren().add(bottomBorder);
-        shapeList.add(bottomBorder);
+
+        GameData.getShapeList().add(bottomBorder);
+        //Alternativ collision checking
+        GameData.setTotalMass(bottomBorder);
 
 
         generateBlock(root, scene);
