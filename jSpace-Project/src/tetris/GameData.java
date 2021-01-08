@@ -1,8 +1,9 @@
 package tetris;
 
+import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
 import javafx.scene.shape.Shape;
-
+import tetris.App;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -30,14 +31,16 @@ public class GameData {
     }
 
     public static void removeShape(Shape target){
-        System.out.println("LayoutX" + target.getLayoutX()/28);
-        System.out.println("LayoutY" + target.getLayoutY()/28);
-        System.out.println("Type" + target.getClass());
+        Shape newShape;
+
         for(Shape shape: shapeList) {
             if(!Shape.intersect(shape, target).getLayoutBounds().isEmpty()) {
-                Shape.subtract(shape,target);
-                shape = Shape.subtract(shape, target);
+                newShape = Shape.subtract(shape, target);
+                shapeList.add(shapeList.indexOf(shape), newShape);
+                shapeList.remove(shape);
+                break;
             }
+
         }
     }
 

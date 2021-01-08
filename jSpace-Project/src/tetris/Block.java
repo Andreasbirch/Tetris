@@ -73,24 +73,26 @@ public class Block extends Rectangle{
 
     public void rotate(){
         shape.setRotate(shape.getRotate()+90);
-        switch((int) shape.getRotate()){
-            case 90:
-                shape.setLayoutX(shape.getLayoutX() + TILE_SIZE/2);
-                shape.setLayoutY(shape.getLayoutY() + TILE_SIZE/2);
-                break;
-            case 180:
-                shape.setLayoutX(shape.getLayoutX() - TILE_SIZE/2);
-                shape.setLayoutY(shape.getLayoutY() + TILE_SIZE/2);
-                break;
-            case 270:
-                shape.setLayoutX(shape.getLayoutX() - TILE_SIZE/2);
-                shape.setLayoutY(shape.getLayoutY() - TILE_SIZE/2);
-                break;
-            case 360:
-                shape.setLayoutX(shape.getLayoutX() + TILE_SIZE/2);
-                shape.setLayoutY(shape.getLayoutY() - TILE_SIZE/2);
-                shape.setRotate(0);
-                break;
+        if(!shape.getClass().toString().contains("Rectangle")) {
+            switch((int) shape.getRotate()){
+                case 90:
+                    shape.setLayoutX(shape.getLayoutX() + TILE_SIZE/2);
+                    shape.setLayoutY(shape.getLayoutY() + TILE_SIZE/2);
+                    break;
+                case 180:
+                    shape.setLayoutX(shape.getLayoutX() - TILE_SIZE/2);
+                    shape.setLayoutY(shape.getLayoutY() + TILE_SIZE/2);
+                    break;
+                case 270:
+                    shape.setLayoutX(shape.getLayoutX() - TILE_SIZE/2);
+                    shape.setLayoutY(shape.getLayoutY() - TILE_SIZE/2);
+                    break;
+                case 360:
+                    shape.setLayoutX(shape.getLayoutX() + TILE_SIZE/2);
+                    shape.setLayoutY(shape.getLayoutY() - TILE_SIZE/2);
+                    shape.setRotate(0);
+                    break;
+            }
         }
     }
 
@@ -102,15 +104,6 @@ public class Block extends Rectangle{
         }
         return false;
     }
-
-    //Alternativ collision check - virker ikke hvis man placerer en straight horisontalt
-//    public boolean checkCollision (Shape shape) {
-//        if(!Shape.intersect(shape, App.totalMass).getLayoutBounds().isEmpty()) {
-//            return true;
-//        } else {
-//            return false;
-//        }
-//    }
 
 
     private boolean premoveCollision(Shape shape, String dir) {
