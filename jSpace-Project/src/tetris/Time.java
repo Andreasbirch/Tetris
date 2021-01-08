@@ -8,10 +8,6 @@ public class Time {
 
     private Timeline timeline;
 
-
-
-    private void initTimer() {
-
     private int y;
     private int timeSeconds;
 
