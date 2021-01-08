@@ -1,34 +1,29 @@
 package tetris;
 
-import javafx.application.Application;
 import javafx.scene.Node;
-import javafx.scene.input.InputEvent;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.Pane;
-import javafx.scene.media.Media;
-import javafx.scene.media.MediaPlayer;
-import javafx.scene.shape.Rectangle;
+import javafx.scene.shape.Shape;
 import javafx.stage.Stage;
 
-import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.scene.Scene;
-import javafx.scene.control.Button;
-import javafx.util.Duration;
 
 import java.io.File;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Random;
 
 public class App {
     final int TILE_SIZE = 28;
-    public static int[][] data;
+    public static List <Shape> shapeList = new ArrayList<Shape>();
+
+    private Pane root;
 
     public App (Stage primaryStage) {
-        Pane root = new Pane();
+        root = new Pane();
         Scene scene = new Scene(root, 280, 560);
-
-        data = new int[10][20];
 
         //Programatically create background
         for(int y = 0; y < 20; y++){
@@ -39,6 +34,11 @@ public class App {
                 root.getChildren().add(tile);
             }
         }
+        //Vi skal lige overveje om det her kan være en permanent løsning til bunden.
+        Shape bottomBorder = new BottomBorder().getBottomBorder();
+        root.getChildren().add(bottomBorder);
+        shapeList.add(bottomBorder);
+
 
         generateBlock(root, scene);
 
@@ -67,4 +67,5 @@ public class App {
             }
         });
     }
+
 }
