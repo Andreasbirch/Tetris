@@ -6,6 +6,7 @@ import javafx.scene.paint.Color;
 import javafx.scene.shape.Path;
 import javafx.scene.shape.Rectangle;
 import javafx.scene.shape.Shape;
+import tetris.App;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -73,7 +74,7 @@ public class Block extends Rectangle{
 
     public void rotate(){
         shape.setRotate(shape.getRotate()+90);
-        if(!shape.getClass().toString().contains("Rectangle")) {
+//        if(!shape.getClass().toString().contains("Rectangle")) {
             switch((int) shape.getRotate()){
                 case 90:
                     shape.setLayoutX(shape.getLayoutX() + TILE_SIZE/2);
@@ -93,7 +94,7 @@ public class Block extends Rectangle{
                     shape.setRotate(0);
                     break;
             }
-        }
+//        }
     }
 
     public boolean checkCollision (Shape shape) {
@@ -155,17 +156,6 @@ public class Block extends Rectangle{
         return false;
     }
 
-//    public void clearLine(int lineNo) {
-//        Rectangle structureElement = new Rectangle();
-//        structureElement.setWidth(10 * TILE_SIZE);
-//        structureElement.setHeight(TILE_SIZE);
-//
-//        structureElement.setLayoutY(lineNo);
-//        structureElement.setFill(Color.WHITE);
-//        GameData.getTotalMass().setFill(Color.WHITE);
-////      App.totalMass = Shape.subtract(App.totalMass, structureElement);
-//        System.out.println("Subtracted");
-//    }
     public void clearLine(int lineNo) {
         Rectangle tile = new Rectangle();
         tile.setWidth(TILE_SIZE);
@@ -173,11 +163,23 @@ public class Block extends Rectangle{
 
 
         tile.setLayoutY(lineNo*TILE_SIZE);
+        App.tileLine(lineNo);
         for(int x = 0; x < 10; x++) {
             tile.setLayoutX(x*TILE_SIZE);
             GameData.removeShape(tile);
+            mergeUpperShape(lineNo);
         }
     }
+
+    private void mergeUpperShape(int yThreshold) {
+        for(Shape listShape: GameData.getShapeList()) {
+            if(listShape.getLayoutY() < yThreshold){
+                listShape.setFill(Color.WHITE);
+//                listShape.setLayoutY(listShape.getLayoutY()+TILE_SIZE);
+            }
+        }
+    }
+
     public void drop() {
         while(!premoveCollision(shape, "DOWN"))
             move("DOWN");

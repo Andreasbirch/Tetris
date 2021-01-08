@@ -16,10 +16,10 @@ import java.util.List;
 import java.util.Random;
 
 public class App {
-    final int TILE_SIZE = 28;
+    static final int TILE_SIZE = 28;
 //    public static List <Shape> shapeList = new ArrayList<Shape>();
 //    public static Shape totalMass;
-    private Pane root;
+    private static Pane root;
 
     public App (Stage primaryStage) {
         root = new Pane();
@@ -74,6 +74,15 @@ public class App {
                 event.consume();
             }
         });
+    }
+
+    public static void tileLine(int posY) {
+        for(int x = 0; x < 10; x++) {
+            BackgroundTile tile = new BackgroundTile();
+            tile.setLayoutX(TILE_SIZE * x);
+            tile.setLayoutY(TILE_SIZE * posY);
+            root.getChildren().add(tile);
+        }
     }
 
 }

@@ -23,6 +23,7 @@ public class JBlock extends Shape {
 
         union = Shape.union(bottom,top);
         union.setFill(Color.BLUE);
+
     }
 
     public Shape getJBlock(){

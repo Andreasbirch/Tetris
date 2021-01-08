@@ -11,9 +11,5 @@ public class BackgroundTile extends Rectangle {
         setWidth(SIZE);
         setHeight(SIZE);
         setStroke(Color.DARKGRAY);
-
-
     }
-
-
 }
