@@ -35,7 +35,7 @@ public class mainMenuController {
 
     @FXML
     private void highscoreB(ActionEvent event) throws Exception {
-        Stage stage = (Stage) HighScoresPage.getScene().getWindow();
+        Stage stage = (Stage) StartPage.getScene().getWindow();
         Parent root = FXMLLoader.load(getClass().getResource("/tetris/view/HighScoresPage.fxml"));
         Scene scene = new Scene(root);
         stage.setScene(scene);
@@ -44,7 +44,7 @@ public class mainMenuController {
 
     @FXML
     private void controllerB(ActionEvent event) throws Exception {
-        Stage stage = (Stage) ControlsPage.getScene().getWindow();
+        Stage stage = (Stage) StartPage.getScene().getWindow();
         Parent root = FXMLLoader.load(getClass().getResource("/tetris/view/ControlsPage.fxml"));
         Scene scene = new Scene(root);
         stage.setScene(scene);
