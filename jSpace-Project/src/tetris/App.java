@@ -53,6 +53,10 @@ public class App {
     public void generateBlock(Pane root, Scene scene) {
         Block block = new Block();
         root.getChildren().add(block.getShape());
+        Time timer = new Time(block);
+
+        timer.getTimeline().play();
+
         scene.setOnKeyPressed(new EventHandler<KeyEvent>() {
             @Override
             public void handle(KeyEvent event) {
