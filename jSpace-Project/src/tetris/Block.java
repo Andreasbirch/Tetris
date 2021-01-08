@@ -1,6 +1,5 @@
 package tetris;
 
-
 import javafx.scene.Node;
 import javafx.scene.shape.Path;
 import javafx.scene.shape.Rectangle;
@@ -94,13 +93,6 @@ public class Block extends Rectangle{
         }
     }
 
-<<<<<<< HEAD
-<<<<<<< HEAD
-    public void drop() {
-        shape.setLayoutY(19*TILE_SIZE);
-=======
-=======
->>>>>>> 957ee064fdd6a457af5fdcd1d9dd48a45ab42556
     public boolean checkCollision (Shape shape) {
         for(Shape target: App.shapeList) {
             if(!Shape.intersect(shape, target).getLayoutBounds().isEmpty()) {
@@ -110,7 +102,6 @@ public class Block extends Rectangle{
         }
         return false;
     }
-
 
     private boolean premoveCollision(Shape shape, String dir) {
         boolean collision = false;
@@ -139,10 +130,6 @@ public class Block extends Rectangle{
         while(!premoveCollision(shape, "DOWN"))
             move("DOWN");
         App.shapeList.add(shape);
-<<<<<<< HEAD
->>>>>>> 957ee064fdd6a457af5fdcd1d9dd48a45ab42556
-=======
->>>>>>> 957ee064fdd6a457af5fdcd1d9dd48a45ab42556
     }
 
 }
