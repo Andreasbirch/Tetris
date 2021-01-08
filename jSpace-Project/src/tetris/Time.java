@@ -7,9 +7,16 @@ import javafx.util.Duration;
 public class Time {
 
     private Timeline timeline;
-    private
+    private int y;
+    private int timeSeconds;
 
-    public void initTimer() {
+    public Time(Block block) {
+        timeSeconds = 0;
+        y = 28;
+        initTimer(block);
+    }
+
+    public void initTimer(Block block) {
 
         if ( !(timeline == null) ) {
             throw new IllegalArgumentException("Time class may only be instantiated once!");
@@ -19,11 +26,16 @@ public class Time {
 
         timeline.setCycleCount(Timeline.INDEFINITE);
         timeline.getKeyFrames().add( new KeyFrame(Duration.seconds(1), e -> {
-
+                timeSeconds++;
+                block.move("DOWN");
         }));
     }
 
     public Timeline getTimeline() {
         return timeline;
+    }
+
+    public int getY() {
+        return y;
     }
 }
