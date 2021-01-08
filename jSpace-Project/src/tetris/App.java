@@ -20,12 +20,11 @@ import javafx.util.Duration;
 import java.io.File;
 import java.util.Random;
 
-public class App extends Application {
+public class App {
     final int TILE_SIZE = 28;
     public static int[][] data;
 
-    @Override
-    public void start(Stage primaryStage) {
+    public App (Stage primaryStage) {
         Pane root = new Pane();
         Scene scene = new Scene(root, 280, 560);
 
@@ -67,9 +66,5 @@ public class App extends Application {
                 event.consume();
             }
         });
-    }
-
-    public static void main(String[] args) {
-        launch(args);
     }
 }
