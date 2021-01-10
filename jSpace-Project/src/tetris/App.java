@@ -4,6 +4,8 @@ import javafx.scene.Node;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.Pane;
+import javafx.scene.paint.Color;
+import javafx.scene.shape.Rectangle;
 import javafx.scene.shape.Shape;
 import javafx.stage.Stage;
 
@@ -62,10 +64,10 @@ public class App {
             @Override
             public void handle(KeyEvent event) {
 
-                if(event.getCode() == KeyCode.A) {block.move("LEFT");}
-                if(event.getCode() == KeyCode.D) {block.move("RIGHT");}
-                if(event.getCode() == KeyCode.S) {block.move("DOWN");}
-                if(event.getCode() == KeyCode.W) {block.rotate();}
+                if(event.getCode() == KeyCode.A || event.getCode() == KeyCode.LEFT) {block.move("LEFT");}
+                if(event.getCode() == KeyCode.D || event.getCode() == KeyCode.RIGHT) {block.move("RIGHT");}
+                if(event.getCode() == KeyCode.S || event.getCode() == KeyCode.DOWN) {block.move("DOWN");}
+                if(event.getCode() == KeyCode.W || event.getCode() == KeyCode.UP) {block.rotate();}
                 if(event.getCode() == KeyCode.SPACE) {
                     block.drop();
                     generateBlock(root, scene);
@@ -74,6 +76,15 @@ public class App {
                 event.consume();
             }
         });
+    }
+
+    public static void boundBox(int posY) {
+        Rectangle bounds = new Rectangle();
+        bounds.setWidth(10*TILE_SIZE);
+        bounds.setHeight(posY*TILE_SIZE);
+        bounds.setFill(Color.WHITE);
+        bounds.setLayoutX(0);
+        root.getChildren().add(bounds);
     }
 
     public static void tileLine(int posY) {
