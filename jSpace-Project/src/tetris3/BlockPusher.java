@@ -1,6 +1,8 @@
 package tetris3;
 
 import org.jspace.Space;
+import tetris3.Blocks.TBlock;
+
 public class BlockPusher implements Runnable {
     private Space blockSpace;
 

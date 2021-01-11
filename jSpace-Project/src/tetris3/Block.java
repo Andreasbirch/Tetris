@@ -1,5 +1,7 @@
 package tetris3;
 
+import tetris3.Blocks.*;
+
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
@@ -10,18 +12,43 @@ public class Block {
 
     public Block() {
         Random random = new Random();
-        int randomBlock = random.nextInt(2);
+        int randomBlock = random.nextInt(7)+1;
 
         switch (randomBlock){
-            case 0:
+            case 1:
                 TBlock tBlock = new TBlock();
                 structureElement = tBlock.getStructureElement();
                 rotations = tBlock.getRotations();
                 break;
-            case 1:
+            case 2:
                 IBlock iBlock = new IBlock();
                 structureElement = iBlock.getStructureElement();
                 rotations = iBlock.getRotations();
+                break;
+            case 3:
+                SBlock sBlock = new SBlock();
+                structureElement = sBlock.getStructureElement();
+                rotations = sBlock.getRotations();
+                break;
+            case 4:
+                ZBlock zBlock = new ZBlock();
+                structureElement = zBlock.getStructureElement();
+                rotations = zBlock.getRotations();
+                break;
+            case 5:
+                JBlock jBlock = new JBlock();
+                structureElement = jBlock.getStructureElement();
+                rotations = jBlock.getRotations();
+                break;
+            case 6:
+                LBlock lBlock = new LBlock();
+                structureElement = lBlock.getStructureElement();
+                rotations = lBlock.getRotations();
+                break;
+            case 7:
+                Square square = new Square();
+                structureElement = square.getStructureElement();
+                rotations = square.getRotations();
                 break;
 
         }

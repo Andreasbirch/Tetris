@@ -1,37 +1,37 @@
-package tetris3;
+package tetris3.Blocks;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class IBlock {
+public class TBlock {
     private int[][] structureElement;
     List<int[][]> rotations = new ArrayList<int[][]>();
     private int[] center = {1,1};
 
-    public IBlock() {
+    public TBlock() {
         rotations.add(new int[][]{
-                {0, 0, 0, 0},
-                {2, 2, 2, 2},
+                {0, 1, 0, 0},
+                {1, 1, 1, 0},
                 {0, 0, 0, 0},
                 {0, 0, 0, 0}
         });
         rotations.add(new int[][]{
-                {0, 0, 2, 0},
-                {0, 0, 2, 0},
-                {0, 0, 2, 0},
-                {0, 0, 2, 0}
-        });
-        rotations.add(new int[][]{
-                {0, 0, 0, 0},
-                {0, 0, 0, 0},
-                {2, 2, 2, 2},
+                {0, 1, 0, 0},
+                {0, 1, 1, 0},
+                {0, 1, 0, 0},
                 {0, 0, 0, 0}
         });
         rotations.add(new int[][]{
-                {0, 2, 0, 0},
-                {0, 2, 0, 0},
-                {0, 2, 0, 0},
-                {0, 2, 0, 0}
+                {0, 0, 0, 0},
+                {1, 1, 1, 0},
+                {0, 1, 0, 0},
+                {0, 0, 0, 0}
+        });
+        rotations.add(new int[][]{
+                {0, 1, 0, 0},
+                {1, 1, 0, 0},
+                {0, 1, 0, 0},
+                {0, 0, 0, 0}
         });
         structureElement = rotations.get(0);
     }

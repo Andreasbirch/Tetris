@@ -2,6 +2,7 @@ package tetris3;
 
 import org.jspace.FormalField;
 import org.jspace.Space;
+import tetris3.Blocks.TBlock;
 
 public class BlockPuller implements Runnable {
     private Space blockSpace;

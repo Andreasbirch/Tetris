@@ -1,36 +1,36 @@
-package tetris3;
+package tetris3.Blocks;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class SBlock {
+public class JBlock {
     private int[][] structureElement;
     List<int[][]> rotations = new ArrayList<int[][]>();
     private int[] center = {1,1};
 
-    public SBlock() {
+    public JBlock() {
         rotations.add(new int[][]{
-                {0, 3, 3, 0},
-                {3, 3, 0, 0},
+                {5, 0, 0, 0},
+                {5, 5, 5, 0},
                 {0, 0, 0, 0},
                 {0, 0, 0, 0}
         });
         rotations.add(new int[][]{
-                {0, 3, 0, 0},
-                {0, 3, 3, 0},
-                {0, 0, 3, 0},
+                {0, 5, 5, 0},
+                {0, 5, 0, 0},
+                {0, 5, 0, 0},
                 {0, 0, 0, 0}
         });
         rotations.add(new int[][]{
                 {0, 0, 0, 0},
-                {0, 3, 3, 0},
-                {3, 3, 0, 0},
+                {5, 5, 5, 0},
+                {0, 0, 5, 0},
                 {0, 0, 0, 0}
         });
         rotations.add(new int[][]{
-                {3, 0, 0, 0},
-                {3, 3, 0, 0},
-                {0, 3, 0, 0},
+                {0, 5, 0, 0},
+                {0, 5, 0, 0},
+                {5, 5, 0, 0},
                 {0, 0, 0, 0}
         });
         structureElement = rotations.get(0);
