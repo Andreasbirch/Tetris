@@ -11,7 +11,7 @@ public class Board {
     private int[][] boardArray;
     private int[] currentBlockCoords = new int[2];
     Random random = new Random();
-    private TBlock currentBlock;
+    private Block currentBlock;
 
 
     public Board(int tile_size, int width, int height) throws InterruptedException{
@@ -20,6 +20,7 @@ public class Board {
         this.height = height;
 
         createBoardArray();
+
         addNewBlock();
 //        Space blockSpace = new RandomSpace();
 //        new Thread(new BlockPusher(blockSpace)).start();
@@ -28,22 +29,13 @@ public class Board {
 
 
     public void addNewBlock() {
-        currentBlock = (TBlock) generateBlock();
+        currentBlock = new Block();
         if(isClear((width/2)-2,0)){
             insertStructureElement((width/2)-2, 0);
             printBoard();
         }
     }
 
-
-    private Object generateBlock(){
-        int randomBlock = random.nextInt(1);
-        switch (randomBlock){
-            case 0:
-                return new TBlock();
-        }
-        return null;
-    }
 
     private void insertStructureElement(int posX, int posY){
         for(int x = 0; x < 4; x++) {
