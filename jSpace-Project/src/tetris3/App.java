@@ -30,7 +30,7 @@ public class App extends Application {
             @Override
             public void handle(KeyEvent event) {
 
-//                if(event.getCode() == KeyCode.A || event.getCode() == KeyCode.LEFT) {block.move( block.getShape(),"LEFT");}
+                if(event.getCode() == KeyCode.A || event.getCode() == KeyCode.LEFT) {board.move("LEFT");}
 //                if(event.getCode() == KeyCode.D || event.getCode() == KeyCode.RIGHT) {block.move( block.getShape(), "RIGHT");}
 //                if(event.getCode() == KeyCode.S || event.getCode() == KeyCode.DOWN) {block.move( block.getShape(), "DOWN");}
 //                if(event.getCode() == KeyCode.W || event.getCode() == KeyCode.UP) {block.rotate();}

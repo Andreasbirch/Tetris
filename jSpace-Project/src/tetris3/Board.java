@@ -5,14 +5,10 @@ import org.jspace.*;
 import java.util.Random;
 
 public class Board {
-    private int tile_size;
-    private int width;
-    private int height;
+    private int tile_size, width, height;
+    private int posX, posY;
     private int[][] boardArray;
-    private int[] currentBlockCoords = new int[2];
-    Random random = new Random();
     private Block currentBlock;
-
 
     public Board(int tile_size, int width, int height) throws InterruptedException{
         this.tile_size = tile_size;
@@ -32,7 +28,11 @@ public class Board {
         currentBlock = new Block();
         if(isClear((width/2)-2,0)){
             insertStructureElement((width/2)-2, 0);
+            posX = (width/2)-2;
+            posY = 0;
             printBoard();
+        } else {
+            System.out.println("Game over.");
         }
     }
 
@@ -59,7 +59,9 @@ public class Board {
     }
 
 
-
+    public Block getCurrentBlock() {
+        return currentBlock;
+    }
 
 
     private void createBoardArray() {
@@ -86,4 +88,14 @@ public class Board {
         System.out.println();
     }
 
+    public void move(String dir) {
+        switch (dir) {
+            case "LEFT":
+                if(isClear(posX-1, posY)){
+                    insertStructureElement(posX-1, posY);
+                    printBoard();
+                }
+                break;
+        }
+    }
 }
