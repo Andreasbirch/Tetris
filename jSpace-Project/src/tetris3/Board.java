@@ -1,9 +1,5 @@
 package tetris3;
 
-import org.jspace.*;
-
-import java.util.Random;
-
 public class Board {
     private int tile_size, width, height;
     private int posX, posY;
@@ -32,7 +28,6 @@ public class Board {
             posX = (width/2)-2;
             posY = 0;
             deg = 0;
-            //printBoard();
         } else {
             System.out.println("Game over.");
         }
@@ -50,7 +45,6 @@ public class Board {
     }
 
     private boolean isClear(int posX, int posY, int deg) {
-        printBoard();
         for(int x = 0; x < 4; x++) {
             for(int y = 0; y < 4; y++) {
                 if(currentBlock.getRotations(deg)[y][x] != 0 && boardArray[y+posY][x+posX] != 0){
@@ -81,17 +75,6 @@ public class Board {
         return boardArray;
     }
 
-    private void printBoard() {
-//        for(int x = 0; x < height; x++) {
-//            for(int y = 0; y < width; y++) {
-//                System.out.print(boardArray[x][y] + " ");
-//            }
-//            System.out.println();
-//        }
-//        System.out.println();
-//        System.out.println();
-    }
-
     public void rotate() {
         eraseStructureElement(posX, posY, deg);
         if(isClear(posX, posY, (deg+1) % 4)){
@@ -106,21 +89,18 @@ public class Board {
             case "LEFT":
                 if(isClear(posX-1, posY, deg)){
                     posX --;
-                    //printBoard();
                 }
                 insertStructureElement(posX, posY, deg);
                 break;
             case "RIGHT":
                 if(isClear(posX+1, posY, deg)){
                     posX ++;
-                    //printBoard();
                 }
                 insertStructureElement(posX, posY, deg);
                 break;
             case "DOWN":
                 if(isClear(posX, posY+1, deg)){
                     posY++;
-                    //printBoard();
                 }
                 insertStructureElement(posX, posY, deg);
                 break;
@@ -133,6 +113,20 @@ public class Board {
                 if(getCurrentBlock().getRotations(deg)[y][x] != 0) {
                     boardArray[y+posY][x+posX] = 0;
                 }
+            }
+        }
+    }
+
+
+    public void drop() {
+        while(true) {
+            try{
+                move("DOWN");
+            } catch (ArrayIndexOutOfBoundsException e) {
+                insertStructureElement(posX, posY, deg);
+                addNewBlock();
+                App.updateView();
+                break;
             }
         }
     }
