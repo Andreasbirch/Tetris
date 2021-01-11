@@ -18,7 +18,7 @@ public class Block extends Rectangle{
     final int TILE_SIZE = 28;
 
     public Block() {
-
+        //Fjern seed
         Random random = new Random();
         int randomBlock = random.nextInt(7);
 
@@ -47,11 +47,11 @@ public class Block extends Rectangle{
         }
     }
 
-    public Node getShape () {
+    public Shape getShape () {
         return shape;
     }
 
-    public void move(String dir){
+    public void move(Shape shape, String dir){
         switch (dir) {
             case "LEFT":
                 if(!premoveCollision(shape, "LEFT")) {
@@ -167,30 +167,34 @@ public class Block extends Rectangle{
         for(int x = 0; x < 10; x++) {
             tile.setLayoutX(x*TILE_SIZE);
             GameData.removeShape(tile);
-            mergeUpperShape(lineNo);
         }
+        mergeUpperShape();
     }
 
-    private void mergeUpperShape(int yThreshold) {
+    private void mergeUpperShape() {
         for(Shape listShape: GameData.getShapeList()) {
-            if(listShape.getLayoutY() < yThreshold){
-                listShape.setFill(Color.WHITE);
-//                listShape.setLayoutY(listShape.getLayoutY()+TILE_SIZE);
+            int shapeIndex = GameData.getShapeList().indexOf(listShape);
+            GameData.getShapeList().remove(shapeIndex);
+
+            if(!premoveCollision(listShape, "DOWN")){
+                move(listShape, "DOWN");
+                GameData.getShapeList().add(shapeIndex, listShape);
             }
         }
+        App.bottomBorder.setLayoutY(App.bottomBorder.getLayoutY()-TILE_SIZE);
     }
 
-    public void drop() {
+    public void drop(Shape shape) {
         while(!premoveCollision(shape, "DOWN"))
-            move("DOWN");
+            move(shape, "DOWN");
         if(GameData.getShapeList().size() > 1) {
             GameData.setTotalMass(Shape.union(GameData.getTotalMass(), shape));
         } else {
             GameData.setTotalMass(shape);
         }
         GameData.getShapeList().add(shape);
-
         checkLine();
+//        System.out.println(GameData.getShapeList().size());
     }
 
 }
