@@ -2,6 +2,7 @@ package tetris2.data;
 
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
+import javafx.scene.shape.Shape;
 import javafx.util.Duration;
 import tetris.Block;
 
@@ -29,7 +30,7 @@ public class Time {
         timeline.setCycleCount(Timeline.INDEFINITE);
         timeline.getKeyFrames().add( new KeyFrame(Duration.seconds(1), e -> {
                 timeSeconds++;
-                block.move("DOWN");
+                block.move((Shape) block.getShape(), "DOWN");
         }));
     }
 

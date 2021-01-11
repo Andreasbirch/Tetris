@@ -12,6 +12,8 @@ public class GameData {
     private static Shape totalMass;
     private static Object instance;
 
+    private Shape upperShape;
+
     private GameData() {}
 
     public static List<Shape> getShapeList() {
@@ -30,9 +32,12 @@ public class GameData {
         GameData.totalMass = totalMass;
     }
 
+    public void setUpperShape(Shape upperShape) {
+        this.upperShape = upperShape;
+    }
+
     public static void removeShape(Shape target){
         Shape newShape;
-
         for(Shape shape: shapeList) {
             if(!Shape.intersect(shape, target).getLayoutBounds().isEmpty()) {
                 newShape = Shape.subtract(shape, target);
@@ -44,7 +49,5 @@ public class GameData {
         }
 
     }
-
-
 
 }

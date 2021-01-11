@@ -22,10 +22,12 @@ public class App {
 //    public static List <Shape> shapeList = new ArrayList<Shape>();
 //    public static Shape totalMass;
     private static Pane root;
+    public static Shape bottomBorder;
 
     public App (Stage primaryStage) {
         root = new Pane();
-        Scene scene = new Scene(root, 280, 560);
+        //Slet +56
+        Scene scene = new Scene(root, 280, 560+56);
 
         //Programatically create background
         for(int y = 0; y < 20; y++){
@@ -37,7 +39,7 @@ public class App {
             }
         }
         //Vi skal lige overveje om det her kan være en permanent løsning til bunden.
-        Shape bottomBorder = new BottomBorder().getBottomBorder();
+        bottomBorder = new BottomBorder().getBottomBorder();
         root.getChildren().add(bottomBorder);
 
         GameData.getShapeList().add(bottomBorder);
@@ -64,27 +66,18 @@ public class App {
             @Override
             public void handle(KeyEvent event) {
 
-                if(event.getCode() == KeyCode.A || event.getCode() == KeyCode.LEFT) {block.move("LEFT");}
-                if(event.getCode() == KeyCode.D || event.getCode() == KeyCode.RIGHT) {block.move("RIGHT");}
-                if(event.getCode() == KeyCode.S || event.getCode() == KeyCode.DOWN) {block.move("DOWN");}
+                if(event.getCode() == KeyCode.A || event.getCode() == KeyCode.LEFT) {block.move( block.getShape(),"LEFT");}
+                if(event.getCode() == KeyCode.D || event.getCode() == KeyCode.RIGHT) {block.move( block.getShape(), "RIGHT");}
+                if(event.getCode() == KeyCode.S || event.getCode() == KeyCode.DOWN) {block.move( block.getShape(), "DOWN");}
                 if(event.getCode() == KeyCode.W || event.getCode() == KeyCode.UP) {block.rotate();}
                 if(event.getCode() == KeyCode.SPACE) {
-                    block.drop();
+                    block.drop(block.getShape());
                     generateBlock(root, scene);
                 }
 
                 event.consume();
             }
         });
-    }
-
-    public static void boundBox(int posY) {
-        Rectangle bounds = new Rectangle();
-        bounds.setWidth(10*TILE_SIZE);
-        bounds.setHeight(posY*TILE_SIZE);
-        bounds.setFill(Color.WHITE);
-        bounds.setLayoutX(0);
-        root.getChildren().add(bounds);
     }
 
     public static void tileLine(int posY) {
