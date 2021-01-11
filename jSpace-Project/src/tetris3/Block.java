@@ -59,6 +59,11 @@ public class Block {
         return structureElement;
     }
 
+    public int[][] getRotations(int i) {
+        return rotations.get(i);
+    }
+
+
 
     public void rotate(int deg) {
         switch (deg) {
@@ -73,9 +78,6 @@ public class Block {
                 break;
             case 270:
                 structureElement = rotations.get(3);
-                break;
-            case 360:
-                structureElement = rotations.get(0);
                 break;
         }
     }
