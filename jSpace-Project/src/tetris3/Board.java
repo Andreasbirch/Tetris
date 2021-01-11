@@ -32,7 +32,7 @@ public class Board {
             posX = (width/2)-2;
             posY = 0;
             deg = 0;
-            printBoard();
+            //printBoard();
         } else {
             System.out.println("Game over.");
         }
@@ -50,9 +50,10 @@ public class Board {
     }
 
     private boolean isClear(int posX, int posY, int deg) {
+        printBoard();
         for(int x = 0; x < 4; x++) {
             for(int y = 0; y < 4; y++) {
-                if(currentBlock.getRotations(deg)[x][y] != 0 && boardArray[x+posX][y+posY] != 0){
+                if(currentBlock.getRotations(deg)[y][x] != 0 && boardArray[y+posY][x+posX] != 0){
                     System.out.println("Not clear.");
                     return false;
                 }
@@ -92,38 +93,36 @@ public class Board {
     }
 
     public void rotate() {
+        eraseStructureElement(posX, posY, deg);
         if(isClear(posX, posY, (deg+1) % 4)){
-            eraseStructureElement(posX, posY, deg);
             deg = (deg+1) % 4;
-            insertStructureElement(posX, posY, deg);
         }
+        insertStructureElement(posX, posY, deg);
     }
 
     public void move(String dir) {
+        eraseStructureElement(posX, posY, deg);
         switch (dir) {
             case "LEFT":
                 if(isClear(posX-1, posY, deg)){
-                    eraseStructureElement(posX, posY, deg);
-                    insertStructureElement(posX-1, posY, deg);
                     posX --;
-                    printBoard();
+                    //printBoard();
                 }
+                insertStructureElement(posX, posY, deg);
                 break;
             case "RIGHT":
                 if(isClear(posX+1, posY, deg)){
-                    eraseStructureElement(posX, posY, deg);
-                    insertStructureElement(posX+1, posY, deg);
                     posX ++;
-                    printBoard();
+                    //printBoard();
                 }
+                insertStructureElement(posX, posY, deg);
                 break;
             case "DOWN":
                 if(isClear(posX, posY+1, deg)){
-                    eraseStructureElement(posX, posY, deg);
-                    insertStructureElement(posX, posY+1, deg);
-                    posY ++;
-                    printBoard();
+                    posY++;
+                    //printBoard();
                 }
+                insertStructureElement(posX, posY, deg);
                 break;
         }
     }
