@@ -4,6 +4,7 @@ public class Board {
     private int tile_size, width, height;
     private int posX, posY;
     private int deg;
+    private int lineToClear;
     private int[][] boardArray;
     private Block currentBlock;
 
@@ -137,8 +138,12 @@ public class Board {
     private void placeBlock(){
         placeBlockC ++;
         insertStructureElement(posX, posY, deg);
+
+        while(checkLine()){
+            clearLine(lineToClear);
+        }
+
         currentBlock = null;
-        System.gc();
         addNewBlock();
         App.updateView();
     }
@@ -156,6 +161,43 @@ public class Board {
         }
         placeBlock();
     }
+
+    private void clearLine(int lineNo) {
+        for(int x = 1; x < width+1; x++) {
+            boardArray[lineNo][x] = 0;
+        }
+        gravity(lineNo);
+    }
+
+    private void gravity(int lineNo) {
+        for(int y = lineNo; y > 0; y--) {
+            for (int x = 1; x < width + 1; x++) {
+                boardArray[y][x] = boardArray[y-1][x];
+            }
+        }
+    }
+
+    private boolean checkLine() {
+        for(int y = height-1; y >= 0; y--) {
+            int fillCounter = 0;
+            int emptyCounter = 0;
+            for(int x = 1; x < width+1; x++) {
+                if(boardArray[y][x] != 0){
+                    fillCounter++;
+                } else {
+                    emptyCounter++;
+                }
+                if(fillCounter == 10) {
+                    lineToClear = y;
+                    return true;
+                } else if(emptyCounter == 10) {
+                    return false;
+                }
+            }
+        }
+        return false;
+    }
+
 
     public void printCalls() {
         System.out.println("Board: " + boardC);

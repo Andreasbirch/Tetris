@@ -19,7 +19,9 @@ public class App{
             board = new Board(TILE_SIZE, WIDTH, HEIGHT);
             view = new View(TILE_SIZE, WIDTH, HEIGHT);
             Scene scene = new Scene(view.getView(), WIDTH*TILE_SIZE, HEIGHT*TILE_SIZE);
-
+            Time timer = new Time(board);
+            timer.getTimeline().play();
+            
             scene.setOnKeyPressed(new EventHandler<KeyEvent>() {
                 @Override
                 public void handle(KeyEvent event) {
