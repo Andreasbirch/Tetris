@@ -13,8 +13,14 @@
             <Image url="/tetris/res/TetrisLogo.png"/>
          </image>
       </ImageView>
-      <Button fx:id="startBtn" layoutX="257.0" layoutY="129.0" mnemonicParsing="false" onAction="#startB" prefHeight="27.0" prefWidth="83.0" text="Start"/>
-      <Button fx:id="highscoreBtn" layoutX="257.0" layoutY="173.0" mnemonicParsing="false" onAction="#highscoreB" text="High scores" />
-      <Button fx:id="controllerBtn" layoutX="257.0" layoutY="217.0" mnemonicParsing="false" onAction="#controllerB" prefHeight="27.0" prefWidth="83.0" text="Controls" />
+
+      <ImageView id="startBtnView" layoutX="-25.0" layoutY="150.0" scaleX="0.25" scaleY="0.25" onMouseExited="#removeHighlight" onMouseEntered="#highlight" onMouseClicked="#startB" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="/tetris/res/play.png"/>
+         </image>
+      </ImageView>
+
+      <Button fx:id="highscoreBtn" layoutX="257.0" layoutY="273.0" mnemonicParsing="false" onAction="#highscoreB" text="High scores" />
+      <Button fx:id="controllerBtn" layoutX="257.0" layoutY="317.0" mnemonicParsing="false" onAction="#controllerB" prefHeight="27.0" prefWidth="83.0" text="Controls" />
    </children>
 </Pane>
