@@ -6,6 +6,7 @@ import javafx.scene.shape.Rectangle;
 
 public class View {
     private int width, height, tile_size;
+    private Rectangle[][] tileArray;
     private Pane pane;
 
     public View(int tile_size, int width, int height){
@@ -13,7 +14,10 @@ public class View {
         this.tile_size = tile_size;
         this.width = width;
         this.height = height;
+        tileArray = new Rectangle[height][width];
 
+        System.out.println("Width: " + width);
+        System.out.println("Height: " + height);
 
         for(int x = 1; x < width+1; x++) {
             for(int y = 0; y < height; y++) {
@@ -25,7 +29,8 @@ public class View {
                 tile.setFill(Color.BLACK);
                 tile.setStroke(Color.DARKGRAY);
 
-                pane.getChildren().add(tile);
+                tileArray[y][x-1] = tile;
+                pane.getChildren().add(tileArray[y][x-1]);
             }
         }
     }
@@ -35,50 +40,42 @@ public class View {
 
         for(int x = 1; x < width+1; x++) {
             for(int y = 0; y < height; y++) {
-                Rectangle tile = new Rectangle();
-                tile.setWidth(tile_size);
-                tile.setHeight(tile_size);
-                tile.setLayoutX((x-1) * tile_size);
-                tile.setLayoutY(y * tile_size);
-
                 switch (boardArray[y][x]) {
                     case 0:
-                        tile.setFill(Color.BLACK);
-                        tile.setStroke(Color.DARKGRAY);
+                        tileArray[y][x-1].setFill(Color.BLACK);
+                        tileArray[y][x-1].setStroke(Color.DARKGRAY);
                         break;
                     case 1:
-                        tile.setFill(Color.PURPLE);
-                        tile.setStroke(Color.DARKGRAY);
+                        tileArray[y][x-1].setFill(Color.PURPLE);
+                        tileArray[y][x-1].setStroke(Color.DARKGRAY);
                         break;
                     case 2:
-                        tile.setFill(Color.CYAN);
-                        tile.setStroke(Color.DARKGRAY);
+                        tileArray[y][x-1].setFill(Color.CYAN);
+                        tileArray[y][x-1].setStroke(Color.DARKGRAY);
                         break;
                     case 3:
-                        tile.setFill(Color.LIME);
-                        tile.setStroke(Color.DARKGRAY);
+                        tileArray[y][x-1].setFill(Color.LIME);
+                        tileArray[y][x-1].setStroke(Color.DARKGRAY);
                         break;
                     case 4:
-                        tile.setFill(Color.RED);
-                        tile.setStroke(Color.DARKGRAY);
+                        tileArray[y][x-1].setFill(Color.RED);
+                        tileArray[y][x-1].setStroke(Color.DARKGRAY);
                         break;
                     case 5:
-                        tile.setFill(Color.DARKBLUE);
-                        tile.setStroke(Color.DARKGRAY);
+                        tileArray[y][x-1].setFill(Color.DARKBLUE);
+                        tileArray[y][x-1].setStroke(Color.DARKGRAY);
                         break;
                     case 6:
-                        tile.setFill(Color.ORANGE);
-                        tile.setStroke(Color.DARKGRAY);
+                        tileArray[y][x-1].setFill(Color.ORANGE);
+                        tileArray[y][x-1].setStroke(Color.DARKGRAY);
                         break;
                     case 7:
-                        tile.setFill(Color.YELLOW);
-                        tile.setStroke(Color.DARKGRAY);
+                        tileArray[y][x-1].setFill(Color.YELLOW);
+                        tileArray[y][x-1].setStroke(Color.DARKGRAY);
                         break;
 
                 }
-
-
-                pane.getChildren().add(tile);
+//                pane.getChildren().add(tileArray[y][x]);
             }
         }
     }
