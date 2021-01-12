@@ -6,6 +6,13 @@ import javafx.scene.Scene;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import javafx.stage.Stage;
+import javafx.scene.media.Media;
+import javafx.scene.media.MediaPlayer;
+
+import javax.sound.sampled.AudioInputStream;
+import javax.sound.sampled.AudioSystem;
+import javax.sound.sampled.Clip;
+import java.io.File;
 
 public class App extends Application {
 
@@ -24,8 +31,8 @@ public class App extends Application {
         board = new Board(TILE_SIZE, WIDTH, HEIGHT);
         view = new View(TILE_SIZE, WIDTH, HEIGHT);
         Scene scene = new Scene(view.getView(), WIDTH*TILE_SIZE, HEIGHT*TILE_SIZE);
-        Time timer = new Time(board);
-        timer.getTimeline().play();
+//        Time timer = new Time(board);
+//        timer.getTimeline().play();
 
         scene.setOnKeyPressed(new EventHandler<KeyEvent>() {
             @Override
@@ -36,6 +43,7 @@ public class App extends Application {
                 if(event.getCode() == KeyCode.S || event.getCode() == KeyCode.DOWN) {board.move( "DOWN");}
                 if(event.getCode() == KeyCode.W || event.getCode() == KeyCode.UP) {board.rotate();}
                 if(event.getCode() == KeyCode.SPACE) {board.drop();}
+                if(event.getCode() == KeyCode.O) {board.printCalls();}
                 updateView();
                 event.consume();
 
