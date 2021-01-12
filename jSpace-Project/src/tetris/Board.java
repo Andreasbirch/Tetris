@@ -1,11 +1,15 @@
 package tetris;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class Board {
     private int tile_size, width, height;
     private int posX, posY;
     private int deg;
     private int lineToClear;
     private int[][] boardArray;
+    private List<Block> blockQueue = new ArrayList<Block>();
     private boolean canSwap;
     private Block currentBlock, heldBlock;
 
@@ -205,5 +209,9 @@ public class Board {
             }
         }
         return false;
+    }
+
+    public Block getHeld() {
+        return heldBlock;
     }
 }

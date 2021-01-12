@@ -16,8 +16,6 @@ public class View {
         this.height = height;
         tileArray = new Rectangle[height][width];
 
-        System.out.println("Width: " + width);
-        System.out.println("Height: " + height);
 
         for(int x = 1; x < width+1; x++) {
             for(int y = 0; y < height; y++) {
