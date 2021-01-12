@@ -73,7 +73,6 @@ public class View {
                         break;
 
                 }
-//                pane.getChildren().add(tileArray[y][x]);
             }
         }
     }

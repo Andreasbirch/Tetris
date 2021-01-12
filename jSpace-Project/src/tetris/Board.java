@@ -84,12 +84,6 @@ public class Board {
     }
 
 
-//    public Block getCurrentBlock() {
-//        getCurrentBlockC ++;
-//        return currentBlock;
-//    }
-
-
     private void createBoardArray() {
         boardArray = new int[height+1][width+2];
         for(int x = 0; x < height+1; x++) {
