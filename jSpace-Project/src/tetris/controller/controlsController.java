@@ -4,7 +4,6 @@ import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
-import javafx.fxml.Initializable;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
@@ -15,13 +14,12 @@ import javafx.scene.layout.VBox;
 import javafx.scene.text.Text;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
+import tetris.App;
 
-import java.net.URL;
-import java.util.ResourceBundle;
+public class controlsController {
 
-public class controlsController implements Initializable {
 
-    DB DB = new DB();
+    public controlsController() {}
 
     @FXML
     private Button backBtn;
@@ -50,12 +48,6 @@ public class controlsController implements Initializable {
     @FXML
     private Pane ControlsPage;
 
-
-    @Override
-    public void initialize(URL url, ResourceBundle resourceBundle) {
-        setLabels();
-    }
-
     @FXML
     private void backB(ActionEvent event) throws Exception {
         Stage stage = (Stage) ControlsPage.getScene().getWindow();
@@ -63,16 +55,6 @@ public class controlsController implements Initializable {
         Scene scene = new Scene(root);
         stage.setScene(scene);
         stage.show();
-    }
-
-    public void setLabels() {
-        moveRight.setText(DB.getMoveRightControl());
-        moveLeft.setText(DB.getMoveLeftControl());
-        rotateRight.setText(DB.getRotateRightControl());
-        rotateLeft.setText(DB.getRotateLeftControl());
-        softDrop.setText(DB.getSoftDropControl());
-        hardDrop.setText(DB.getHardDropControl());
-        hold.setText(DB.getHoldControl());
     }
 
     public void defaultB(ActionEvent actionEvent) {
@@ -84,23 +66,15 @@ public class controlsController implements Initializable {
         alert.getButtonTypes().setAll(okButton,cancelButton);
         alert.showAndWait().ifPresent(type -> {
             if(type == okButton) {
-                //Updating labels
-                moveRight.setText("Right");
                 moveLeft.setText("Left");
-                rotateRight.setText("Up");
-                rotateLeft.setText("Z");
+                moveRight.setText("Right");
                 softDrop.setText("Down");
+                rotateRight.setText("Up");
                 hardDrop.setText("Space");
+                rotateLeft.setText("Z");
                 hold.setText("C");
 
-                //Updating DB
-                DB.setMoveRightKey("Right");
-                DB.setMoveLeftKey("Left");
-                DB.setRotateRightKey("Up");
-                DB.setRotateLeftKey("Z");
-                DB.setSoftDropKey("Down");
-                DB.setHardDropKey("Space");
-                DB.setHoldKey("C");
+                //Her skal selve spillet hente de controls der er blevet sat (eller skal det kun gøres i save?)
 
             } else {}
         });
@@ -108,6 +82,7 @@ public class controlsController implements Initializable {
 
     public void saveB(ActionEvent actionEvent) {
         //Her skal selve spillet hente de controls der er blevet sat
+        App.setKeys(moveLeft.getText(), moveRight.getText(), softDrop.getText(), rotateRight.getText(), hardDrop.getText() );
     }
 
     public void moveRightB(ActionEvent actionEvent) {
@@ -131,7 +106,6 @@ public class controlsController implements Initializable {
                             || moveRight.getText().contains(hardDrop.getText()) || moveRight.getText().contains(hold.getText())) {
 
                         moveRight.setText("Right");
-                        DB.setMoveRightKey("Right");
                         warningAlert("move right");
                     }
                     dialog.close();
@@ -160,7 +134,6 @@ public class controlsController implements Initializable {
                         || moveLeft.getText().contains(hardDrop.getText()) || moveLeft.getText().contains(hold.getText())) {
 
                     moveLeft.setText("Left");
-                    DB.setMoveLeftKey("Left");
                     warningAlert("move left");
                 }
                 dialog.close();
@@ -189,8 +162,7 @@ public class controlsController implements Initializable {
                         || rotateRight.getText().contains(hardDrop.getText()) || rotateRight.getText().contains(hold.getText())) {
 
                     rotateRight.setText("Up");
-                    DB.setRotateRightKey("Up");
-                    warningAlert("rotate right");
+                    warningAlert("move right");
                 }
                 dialog.close();
             }
@@ -217,8 +189,7 @@ public class controlsController implements Initializable {
                         || rotateLeft.getText().contains(rotateRight.getText()) || rotateLeft.getText().contains(softDrop.getText())
                         || rotateLeft.getText().contains(hardDrop.getText()) || rotateLeft.getText().contains(hold.getText())) {
 
-                    rotateLeft.setText("Z");
-                    DB.setRotateLeftKey("Z");
+                    moveRight.setText("Z");
                     warningAlert("rotate left");
                 }
                 dialog.close();
@@ -247,7 +218,6 @@ public class controlsController implements Initializable {
                         || softDrop.getText().contains(hardDrop.getText()) || softDrop.getText().contains(hold.getText())) {
 
                     softDrop.setText("Down");
-                    DB.setSoftDropKey("Down");
                     warningAlert("soft drop");
                 }
                 dialog.close();
@@ -275,8 +245,7 @@ public class controlsController implements Initializable {
                         || hardDrop.getText().contains(rotateLeft.getText()) || hardDrop.getText().contains(softDrop.getText())
                         || hardDrop.getText().contains(moveRight.getText()) || hardDrop.getText().contains(hold.getText())) {
 
-                    hardDrop.setText("Space");
-                    DB.setHardDropKey("Space");
+                    moveRight.setText("Space");
                     warningAlert("hard drop");
                 }
                 dialog.close();
@@ -305,7 +274,6 @@ public class controlsController implements Initializable {
                         || hold.getText().contains(hardDrop.getText()) || hold.getText().contains(moveRight.getText())) {
 
                     hold.setText("C");
-                    DB.setHoldKey("C");
                     warningAlert("hold");
                 }
                 dialog.close();
@@ -316,31 +284,24 @@ public class controlsController implements Initializable {
     //Methods to register keypresses
     private void moveRightHandle(KeyEvent keyEvent) {
         moveRight.setText(keyEvent.getCode().getName());
-        DB.setMoveRightKey(keyEvent.getCode().getName());
     }
     private void moveLeftHandle(KeyEvent keyEvent) {
         moveLeft.setText(keyEvent.getCode().getName());
-        DB.setMoveLeftKey(keyEvent.getCode().getName());
     }
     private void rotateRightHandle(KeyEvent keyEvent) {
         rotateRight.setText(keyEvent.getCode().getName());
-        DB.setRotateRightKey(keyEvent.getCode().getName());
     }
     private void rotateLeftHandle(KeyEvent keyEvent) {
         rotateLeft.setText(keyEvent.getCode().getName());
-        DB.setRotateLeftKey(keyEvent.getCode().getName());
     }
     private void softDropHandle(KeyEvent keyEvent) {
         softDrop.setText(keyEvent.getCode().getName());
-        DB.setSoftDropKey(keyEvent.getCode().getName());
     }
     private void hardDropHandle(KeyEvent keyEvent) {
         hardDrop.setText(keyEvent.getCode().getName());
-        DB.setHardDropKey(keyEvent.getCode().getName());
     }
     private void holdHandle(KeyEvent keyEvent) {
         hold.setText(keyEvent.getCode().getName());
-        DB.setHoldKey(keyEvent.getCode().getName());
     }
 
     public void warningAlert(String name) {

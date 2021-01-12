@@ -12,6 +12,7 @@ public class App{
     public final int HEIGHT = 20;
     private static Board board;
     private static View view;
+    public static KeyCode moveLeftKey, moveRightKey, moveDownKey, rotateKey, dropKey;
 
     public App (Stage primaryStage) throws InterruptedException {
 
@@ -22,12 +23,12 @@ public class App{
             scene.setOnKeyPressed(new EventHandler<KeyEvent>() {
                 @Override
                 public void handle(KeyEvent event) {
-
-                    if(event.getCode() == KeyCode.A || event.getCode() == KeyCode.LEFT) {board.move("LEFT");}
-                    if(event.getCode() == KeyCode.D || event.getCode() == KeyCode.RIGHT) {board.move("RIGHT");}
-                    if(event.getCode() == KeyCode.S || event.getCode() == KeyCode.DOWN) {board.move( "DOWN");}
-                    if(event.getCode() == KeyCode.W || event.getCode() == KeyCode.UP) {board.rotate();}
-                    if(event.getCode() == KeyCode.SPACE) {board.drop();}
+                    //ORs are temporary fix, remove when possible
+                    if(event.getCode() == moveLeftKey || event.getCode() == KeyCode.LEFT) {board.move("LEFT");}
+                    if(event.getCode() == moveRightKey || event.getCode() == KeyCode.RIGHT) {board.move("RIGHT");}
+                    if(event.getCode() == moveDownKey || event.getCode() == KeyCode.DOWN) {board.move( "DOWN");}
+                    if(event.getCode() == rotateKey || event.getCode() == KeyCode.UP) {board.rotate();}
+                    if(event.getCode() == dropKey || event.getCode() == KeyCode.SPACE) {board.drop();}
                     if(event.getCode() == KeyCode.O) {board.printCalls();}
                     updateView();
                     event.consume();
@@ -43,5 +44,13 @@ public class App{
 
     public static void updateView() {
         view.updateView(board);
+    }
+
+    public static void setKeys(String moveLeftKeyS, String moveRightKeyS, String moveDownKeyS, String rotateKeyS, String dropKeyS) {
+        moveLeftKey = KeyCode.getKeyCode(moveLeftKeyS);
+        moveRightKey = KeyCode.getKeyCode(moveRightKeyS);
+        moveDownKey = KeyCode.getKeyCode(moveDownKeyS);
+        rotateKey = KeyCode.getKeyCode(rotateKeyS);
+        dropKey = KeyCode.getKeyCode(dropKeyS);
     }
 }
