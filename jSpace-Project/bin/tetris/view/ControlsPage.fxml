@@ -17,15 +17,15 @@
       <Button fx:id="RotateLeftBtn" prefWidth="83.0" layoutX="240.0" layoutY="150.0" mnemonicParsing="false" onAction="#RotateLeftB" text="Rotate left" />
       <Button fx:id="SoftDropBtn" prefWidth="83.0" layoutX="240.0" layoutY="180.0" mnemonicParsing="false" onAction="#SoftDropB" text="Soft drop" />
       <Button fx:id="HardDropBtn" prefWidth="83.0" layoutX="240.0" layoutY="210.0" mnemonicParsing="false" onAction="#HardDropB" text="Hard drop" />
-      <Button fx:id="HoldBtn" prefWidth="83.0" layoutX="240.0" layoutY="240.0" mnemonicParsing="false" onAction="#HoldB" text="hold" />
+      <Button fx:id="HoldBtn" prefWidth="83.0" layoutX="240.0" layoutY="240.0" mnemonicParsing="false" onAction="#HoldB" text="Hold" />
 
-      <Label layoutX="330.0" layoutY="63.0" text="Right" fx:id="moveRight" />
-      <Label layoutX="330.0" layoutY="93.0" text="Left" fx:id="moveLeft" />
-      <Label layoutX="330.0" layoutY="123.0" text="Up" fx:id="rotateRight" />
-      <Label layoutX="330.0" layoutY="153.0" text="Z" fx:id="rotateLeft" />
-      <Label layoutX="330.0" layoutY="183.0" text="Down" fx:id="softDrop" />
-      <Label layoutX="330.0" layoutY="213.0" text="Space" fx:id="hardDrop" />
-      <Label layoutX="330.0" layoutY="243.0" text="C" fx:id="hold" />
+      <Label layoutX="330.0" layoutY="63.0" text="" fx:id="moveRight" />
+      <Label layoutX="330.0" layoutY="93.0" text="" fx:id="moveLeft" />
+      <Label layoutX="330.0" layoutY="123.0" text="" fx:id="rotateRight" />
+      <Label layoutX="330.0" layoutY="153.0" text="" fx:id="rotateLeft" />
+      <Label layoutX="330.0" layoutY="183.0" text="" fx:id="softDrop" />
+      <Label layoutX="330.0" layoutY="213.0" text="" fx:id="hardDrop" />
+      <Label layoutX="330.0" layoutY="243.0" text="" fx:id="hold" />
 
    </children>
 </Pane>
