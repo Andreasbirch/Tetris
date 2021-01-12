@@ -8,21 +8,22 @@
 
 <Pane fx:id="ControlsPage" fx:controller="tetris.controller.controlsController" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1">
    <children>
-      <Button fx:id="backBtn" layoutX="29.0" layoutY="27.0" mnemonicParsing="false" onAction="#backB" text="Back" />
+      <Button fx:id="backBtn" layoutX="29.0" layoutY="30.0" mnemonicParsing="false" onAction="#backB" text="Back" />
       <Button fx:id="defaultBtn" layoutX="29.0" layoutY="60.0" mnemonicParsing="false" onAction="#defaultB" text="Set to default" />
-      <Button fx:id="moveRightBtn" layoutX="240.0" layoutY="60.0" mnemonicParsing="false" onAction="#moveRightB" text="Move right" />
-      <Button fx:id="moveLeftBtn" layoutX="240.0" layoutY="90.0" mnemonicParsing="false" onAction="#moveLeftB" text="Move left" />
-      <Button fx:id="RotateRightBtn" layoutX="240.0" layoutY="120.0" mnemonicParsing="false" onAction="#RotateRightB" text="Rotate right" />
-      <Button fx:id="RotateLeftBtn" layoutX="240.0" layoutY="150.0" mnemonicParsing="false" onAction="#RotateLeftB" text="Rotate left" />
-      <Button fx:id="SoftDropBtn" layoutX="240.0" layoutY="180.0" mnemonicParsing="false" onAction="#SoftDropB" text="Soft drop" />
-      <Button fx:id="HardDropBtn" layoutX="240.0" layoutY="210.0" mnemonicParsing="false" onAction="#HardDropB" text="Hard drop" />
-      <Button fx:id="HoldBtn" layoutX="240.0" layoutY="240.0" mnemonicParsing="false" onAction="#HoldB" text="hold" />
+      <Button fx:id="saveChangesBtn" layoutX="29.0" layoutY="90.0" mnemonicParsing="false" onAction="#saveB" text="Save changes" />
+      <Button fx:id="moveRightBtn" prefWidth="83.0" layoutX="240.0" layoutY="60.0" mnemonicParsing="false" onAction="#moveRightB" text="Move right" />
+      <Button fx:id="moveLeftBtn" prefWidth="83.0" layoutX="240.0" layoutY="90.0" mnemonicParsing="false" onAction="#moveLeftB" text="Move left" />
+      <Button fx:id="RotateRightBtn" prefWidth="83.0" layoutX="240.0" layoutY="120.0" mnemonicParsing="false" onAction="#RotateRightB" text="Rotate right" />
+      <Button fx:id="RotateLeftBtn" prefWidth="83.0" layoutX="240.0" layoutY="150.0" mnemonicParsing="false" onAction="#RotateLeftB" text="Rotate left" />
+      <Button fx:id="SoftDropBtn" prefWidth="83.0" layoutX="240.0" layoutY="180.0" mnemonicParsing="false" onAction="#SoftDropB" text="Soft drop" />
+      <Button fx:id="HardDropBtn" prefWidth="83.0" layoutX="240.0" layoutY="210.0" mnemonicParsing="false" onAction="#HardDropB" text="Hard drop" />
+      <Button fx:id="HoldBtn" prefWidth="83.0" layoutX="240.0" layoutY="240.0" mnemonicParsing="false" onAction="#HoldB" text="hold" />
 
-      <Label layoutX="330.0" layoutY="63.0" text="Right arrow" fx:id="moveRight" />
-      <Label layoutX="330.0" layoutY="93.0" text="Left arrow" fx:id="moveLeft" />
-      <Label layoutX="330.0" layoutY="123.0" text="Up arrow" fx:id="rotateRight" />
+      <Label layoutX="330.0" layoutY="63.0" text="Right" fx:id="moveRight" />
+      <Label layoutX="330.0" layoutY="93.0" text="Left" fx:id="moveLeft" />
+      <Label layoutX="330.0" layoutY="123.0" text="Up" fx:id="rotateRight" />
       <Label layoutX="330.0" layoutY="153.0" text="Z" fx:id="rotateLeft" />
-      <Label layoutX="330.0" layoutY="183.0" text="Down arrow" fx:id="softDrop" />
+      <Label layoutX="330.0" layoutY="183.0" text="Down" fx:id="softDrop" />
       <Label layoutX="330.0" layoutY="213.0" text="Space" fx:id="hardDrop" />
       <Label layoutX="330.0" layoutY="243.0" text="C" fx:id="hold" />
 

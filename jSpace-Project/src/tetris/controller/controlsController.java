@@ -1,6 +1,7 @@
 package tetris.controller;
 
 import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
@@ -10,9 +11,13 @@ import javafx.scene.control.*;
 import javafx.scene.control.Alert.AlertType;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.Pane;
+import javafx.scene.layout.VBox;
+import javafx.scene.text.Text;
+import javafx.stage.Modality;
 import javafx.stage.Stage;
 
 import java.net.URL;
+import java.security.Key;
 import java.util.ResourceBundle;
 
 public class controlsController {
@@ -65,130 +70,248 @@ public class controlsController {
         alert.getButtonTypes().setAll(okButton,cancelButton);
         alert.showAndWait().ifPresent(type -> {
             if(type == okButton) {
-                moveRight.setText("Right arrow");
-                moveLeft.setText("Left arrow");
-                rotateRight.setText("Up arrow");
+                moveRight.setText("Right");
+                moveLeft.setText("Left");
+                rotateRight.setText("Up");
                 rotateLeft.setText("Z");
-                softDrop.setText("Down arrow");
+                softDrop.setText("Down");
                 hardDrop.setText("Space");
                 hold.setText("C");
 
-                //Her skal der ændres i controls ift. hvilke vi bruger i spillet.
+                //Her skal selve spillet hente de controls der er blevet sat (eller skal det kun gøres i save?)
 
             } else {}
         });
     }
 
+    public void saveB(ActionEvent actionEvent) {
+        //Her skal selve spillet hente de controls der er blevet sat
+    }
+
     public void moveRightB(ActionEvent actionEvent) {
-        Alert alert = new Alert(AlertType.CONFIRMATION);
-        alert.setTitle("Move right");
-        alert.setHeaderText("Press new key for move right");
-        ButtonType okButton = new ButtonType("Yes", ButtonBar.ButtonData.YES);
-        ButtonType cancelButton = new ButtonType("Cancel", ButtonBar.ButtonData.CANCEL_CLOSE);
-        alert.getButtonTypes().setAll(okButton,cancelButton);
-        alert.showAndWait().ifPresent(type -> {
-            if(type == okButton) {
+        final Stage dialog = new Stage();
 
-                //Her skal der ændres i controls ift. hvilke vi bruger i spillet.
+        dialog.initModality(Modality.APPLICATION_MODAL);
+        VBox dialogVbox = new VBox(80);
+        dialogVbox.getChildren().add(new Text("Press key for move right"));
+        dialogVbox.getChildren().add(new Label("Current key is: " + moveRight.getText()));
 
-            } else {}
+        Scene dialogScene = new Scene(dialogVbox, 300, 200);
+        dialog.setScene(dialogScene);
+        dialog.show();
+
+        dialogScene.setOnKeyPressed(this::moveRightHandle);
+        dialog.addEventHandler(KeyEvent.KEY_PRESSED, new EventHandler<KeyEvent>() {
+                @Override
+                public void handle(KeyEvent event) {
+                    if(moveRight.getText().contains(moveLeft.getText()) || moveRight.getText().contains(rotateRight.getText())
+                            || moveRight.getText().contains(rotateLeft.getText()) || moveRight.getText().contains(softDrop.getText())
+                            || moveRight.getText().contains(hardDrop.getText()) || moveRight.getText().contains(hold.getText())) {
+
+                        moveRight.setText("Right");
+                        warningAlert("move right");
+                    }
+                    dialog.close();
+                }
         });
     }
 
     public void moveLeftB(ActionEvent actionEvent) {
-        Alert alert = new Alert(AlertType.CONFIRMATION);
-        alert.setTitle("Move left");
-        alert.setHeaderText("Press new key for move left");
-        ButtonType okButton = new ButtonType("Yes", ButtonBar.ButtonData.YES);
-        ButtonType cancelButton = new ButtonType("Cancel", ButtonBar.ButtonData.CANCEL_CLOSE);
-        alert.getButtonTypes().setAll(okButton,cancelButton);
-        alert.showAndWait().ifPresent(type -> {
-            if(type == okButton) {
+        final Stage dialog = new Stage();
 
-                //Her skal der ændres i controls ift. hvilke vi bruger i spillet.
+        dialog.initModality(Modality.APPLICATION_MODAL);
+        VBox dialogVbox = new VBox(80);
+        dialogVbox.getChildren().add(new Text("Press key for move left"));
+        dialogVbox.getChildren().add(new Label("Current key is: " + moveLeft.getText()));
 
-            } else {}
+        Scene dialogScene = new Scene(dialogVbox, 300, 200);
+        dialog.setScene(dialogScene);
+        dialog.show();
+
+        dialogScene.setOnKeyPressed(this::moveLeftHandle);
+        dialog.addEventHandler(KeyEvent.KEY_PRESSED, new EventHandler<KeyEvent>() {
+            @Override
+            public void handle(KeyEvent event) {
+                if(moveLeft.getText().contains(moveRight.getText()) || moveLeft.getText().contains(rotateRight.getText())
+                        || moveLeft.getText().contains(rotateLeft.getText()) || moveLeft.getText().contains(softDrop.getText())
+                        || moveLeft.getText().contains(hardDrop.getText()) || moveLeft.getText().contains(hold.getText())) {
+
+                    moveLeft.setText("Left");
+                    warningAlert("move left");
+                }
+                dialog.close();
+            }
         });
     }
 
     public void RotateRightB(ActionEvent actionEvent) {
-        Alert alert = new Alert(AlertType.CONFIRMATION);
-        alert.setTitle("Rotate right");
-        alert.setHeaderText("Press new key for rotate right");
-        ButtonType okButton = new ButtonType("Yes", ButtonBar.ButtonData.YES);
-        ButtonType cancelButton = new ButtonType("Cancel", ButtonBar.ButtonData.CANCEL_CLOSE);
-        alert.getButtonTypes().setAll(okButton,cancelButton);
-        alert.showAndWait().ifPresent(type -> {
-            if(type == okButton) {
+        final Stage dialog = new Stage();
 
-                //Her skal der ændres i controls ift. hvilke vi bruger i spillet.
+        dialog.initModality(Modality.APPLICATION_MODAL);
+        VBox dialogVbox = new VBox(80);
+        dialogVbox.getChildren().add(new Text("Press key for rotate right"));
+        dialogVbox.getChildren().add(new Label("Current key is: " + rotateRight.getText()));
 
-            } else {}
+        Scene dialogScene = new Scene(dialogVbox, 300, 200);
+        dialog.setScene(dialogScene);
+        dialog.show();
+
+        dialogScene.setOnKeyPressed(this::rotateRightHandle);
+        dialog.addEventHandler(KeyEvent.KEY_PRESSED, new EventHandler<KeyEvent>() {
+            @Override
+            public void handle(KeyEvent event) {
+                if(rotateRight.getText().contains(moveRight.getText()) || rotateRight.getText().contains(moveLeft.getText())
+                        || rotateRight.getText().contains(rotateLeft.getText()) || rotateRight.getText().contains(softDrop.getText())
+                        || rotateRight.getText().contains(hardDrop.getText()) || rotateRight.getText().contains(hold.getText())) {
+
+                    rotateRight.setText("Up");
+                    warningAlert("move right");
+                }
+                dialog.close();
+            }
         });
     }
 
     public void RotateLeftB(ActionEvent actionEvent) {
-        Alert alert = new Alert(AlertType.CONFIRMATION);
-        alert.setTitle("Rotate left");
-        alert.setHeaderText("Press new key for rotate left");
-        ButtonType okButton = new ButtonType("Yes", ButtonBar.ButtonData.YES);
-        ButtonType cancelButton = new ButtonType("Cancel", ButtonBar.ButtonData.CANCEL_CLOSE);
-        alert.getButtonTypes().setAll(okButton,cancelButton);
-        alert.showAndWait().ifPresent(type -> {
-            if(type == okButton) {
+        final Stage dialog = new Stage();
 
-                //Her skal der ændres i controls ift. hvilke vi bruger i spillet.
+        dialog.initModality(Modality.APPLICATION_MODAL);
+        VBox dialogVbox = new VBox(80);
+        dialogVbox.getChildren().add(new Text("Press key for rotate left"));
+        dialogVbox.getChildren().add(new Label("Current key is: " + rotateLeft.getText()));
 
-            } else {}
+        Scene dialogScene = new Scene(dialogVbox, 300, 200);
+        dialog.setScene(dialogScene);
+        dialog.show();
+
+        dialogScene.setOnKeyPressed(this::rotateLeftHandle);
+        dialog.addEventHandler(KeyEvent.KEY_PRESSED, new EventHandler<KeyEvent>() {
+            @Override
+            public void handle(KeyEvent event) {
+                if(rotateLeft.getText().contains(moveLeft.getText()) || rotateLeft.getText().contains(moveRight.getText())
+                        || rotateLeft.getText().contains(rotateRight.getText()) || rotateLeft.getText().contains(softDrop.getText())
+                        || rotateLeft.getText().contains(hardDrop.getText()) || rotateLeft.getText().contains(hold.getText())) {
+
+                    moveRight.setText("Z");
+                    warningAlert("rotate left");
+                }
+                dialog.close();
+            }
         });
     }
 
     public void SoftDropB(ActionEvent actionEvent) {
-        Alert alert = new Alert(AlertType.CONFIRMATION);
-        alert.setTitle("Soft drop");
-        alert.setHeaderText("Press new key for soft drop");
-        ButtonType okButton = new ButtonType("Yes", ButtonBar.ButtonData.YES);
-        ButtonType cancelButton = new ButtonType("Cancel", ButtonBar.ButtonData.CANCEL_CLOSE);
-        alert.getButtonTypes().setAll(okButton,cancelButton);
-        alert.showAndWait().ifPresent(type -> {
-            if(type == okButton) {
+        final Stage dialog = new Stage();
 
-                //Her skal der ændres i controls ift. hvilke vi bruger i spillet.
+        dialog.initModality(Modality.APPLICATION_MODAL);
+        VBox dialogVbox = new VBox(80);
+        dialogVbox.getChildren().add(new Text("Press key for soft drop"));
+        dialogVbox.getChildren().add(new Label("Current key is: " + softDrop.getText()));
 
-            } else {}
+        Scene dialogScene = new Scene(dialogVbox, 300, 200);
+        dialog.setScene(dialogScene);
+        dialog.show();
+
+        dialogScene.setOnKeyPressed(this::softDropHandle);
+        dialog.addEventHandler(KeyEvent.KEY_PRESSED, new EventHandler<KeyEvent>() {
+            @Override
+            public void handle(KeyEvent event) {
+                if(softDrop.getText().contains(moveLeft.getText()) || softDrop.getText().contains(rotateRight.getText())
+                        || softDrop.getText().contains(rotateLeft.getText()) || softDrop.getText().contains(moveRight.getText())
+                        || softDrop.getText().contains(hardDrop.getText()) || softDrop.getText().contains(hold.getText())) {
+
+                    softDrop.setText("Down");
+                    warningAlert("soft drop");
+                }
+                dialog.close();
+            }
         });
     }
 
     public void HardDropB(ActionEvent actionEvent) {
-        Alert alert = new Alert(AlertType.CONFIRMATION);
-        alert.setTitle("Hard drop");
-        alert.setHeaderText("Press new key for hard drop");
-        ButtonType okButton = new ButtonType("Yes", ButtonBar.ButtonData.YES);
-        ButtonType cancelButton = new ButtonType("Cancel", ButtonBar.ButtonData.CANCEL_CLOSE);
-        alert.getButtonTypes().setAll(okButton,cancelButton);
-        alert.showAndWait().ifPresent(type -> {
-            if(type == okButton) {
+        final Stage dialog = new Stage();
 
-                //Her skal der ændres i controls ift. hvilke vi bruger i spillet.
+        dialog.initModality(Modality.APPLICATION_MODAL);
+        VBox dialogVbox = new VBox(80);
+        dialogVbox.getChildren().add(new Text("Press key for hard drop"));
+        dialogVbox.getChildren().add(new Label("Current key is: " + hardDrop.getText()));
 
-            } else {}
+        Scene dialogScene = new Scene(dialogVbox, 300, 200);
+        dialog.setScene(dialogScene);
+        dialog.show();
+
+        dialogScene.setOnKeyPressed(this::hardDropHandle);
+        dialog.addEventHandler(KeyEvent.KEY_PRESSED, new EventHandler<KeyEvent>() {
+            @Override
+            public void handle(KeyEvent event) {
+                if(hardDrop.getText().contains(moveLeft.getText()) || hardDrop.getText().contains(rotateRight.getText())
+                        || hardDrop.getText().contains(rotateLeft.getText()) || hardDrop.getText().contains(softDrop.getText())
+                        || hardDrop.getText().contains(moveRight.getText()) || hardDrop.getText().contains(hold.getText())) {
+
+                    moveRight.setText("Space");
+                    warningAlert("hard drop");
+                }
+                dialog.close();
+            }
         });
     }
 
     public void HoldB(ActionEvent actionEvent) {
-        Alert alert = new Alert(AlertType.CONFIRMATION);
-        alert.setTitle("Hold");
-        alert.setHeaderText("Press new key for hold");
-        ButtonType okButton = new ButtonType("Yes", ButtonBar.ButtonData.YES);
-        ButtonType cancelButton = new ButtonType("Cancel", ButtonBar.ButtonData.CANCEL_CLOSE);
-        alert.getButtonTypes().setAll(okButton,cancelButton);
-        alert.showAndWait().ifPresent(type -> {
-            if(type == okButton) {
+        final Stage dialog = new Stage();
 
-                //Her skal der ændres i controls ift. hvilke vi bruger i spillet.
+        dialog.initModality(Modality.APPLICATION_MODAL);
+        VBox dialogVbox = new VBox(80);
+        dialogVbox.getChildren().add(new Text("Press key for hold"));
+        dialogVbox.getChildren().add(new Label("Current key is: " + hold.getText()));
 
-            } else {}
+        Scene dialogScene = new Scene(dialogVbox, 300, 200);
+        dialog.setScene(dialogScene);
+        dialog.show();
+
+        dialogScene.setOnKeyPressed(this::holdHandle);
+        dialog.addEventHandler(KeyEvent.KEY_PRESSED, new EventHandler<KeyEvent>() {
+            @Override
+            public void handle(KeyEvent event) {
+                if(hold.getText().contains(moveLeft.getText()) || hold.getText().contains(rotateRight.getText())
+                        || hold.getText().contains(rotateLeft.getText()) || hold.getText().contains(softDrop.getText())
+                        || hold.getText().contains(hardDrop.getText()) || hold.getText().contains(moveRight.getText())) {
+
+                    hold.setText("C");
+                    warningAlert("hold");
+                }
+                dialog.close();
+            }
         });
+    }
+
+    //Methods to register keypresses
+    private void moveRightHandle(KeyEvent keyEvent) {
+        moveRight.setText(keyEvent.getCode().getName());
+    }
+    private void moveLeftHandle(KeyEvent keyEvent) {
+        moveLeft.setText(keyEvent.getCode().getName());
+    }
+    private void rotateRightHandle(KeyEvent keyEvent) {
+        rotateRight.setText(keyEvent.getCode().getName());
+    }
+    private void rotateLeftHandle(KeyEvent keyEvent) {
+        rotateLeft.setText(keyEvent.getCode().getName());
+    }
+    private void softDropHandle(KeyEvent keyEvent) {
+        softDrop.setText(keyEvent.getCode().getName());
+    }
+    private void hardDropHandle(KeyEvent keyEvent) {
+        hardDrop.setText(keyEvent.getCode().getName());
+    }
+    private void holdHandle(KeyEvent keyEvent) {
+        hold.setText(keyEvent.getCode().getName());
+    }
+
+    public void warningAlert(String name) {
+        Alert alert = new Alert(AlertType.WARNING);
+        alert.setHeaderText("Overlapping controls for " + name + "!");
+        alert.setContentText("Cannot pick same controls for different actions");
+        alert.showAndWait();
     }
 }
 
