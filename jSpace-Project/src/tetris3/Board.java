@@ -101,8 +101,10 @@ public class Board {
             case "DOWN":
                 if(isClear(posX, posY+1, deg)){
                     posY++;
+                    insertStructureElement(posX, posY, deg);
+                } else {
+                    placeBlock();
                 }
-                insertStructureElement(posX, posY, deg);
                 break;
         }
     }
@@ -117,15 +119,27 @@ public class Board {
         }
     }
 
+    private void placeBlock(){
+        insertStructureElement(posX, posY, deg);
+        addNewBlock();
+        App.updateView();
+    }
+
+    private boolean canDrop() {
+        eraseStructureElement(posX, posY, deg);
+        if(isClear(posX, posY + 1, deg)) {
+            return true;
+        } else {
+            return false;
+        }
+    }
 
     public void drop() {
-        while(true) {
-            try{
+        while (true) {
+            try {
                 move("DOWN");
             } catch (ArrayIndexOutOfBoundsException e) {
-                insertStructureElement(posX, posY, deg);
-                addNewBlock();
-                App.updateView();
+                placeBlock();
                 break;
             }
         }
