@@ -6,7 +6,8 @@ public class Board {
     private int deg;
     private int lineToClear;
     private int[][] boardArray;
-    private Block currentBlock;
+    private boolean canSwap;
+    private Block currentBlock, heldBlock;
 
 
     public Board(int tile_size, int width, int height) throws InterruptedException{
@@ -16,15 +17,20 @@ public class Board {
 
         createBoardArray();
 
-        addNewBlock();
+        generateNewBlock();
 //        Space blockSpace = new RandomSpace();
 //        new Thread(new BlockPusher(blockSpace)).start();
 //        new Thread(new BlockPuller(blockSpace, this)).start();
     }
 
 
-    public void addNewBlock() {
+    public void generateNewBlock() {
         currentBlock = new Block();
+        canSwap = true;
+        addBlock();
+    }
+
+    private void addBlock() {
         if(isClear((width/2)-2,0, 0)){
             insertStructureElement((width/2)-2, 0, 0);
             posX = (width/2)-2;
@@ -32,6 +38,22 @@ public class Board {
             deg = 0;
         } else {
             System.out.println("Game over.");
+        }
+    }
+
+    public void hold() {
+        if(canSwap) {
+            canSwap = false;
+            eraseStructureElement(posX, posY, deg);
+            if(heldBlock != null) {
+                Block tempBlock = currentBlock;
+                currentBlock = heldBlock;
+                heldBlock = tempBlock;
+            } else {
+                heldBlock = currentBlock;
+                currentBlock = new Block();
+            }
+            addBlock();
         }
     }
 
@@ -133,7 +155,7 @@ public class Board {
         }
 
         currentBlock = null;
-        addNewBlock();
+        generateNewBlock();
         App.updateView();
     }
 
