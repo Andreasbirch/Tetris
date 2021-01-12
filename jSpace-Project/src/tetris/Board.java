@@ -8,10 +8,8 @@ public class Board {
     private int[][] boardArray;
     private Block currentBlock;
 
-    private int boardC, addNewBlockC, insertStructureElementC, isClearC, getCurrentBlockC, createBoardArrayC, getBoardArrayC, rotateC, moveC, eraseStructureElementC, placeBlockC, canDropC, dropC;
 
     public Board(int tile_size, int width, int height) throws InterruptedException{
-        boardC++;
         this.tile_size = tile_size;
         this.width = width;
         this.height = height;
@@ -26,7 +24,6 @@ public class Board {
 
 
     public void addNewBlock() {
-        addNewBlockC ++;
         currentBlock = new Block();
         if(isClear((width/2)-2,0, 0)){
             insertStructureElement((width/2)-2, 0, 0);
@@ -40,7 +37,6 @@ public class Board {
 
 
     private void insertStructureElement(int posX, int posY, int deg){
-        insertStructureElementC ++;
         for(int x = 0; x < 4; x++) {
             for(int y = 0; y < 4; y++) {
                 if(currentBlock.getRotations(deg)[y][x] != 0){
@@ -51,7 +47,6 @@ public class Board {
     }
 
     private boolean isClear(int posX, int posY, int deg) {
-        isClearC ++;
         for(int x = 0; x < 4; x++) {
             for(int y = 0; y < 4; y++) {
                 if(currentBlock.getRotations(deg)[y][x] != 0 && boardArray[y+posY][x+posX] != 0){
@@ -70,7 +65,6 @@ public class Board {
 
 
     private void createBoardArray() {
-        createBoardArrayC ++;
         boardArray = new int[height+1][width+2];
         for(int x = 0; x < height+1; x++) {
             for(int y = 0; y < width+2; y++) {
@@ -84,12 +78,10 @@ public class Board {
     }
 
     public int[][] getBoardArray () {
-        getBoardArrayC ++;
         return boardArray;
     }
 
     public void rotate() {
-        rotateC ++;
         eraseStructureElement(posX, posY, deg);
         if(isClear(posX, posY, (deg+1) % 4)){
             deg = (deg+1) % 4;
@@ -98,7 +90,6 @@ public class Board {
     }
 
     public void move(String dir) {
-        moveC ++;
         eraseStructureElement(posX, posY, deg);
         switch (dir) {
             case "LEFT":
@@ -125,7 +116,6 @@ public class Board {
     }
 
     private void eraseStructureElement(int posX, int posY, int deg){
-        eraseStructureElementC ++;
         for(int x = 0; x < 4; x++) {
             for(int y = 0; y < 4; y++) {
                 if(currentBlock.getRotations(deg)[y][x] != 0) {
@@ -136,7 +126,6 @@ public class Board {
     }
 
     private void placeBlock(){
-        placeBlockC ++;
         insertStructureElement(posX, posY, deg);
 
         while(checkLine()){
@@ -149,13 +138,11 @@ public class Board {
     }
 
     private boolean canDrop() {
-        canDropC ++;
         eraseStructureElement(posX, posY, deg);
         return isClear(posX, posY+1, deg);
     }
 
     public void drop() {
-        dropC ++;
         while (canDrop()) {
             move("DOWN");
         }
@@ -196,23 +183,5 @@ public class Board {
             }
         }
         return false;
-    }
-
-
-    public void printCalls() {
-        System.out.println("Board: " + boardC);
-        System.out.println("addNewBlock: " + addNewBlockC);
-        System.out.println("insertStructureElement: " + insertStructureElementC);
-        System.out.println("isClear: " + isClearC);
-        System.out.println("getCurrentBlock: " + getCurrentBlockC);
-        System.out.println("createBoardArray: " + createBoardArrayC);
-        System.out.println("getBoardArray: " + getBoardArrayC);
-        System.out.println("rotate: " + rotateC);
-        System.out.println("move: " + moveC);
-        System.out.println("eraseStructureElement: " + eraseStructureElementC);
-        System.out.println("placeBlock: " + placeBlockC);
-        System.out.println("canDrop: " + canDropC);
-        System.out.println("Drop: " + dropC);
-        System.out.println("CurrentBlock" + currentBlock);
     }
 }

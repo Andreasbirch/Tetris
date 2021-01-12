@@ -31,7 +31,6 @@ public class App{
                     if(event.getCode() == moveDownKey || event.getCode() == KeyCode.DOWN) {board.move( "DOWN");}
                     if(event.getCode() == rotateKey || event.getCode() == KeyCode.UP) {board.rotate();}
                     if(event.getCode() == dropKey || event.getCode() == KeyCode.SPACE) {board.drop();}
-                    if(event.getCode() == KeyCode.O) {board.printCalls();}
                     updateView();
                     event.consume();
 
