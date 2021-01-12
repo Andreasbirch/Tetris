@@ -14,6 +14,7 @@ import javafx.scene.layout.VBox;
 import javafx.scene.text.Text;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
+import tetris.App;
 
 public class controlsController {
 
@@ -65,12 +66,12 @@ public class controlsController {
         alert.getButtonTypes().setAll(okButton,cancelButton);
         alert.showAndWait().ifPresent(type -> {
             if(type == okButton) {
-                moveRight.setText("Right");
                 moveLeft.setText("Left");
-                rotateRight.setText("Up");
-                rotateLeft.setText("Z");
+                moveRight.setText("Right");
                 softDrop.setText("Down");
+                rotateRight.setText("Up");
                 hardDrop.setText("Space");
+                rotateLeft.setText("Z");
                 hold.setText("C");
 
                 //Her skal selve spillet hente de controls der er blevet sat (eller skal det kun gøres i save?)
@@ -81,6 +82,7 @@ public class controlsController {
 
     public void saveB(ActionEvent actionEvent) {
         //Her skal selve spillet hente de controls der er blevet sat
+        App.setKeys(moveLeft.getText(), moveRight.getText(), softDrop.getText(), rotateRight.getText(), hardDrop.getText() );
     }
 
     public void moveRightB(ActionEvent actionEvent) {
