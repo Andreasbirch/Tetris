@@ -15,12 +15,12 @@ public class View {
         this.height = height;
 
 
-        for(int x = 0; x < width; x++) {
+        for(int x = 1; x < width+1; x++) {
             for(int y = 0; y < height; y++) {
                 Rectangle tile = new Rectangle();
                 tile.setWidth(tile_size);
                 tile.setHeight(tile_size);
-                tile.setLayoutX(x * tile_size);
+                tile.setLayoutX((x-1) * tile_size);
                 tile.setLayoutY(y * tile_size);
                 tile.setFill(Color.BLACK);
                 tile.setStroke(Color.DARKGRAY);
@@ -33,12 +33,12 @@ public class View {
     public void updateView(Board board) {
         int[][] boardArray = board.getBoardArray();
 
-        for(int x = 0; x < width; x++) {
+        for(int x = 1; x < width+1; x++) {
             for(int y = 0; y < height; y++) {
                 Rectangle tile = new Rectangle();
                 tile.setWidth(tile_size);
                 tile.setHeight(tile_size);
-                tile.setLayoutX(x * tile_size);
+                tile.setLayoutX((x-1) * tile_size);
                 tile.setLayoutY(y * tile_size);
 
                 switch (boardArray[y][x]) {

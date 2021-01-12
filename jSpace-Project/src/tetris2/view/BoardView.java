@@ -11,12 +11,12 @@ public class BoardView {
 
     public BoardView(Board board) {
         pane = new Pane();
-        for(int x = 0; x < 10; x++) {
+        for(int x = 1; x < 11; x++) {
             for(int y = 0; y < 20; y++) {
                 Rectangle tile = new Rectangle();
                 tile.setWidth(TILE_SIZE);
                 tile.setHeight(TILE_SIZE);
-                tile.setLayoutX(x * TILE_SIZE);
+                tile.setLayoutX((x-1) * TILE_SIZE);
                 tile.setLayoutY(y * TILE_SIZE);
                 tile.setFill(Color.BLACK);
                 tile.setStroke(Color.DARKGRAY);
@@ -27,7 +27,7 @@ public class BoardView {
     }
 
     public void updateView(Board board) {
-        for(int x = 0; x < 10; x++) {
+        for(int x = 1; x < 11; x++) {
             for(int y = 0; y < 20; y++) {
                 Rectangle tile = new Rectangle();
                 tile.setWidth(TILE_SIZE);

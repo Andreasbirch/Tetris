@@ -63,10 +63,14 @@ public class Board {
 
 
     private void createBoardArray() {
-        boardArray = new int[height][width];
-        for(int x = 0; x < height; x++) {
-            for(int y = 0; y < width; y++) {
-                boardArray[x][y] = 0;
+        boardArray = new int[height+1][width+2];
+        for(int x = 0; x < height+1; x++) {
+            for(int y = 0; y < width+2; y++) {
+                if(x == height || y == 0 || y == width + 1) {
+                    boardArray[x][y] = -1;
+                } else {
+                    boardArray[x][y] = 0;
+                }
             }
         }
     }
@@ -135,13 +139,9 @@ public class Board {
     }
 
     public void drop() {
-        while (true) {
-            try {
-                move("DOWN");
-            } catch (ArrayIndexOutOfBoundsException e) {
-                placeBlock();
-                break;
-            }
+        while (canDrop()) {
+            move("DOWN");
         }
+        placeBlock();
     }
 }
