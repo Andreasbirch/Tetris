@@ -6,6 +6,9 @@
 
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.image.Image?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.Label?>
 <Pane fx:id="StartPage" fx:controller="tetris.controller.mainMenuController" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="800.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" style="-fx-background-image: url(/tetris/res/BackgroundImage.jpg); -fx-background-repeat: repeat; -fx-background-size: cover, auto">
    <children>
       <ImageView id="logoView" layoutX="110.0" layoutY="20.0" pickOnBounds="true" preserveRatio="true">
@@ -14,13 +17,21 @@
          </image>
       </ImageView>
 
-      <ImageView id="startBtnView" layoutX="-25.0" layoutY="150.0" scaleX="0.25" scaleY="0.25" onMouseExited="#removeHighlight" onMouseEntered="#highlight" onMouseClicked="#startB" pickOnBounds="true" preserveRatio="true">
+      <ImageView id="startBtnView" layoutX="-25.0" layoutY="150.0" scaleX="0.25" scaleY="0.25" onMouseClicked="#startB" pickOnBounds="true" preserveRatio="true">
          <image>
             <Image url="/tetris/res/play.png"/>
          </image>
       </ImageView>
 
-      <Button fx:id="highscoreBtn" layoutX="257.0" layoutY="273.0" mnemonicParsing="false" onAction="#highscoreB" text="High scores" />
-      <Button fx:id="controllerBtn" layoutX="257.0" layoutY="317.0" mnemonicParsing="false" onAction="#controllerB" prefHeight="27.0" prefWidth="83.0" text="Controls" />
+      <TableView layoutX="200.0" layoutY="400.0" prefHeight="200.0" prefWidth="200.0">
+         <columns>
+            <TableColumn prefWidth="75.0" text="C1" />
+            <TableColumn prefWidth="75.0" text="C2" />
+         </columns>
+      </TableView>
+
+      <Label layoutX="270.0" layoutY="380.0" text="High scores" textFill="white" />
+
+      <Button fx:id="controllerBtn" layoutX="257.0" layoutY="280.0" mnemonicParsing="false" onAction="#controllerB" prefHeight="27.0" prefWidth="83.0" text="Controls" />
    </children>
 </Pane>

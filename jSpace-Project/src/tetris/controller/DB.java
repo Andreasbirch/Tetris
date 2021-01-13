@@ -9,6 +9,8 @@ public class DB {
     private static String SoftDrop = "Down";
     private static String HardDrop = "Space";
     private static String Hold = "C";
+    private static Boolean enableGhostBlock = true;
+    private static Boolean enableMusic = true;
 
     public DB() {}
 
@@ -28,6 +30,8 @@ public class DB {
     public static String getHoldControl() {
         return Hold;
     }
+    public static Boolean getEnableGhostBlock() { return enableGhostBlock; }
+    public static Boolean getEnableMusic() { return enableMusic; }
 
     //setters
     public void setMoveRightKey(String key) {
@@ -50,5 +54,11 @@ public class DB {
     }
     public void setHoldKey(String key) {
         Hold = key;
+    }
+    public void setEnableGhostBlock(Boolean bool) {
+        enableGhostBlock = bool;
+    }
+    public void setEnableMusic(Boolean bool) {
+        enableMusic = bool;
     }
 }

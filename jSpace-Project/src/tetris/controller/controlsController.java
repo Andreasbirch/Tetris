@@ -26,36 +26,36 @@ public class controlsController implements Initializable {
 
     DB DB = new DB();
 
-    @FXML
-    private Button backBtn;
-
-    @FXML
-    private Label moveRight;
-
-    @FXML
-    private Label moveLeft;
-
-    @FXML
-    private Label rotateRight;
-
-    @FXML
-    private Label rotateLeft;
-
-    @FXML
-    private Label softDrop;
-
-    @FXML
-    private Label hardDrop;
-
-    @FXML
-    private Label hold;
-
-    @FXML
-    private Pane ControlsPage;
+    @FXML private Button backBtn;
+    @FXML private Label moveRight;
+    @FXML private Label moveLeft;
+    @FXML private Label rotateRight;
+    @FXML private Label rotateLeft;
+    @FXML private Label softDrop;
+    @FXML private Label hardDrop;
+    @FXML private Label hold;
+    @FXML private Label saveChanges;
+    @FXML private Label saveDefaultChanges;
+    @FXML private CheckBox ghostBlockCB;
+    @FXML private CheckBox musicCB;
+    @FXML private Pane ControlsPage;
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-        setLabels();
+        setInitial();
+    }
+
+    public void setInitial() {
+        moveRight.setText(DB.getMoveRightControl());
+        moveLeft.setText(DB.getMoveLeftControl());
+        rotateRight.setText(DB.getRotateRightControl());
+        rotateLeft.setText(DB.getRotateLeftControl());
+        softDrop.setText(DB.getSoftDropControl());
+        hardDrop.setText(DB.getHardDropControl());
+        hold.setText(DB.getHoldControl());
+
+        ghostBlockCB.setSelected(DB.getEnableGhostBlock());
+        musicCB.setSelected(DB.getEnableMusic());
     }
 
     @FXML
@@ -67,15 +67,6 @@ public class controlsController implements Initializable {
         stage.show();
     }
 
-    public void setLabels() {
-        moveRight.setText(DB.getMoveRightControl());
-        moveLeft.setText(DB.getMoveLeftControl());
-        rotateRight.setText(DB.getRotateRightControl());
-        rotateLeft.setText(DB.getRotateLeftControl());
-        softDrop.setText(DB.getSoftDropControl());
-        hardDrop.setText(DB.getHardDropControl());
-        hold.setText(DB.getHoldControl());
-    }
     public void defaultB(ActionEvent actionEvent) {
         Alert alert = new Alert(AlertType.CONFIRMATION);
         alert.setTitle("Default controls");
@@ -104,6 +95,15 @@ public class controlsController implements Initializable {
                 DB.setHardDropKey("Space");
                 DB.setHoldKey("C");
 
+                //Updating checkboxes
+                ghostBlockCB.setSelected(true);
+                musicCB.setSelected(true);
+
+                DB.setEnableGhostBlock(true);
+                DB.setEnableMusic(true);
+
+                saveDefaultChanges.setText("Controls saved as default");
+                saveChanges.setText("");
             } else {}
         });
     }
@@ -111,6 +111,21 @@ public class controlsController implements Initializable {
     public void saveB(ActionEvent actionEvent) {
         //Her skal selve spillet hente de controls der er blevet sat
         App.setKeys(moveLeft.getText(), moveRight.getText(), softDrop.getText(), rotateRight.getText(), hardDrop.getText() );
+
+        //Updating DB with saved values
+        DB.setMoveRightKey(moveRight.getText());
+        DB.setMoveLeftKey(moveLeft.getText());
+        DB.setRotateRightKey(rotateRight.getText());
+        DB.setRotateLeftKey(rotateLeft.getText());
+        DB.setSoftDropKey(softDrop.getText());
+        DB.setHardDropKey(hardDrop.getText());
+        DB.setHoldKey(hold.getText());
+
+        DB.setEnableGhostBlock(ghostBlockCB.isSelected());
+        DB.setEnableMusic(musicCB.isSelected());
+
+        saveChanges.setText("Controls saved!");
+        saveDefaultChanges.setText("");
     }
 
     public void moveRightB(ActionEvent actionEvent) {
@@ -137,6 +152,8 @@ public class controlsController implements Initializable {
                         DB.setMoveRightKey("Right");
                         warningAlert("move right");
                     }
+                    saveChanges.setText("");
+                    saveDefaultChanges.setText("");
                     dialog.close();
                 }
         });
@@ -166,6 +183,8 @@ public class controlsController implements Initializable {
                     DB.setMoveLeftKey("Left");
                     warningAlert("move left");
                 }
+                saveChanges.setText("");
+                saveDefaultChanges.setText("");
                 dialog.close();
             }
         });
@@ -195,6 +214,8 @@ public class controlsController implements Initializable {
                     DB.setRotateRightKey("Up");
                     warningAlert("move right");
                 }
+                saveChanges.setText("");
+                saveDefaultChanges.setText("");
                 dialog.close();
             }
         });
@@ -224,6 +245,8 @@ public class controlsController implements Initializable {
                     DB.setRotateLeftKey("Z");
                     warningAlert("rotate left");
                 }
+                saveChanges.setText("");
+                saveDefaultChanges.setText("");
                 dialog.close();
             }
         });
@@ -253,6 +276,8 @@ public class controlsController implements Initializable {
                     DB.setSoftDropKey("Down");
                     warningAlert("soft drop");
                 }
+                saveChanges.setText("");
+                saveDefaultChanges.setText("");
                 dialog.close();
             }
         });
@@ -282,6 +307,8 @@ public class controlsController implements Initializable {
                     DB.setHardDropKey("Space");
                     warningAlert("hard drop");
                 }
+                saveChanges.setText("");
+                saveDefaultChanges.setText("");
                 dialog.close();
             }
         });
@@ -311,6 +338,8 @@ public class controlsController implements Initializable {
                     DB.setHoldKey("C");
                     warningAlert("hold");
                 }
+                saveChanges.setText("");
+                saveDefaultChanges.setText("");
                 dialog.close();
             }
         });
@@ -319,31 +348,24 @@ public class controlsController implements Initializable {
     //Methods to register keypresses
     private void moveRightHandle(KeyEvent keyEvent) {
         moveRight.setText(keyEvent.getCode().getName());
-        DB.setMoveRightKey(keyEvent.getCode().getName());
     }
     private void moveLeftHandle(KeyEvent keyEvent) {
         moveLeft.setText(keyEvent.getCode().getName());
-        DB.setMoveLeftKey(keyEvent.getCode().getName());
     }
     private void rotateRightHandle(KeyEvent keyEvent) {
         rotateRight.setText(keyEvent.getCode().getName());
-        DB.setRotateRightKey(keyEvent.getCode().getName());
     }
     private void rotateLeftHandle(KeyEvent keyEvent) {
         rotateLeft.setText(keyEvent.getCode().getName());
-        DB.setRotateLeftKey(keyEvent.getCode().getName());
     }
     private void softDropHandle(KeyEvent keyEvent) {
         softDrop.setText(keyEvent.getCode().getName());
-        DB.setSoftDropKey(keyEvent.getCode().getName());
     }
     private void hardDropHandle(KeyEvent keyEvent) {
         hardDrop.setText(keyEvent.getCode().getName());
-        DB.setHardDropKey(keyEvent.getCode().getName());
     }
     private void holdHandle(KeyEvent keyEvent) {
         hold.setText(keyEvent.getCode().getName());
-        DB.setHoldKey(keyEvent.getCode().getName());
     }
 
     public void warningAlert(String name) {
@@ -351,6 +373,24 @@ public class controlsController implements Initializable {
         alert.setHeaderText("Overlapping controls for " + name + "!");
         alert.setContentText("Cannot pick same controls for different actions");
         alert.showAndWait();
+
+        saveChanges.setText("");
+        saveDefaultChanges.setText("");
     }
+
+    //not working probably, hard to implement with calling database and updating individual labels.
+    public void dialog(Label label, String name) {
+
+        final Stage dialog = new Stage();
+        dialog.initModality(Modality.APPLICATION_MODAL);
+        VBox dialogVbox = new VBox(80);
+        dialogVbox.getChildren().add(new Text("Press key for " + name));
+        dialogVbox.getChildren().add(new Label("Current key is: " + label.getText()));
+
+        Scene dialogScene = new Scene(dialogVbox, 300, 200);
+        dialog.setScene(dialogScene);
+        dialog.show();
+    }
+
 }
 
