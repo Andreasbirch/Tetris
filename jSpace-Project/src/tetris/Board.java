@@ -12,6 +12,7 @@ public class Board {
     private List<Block> blockQueue = new ArrayList<Block>();
     private boolean canSwap;
     private Block currentBlock, heldBlock;
+    private Block[] queue = new Block[6];
 
 
     public Board(int tile_size, int width, int height) throws InterruptedException{
@@ -21,6 +22,7 @@ public class Board {
 
         createBoardArray();
 
+        generateQueue();
         generateNewBlock();
 //        Space blockSpace = new RandomSpace();
 //        new Thread(new BlockPusher(blockSpace)).start();
@@ -29,7 +31,8 @@ public class Board {
 
 
     public void generateNewBlock() {
-        currentBlock = new Block();
+        //currentBlock = new Block();
+        currentBlock = queue[0];
         canSwap = true;
         addBlock();
     }
@@ -43,6 +46,19 @@ public class Board {
         } else {
             System.out.println("Game over.");
         }
+    }
+
+    public void generateQueue() {
+        for (int i = 0; i < 6; i++) {
+            queue[i] = new Block();
+        }
+    }
+
+    public void addToQueue() {
+        for (int i = 1; i < 6; i++) {
+            queue[i - 1] = queue[i];
+        }
+        queue[5] = new Block();
     }
 
     public void hold() {
@@ -153,6 +169,7 @@ public class Board {
         }
 
         currentBlock = null;
+        addToQueue();
         generateNewBlock();
         App.updateView();
     }
@@ -208,4 +225,6 @@ public class Board {
     public Block getHeld() {
         return heldBlock;
     }
+
+    public Block[] getQueue() { return queue; }
 }

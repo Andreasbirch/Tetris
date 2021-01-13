@@ -5,6 +5,7 @@ import javafx.scene.Scene;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.HBox;
+import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 
 public class App{
@@ -14,6 +15,7 @@ public class App{
     private static Board board;
     private static View view;
     private static HeldView heldView;
+    private static QueueView queueView1, queueView2;
     public static KeyCode moveLeftKey, moveRightKey, moveDownKey, rotateKey, dropKey;
 
     public App (Stage primaryStage) throws InterruptedException {
@@ -21,11 +23,17 @@ public class App{
         board = new Board(TILE_SIZE, WIDTH, HEIGHT);
         view = new View(TILE_SIZE, WIDTH, HEIGHT);
         heldView = new HeldView(TILE_SIZE);
+        queueView1 = new QueueView(TILE_SIZE, 1);
+        queueView2 = new QueueView(TILE_SIZE, 2);
 
         HBox hBox = new HBox();
 
         hBox.setPrefSize(WIDTH*TILE_SIZE*2, HEIGHT*TILE_SIZE);
-        hBox.getChildren().addAll(heldView.getView(), view.getView());
+
+        VBox vBox = new VBox();
+
+        vBox.getChildren().addAll(queueView1.getView(), queueView2.getView());
+        hBox.getChildren().addAll(heldView.getView(), view.getView(), vBox);
 
         Scene scene = new Scene(hBox, WIDTH*TILE_SIZE*2, HEIGHT*TILE_SIZE);
         Time timer = new Time(board);
@@ -44,11 +52,13 @@ public class App{
                     board.hold();
                     heldView.updateHeldView(board);
                 }
+                //queueView.updateQueueView(board);
                 updateView();
                 event.consume();
 
             }
         });
+        //queueView.updateQueueView(board);
         updateView();
         primaryStage.setTitle("Tetris!");
         primaryStage.setScene(scene);
@@ -58,6 +68,8 @@ public class App{
 
     public static void updateView() {
         view.updateView(board);
+        queueView1.updateQueueView(board);
+        queueView2.updateQueueView(board);
     }
 
     public static void setKeys(String moveLeftKeyS, String moveRightKeyS, String moveDownKeyS, String rotateKeyS, String dropKeyS) {
