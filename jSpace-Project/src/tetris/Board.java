@@ -200,6 +200,7 @@ public class Board {
         score += 200;
         linesCleared++;
         gravity(lineNo);
+        App.updateTimer();
     }
 
     private void gravity(int lineNo) {
@@ -235,12 +236,12 @@ public class Board {
         return heldBlock;
     }
 
-    public String getScore() {
-        return String.valueOf(score);
+    public int getScore() {
+        return score;
     }
 
-    public String getLinesCleared() {
-        return String.valueOf(linesCleared);
+    public int getLinesCleared() {
+        return linesCleared;
     }
 
     public Block[] getQueue() { return queue; }

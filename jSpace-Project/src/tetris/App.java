@@ -41,7 +41,7 @@ public class App{
 
         Scene scene = new Scene(hBox, WIDTH*TILE_SIZE*2, HEIGHT*TILE_SIZE);
         Time timer = new Time(board);
-        timer.getTimeline().play();
+//        timer.getTimeline().play();
 
         scene.setOnKeyPressed(new EventHandler<KeyEvent>() {
             @Override
@@ -69,13 +69,16 @@ public class App{
         primaryStage.show();
     }
 
+    public static void updateTimer() {
+//        Time timer = new Time(board);
+    }
 
     public static void updateView() {
         view.updateView(board);
         queueView1.updateQueueView(board);
         queueView2.updateQueueView(board);
-        scoreLabel.setText(board.getScore());
-        linesClearedLabel.setText(board.getLinesCleared());
+        scoreLabel.setText(String.valueOf(board.getScore()));
+        linesClearedLabel.setText(String.valueOf(board.getLinesCleared()));
     }
 
     public static void setKeys(String moveLeftKeyS, String moveRightKeyS, String moveDownKeyS, String rotateKeyS, String dropKeyS) {
