@@ -2,9 +2,11 @@ package tetris;
 
 import javafx.event.EventHandler;
 import javafx.scene.Scene;
+import javafx.scene.control.Label;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.HBox;
+import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 
 public class App{
@@ -14,22 +16,32 @@ public class App{
     private static Board board;
     private static View view;
     private static HeldView heldView;
+    private static QueueView queueView1, queueView2;
     public static KeyCode moveLeftKey, moveRightKey, moveDownKey, rotateKey, dropKey;
-
+    private static Label scoreLabel;
+    private static Label linesClearedLabel;
     public App (Stage primaryStage) throws InterruptedException {
 
         board = new Board(TILE_SIZE, WIDTH, HEIGHT);
         view = new View(TILE_SIZE, WIDTH, HEIGHT);
         heldView = new HeldView(TILE_SIZE);
+        queueView1 = new QueueView(TILE_SIZE, 1);
+        queueView2 = new QueueView(TILE_SIZE, 2);
+        scoreLabel = new Label("0");
+        linesClearedLabel = new Label("0");
 
         HBox hBox = new HBox();
 
         hBox.setPrefSize(WIDTH*TILE_SIZE*2, HEIGHT*TILE_SIZE);
-        hBox.getChildren().addAll(heldView.getView(), view.getView());
+
+        VBox vBox = new VBox();
+
+        vBox.getChildren().addAll(queueView1.getView(), queueView2.getView(), scoreLabel, linesClearedLabel);
+        hBox.getChildren().addAll(heldView.getView(), view.getView(), vBox);
 
         Scene scene = new Scene(hBox, WIDTH*TILE_SIZE*2, HEIGHT*TILE_SIZE);
         Time timer = new Time(board);
-        timer.getTimeline().play();
+//        timer.getTimeline().play();
 
         scene.setOnKeyPressed(new EventHandler<KeyEvent>() {
             @Override
@@ -44,20 +56,29 @@ public class App{
                     board.hold();
                     heldView.updateHeldView(board);
                 }
+                //queueView.updateQueueView(board);
                 updateView();
                 event.consume();
 
             }
         });
+        //queueView.updateQueueView(board);
         updateView();
         primaryStage.setTitle("Tetris!");
         primaryStage.setScene(scene);
         primaryStage.show();
     }
 
+    public static void updateTimer() {
+//        Time timer = new Time(board);
+    }
 
     public static void updateView() {
         view.updateView(board);
+        queueView1.updateQueueView(board);
+        queueView2.updateQueueView(board);
+        scoreLabel.setText(String.valueOf(board.getScore()));
+        linesClearedLabel.setText(String.valueOf(board.getLinesCleared()));
     }
 
     public static void setKeys(String moveLeftKeyS, String moveRightKeyS, String moveDownKeyS, String rotateKeyS, String dropKeyS) {

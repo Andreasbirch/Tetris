@@ -1,5 +1,8 @@
 package tetris;
 
+import org.jspace.RandomSpace;
+import org.jspace.Space;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -12,6 +15,9 @@ public class Board {
     private List<Block> blockQueue = new ArrayList<Block>();
     private boolean canSwap;
     private Block currentBlock, heldBlock;
+    private Block[] queue = new Block[6];
+    private int score = 0;
+    private int linesCleared = 0;
 
 
     public Board(int tile_size, int width, int height) throws InterruptedException{
@@ -21,15 +27,18 @@ public class Board {
 
         createBoardArray();
 
+        generateQueue();
         generateNewBlock();
-//        Space blockSpace = new RandomSpace();
-//        new Thread(new BlockPusher(blockSpace)).start();
-//        new Thread(new BlockPuller(blockSpace, this)).start();
+
+        Space blockSpace = new RandomSpace();
+        new Thread(new BlockPusher(blockSpace)).start();
+        new Thread(new BlockPuller(blockSpace, this)).start();
     }
 
 
     public void generateNewBlock() {
-        currentBlock = new Block();
+        //currentBlock = new Block();
+        currentBlock = queue[0];
         canSwap = true;
         addBlock();
     }
@@ -45,6 +54,19 @@ public class Board {
         }
     }
 
+    public void generateQueue() {
+        for (int i = 0; i < 6; i++) {
+            queue[i] = new Block();
+        }
+    }
+
+    public void addToQueue() {
+        for (int i = 1; i < 6; i++) {
+            queue[i - 1] = queue[i];
+        }
+        queue[5] = new Block();
+    }
+
     public void hold() {
         if(canSwap) {
             canSwap = false;
@@ -55,7 +77,10 @@ public class Board {
                 heldBlock = tempBlock;
             } else {
                 heldBlock = currentBlock;
-                currentBlock = new Block();
+//                currentBlock = new Block();
+                currentBlock = null;
+                addToQueue();
+                generateNewBlock();
             }
             addBlock();
         }
@@ -128,6 +153,7 @@ public class Board {
                 if(isClear(posX, posY+1, deg)){
                     posY++;
                     insertStructureElement(posX, posY, deg);
+                    score++;
                 } else {
                     placeBlock();
                 }
@@ -153,6 +179,7 @@ public class Board {
         }
 
         currentBlock = null;
+        addToQueue();
         generateNewBlock();
         App.updateView();
     }
@@ -173,7 +200,10 @@ public class Board {
         for(int x = 1; x < width+1; x++) {
             boardArray[lineNo][x] = 0;
         }
+        score += 200;
+        linesCleared++;
         gravity(lineNo);
+        App.updateTimer();
     }
 
     private void gravity(int lineNo) {
@@ -208,4 +238,14 @@ public class Board {
     public Block getHeld() {
         return heldBlock;
     }
+
+    public int getScore() {
+        return score;
+    }
+
+    public int getLinesCleared() {
+        return linesCleared;
+    }
+
+    public Block[] getQueue() { return queue; }
 }
