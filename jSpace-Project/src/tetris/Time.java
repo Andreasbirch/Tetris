@@ -33,9 +33,9 @@ public class Time {
             App.updateView();
         }));
 
-        System.out.print(timeline.getKeyFrames().size() + "  ");
-        System.out.print(duration + "  ");
-        System.out.println(timeline.getKeyFrames().get(0).getTime().toMillis());
+//        System.out.print(timeline.getKeyFrames().size() + "  ");
+//        System.out.print(duration + "  ");
+//        System.out.println(timeline.getKeyFrames().get(0).getTime().toMillis());
         timeline.play();
     }
 

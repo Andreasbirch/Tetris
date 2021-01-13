@@ -77,7 +77,10 @@ public class Board {
                 heldBlock = tempBlock;
             } else {
                 heldBlock = currentBlock;
-                currentBlock = new Block();
+//                currentBlock = new Block();
+                currentBlock = null;
+                addToQueue();
+                generateNewBlock();
             }
             addBlock();
         }
