@@ -2,6 +2,7 @@ package tetris;
 
 import javafx.event.EventHandler;
 import javafx.scene.Scene;
+import javafx.scene.control.Label;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.HBox;
@@ -17,7 +18,8 @@ public class App{
     private static HeldView heldView;
     private static QueueView queueView1, queueView2;
     public static KeyCode moveLeftKey, moveRightKey, moveDownKey, rotateKey, dropKey;
-
+    private static Label scoreLabel;
+    private static Label linesClearedLabel;
     public App (Stage primaryStage) throws InterruptedException {
 
         board = new Board(TILE_SIZE, WIDTH, HEIGHT);
@@ -25,6 +27,8 @@ public class App{
         heldView = new HeldView(TILE_SIZE);
         queueView1 = new QueueView(TILE_SIZE, 1);
         queueView2 = new QueueView(TILE_SIZE, 2);
+        scoreLabel = new Label("0");
+        linesClearedLabel = new Label("0");
 
         HBox hBox = new HBox();
 
@@ -32,7 +36,7 @@ public class App{
 
         VBox vBox = new VBox();
 
-        vBox.getChildren().addAll(queueView1.getView(), queueView2.getView());
+        vBox.getChildren().addAll(queueView1.getView(), queueView2.getView(), scoreLabel, linesClearedLabel);
         hBox.getChildren().addAll(heldView.getView(), view.getView(), vBox);
 
         Scene scene = new Scene(hBox, WIDTH*TILE_SIZE*2, HEIGHT*TILE_SIZE);
@@ -70,6 +74,8 @@ public class App{
         view.updateView(board);
         queueView1.updateQueueView(board);
         queueView2.updateQueueView(board);
+        scoreLabel.setText(board.getScore());
+        linesClearedLabel.setText(board.getLinesCleared());
     }
 
     public static void setKeys(String moveLeftKeyS, String moveRightKeyS, String moveDownKeyS, String rotateKeyS, String dropKeyS) {

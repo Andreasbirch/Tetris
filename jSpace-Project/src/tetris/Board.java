@@ -1,5 +1,8 @@
 package tetris;
 
+import org.jspace.RandomSpace;
+import org.jspace.Space;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -13,6 +16,8 @@ public class Board {
     private boolean canSwap;
     private Block currentBlock, heldBlock;
     private Block[] queue = new Block[6];
+    private int score = 0;
+    private int linesCleared = 0;
 
 
     public Board(int tile_size, int width, int height) throws InterruptedException{
@@ -24,9 +29,10 @@ public class Board {
 
         generateQueue();
         generateNewBlock();
-//        Space blockSpace = new RandomSpace();
-//        new Thread(new BlockPusher(blockSpace)).start();
-//        new Thread(new BlockPuller(blockSpace, this)).start();
+
+        Space blockSpace = new RandomSpace();
+        new Thread(new BlockPusher(blockSpace)).start();
+        new Thread(new BlockPuller(blockSpace, this)).start();
     }
 
 
@@ -144,6 +150,7 @@ public class Board {
                 if(isClear(posX, posY+1, deg)){
                     posY++;
                     insertStructureElement(posX, posY, deg);
+                    score++;
                 } else {
                     placeBlock();
                 }
@@ -190,6 +197,8 @@ public class Board {
         for(int x = 1; x < width+1; x++) {
             boardArray[lineNo][x] = 0;
         }
+        score += 200;
+        linesCleared++;
         gravity(lineNo);
     }
 
@@ -224,6 +233,14 @@ public class Board {
 
     public Block getHeld() {
         return heldBlock;
+    }
+
+    public String getScore() {
+        return String.valueOf(score);
+    }
+
+    public String getLinesCleared() {
+        return String.valueOf(linesCleared);
     }
 
     public Block[] getQueue() { return queue; }

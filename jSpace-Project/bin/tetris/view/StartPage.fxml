@@ -22,5 +22,6 @@
 
       <Button fx:id="highscoreBtn" layoutX="257.0" layoutY="273.0" mnemonicParsing="false" onAction="#highscoreB" text="High scores" />
       <Button fx:id="controllerBtn" layoutX="257.0" layoutY="317.0" mnemonicParsing="false" onAction="#controllerB" prefHeight="27.0" prefWidth="83.0" text="Controls" />
+      <Button fx:id="hostBtn" layoutX="257.0" layoutY="361.0" mnemonicParsing="false" onAction="#hostB" text="Host Game" />
    </children>
 </Pane>
