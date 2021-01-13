@@ -1,32 +1,40 @@
 package tetris;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class Board {
     private int tile_size, width, height;
     private int posX, posY;
     private int deg;
+    private int lineToClear;
     private int[][] boardArray;
-    private Block currentBlock;
+    private List<Block> blockQueue = new ArrayList<Block>();
+    private boolean canSwap;
+    private Block currentBlock, heldBlock;
 
-    private int boardC, addNewBlockC, insertStructureElementC, isClearC, getCurrentBlockC, createBoardArrayC, getBoardArrayC, rotateC, moveC, eraseStructureElementC, placeBlockC, canDropC, dropC;
 
     public Board(int tile_size, int width, int height) throws InterruptedException{
-        boardC++;
         this.tile_size = tile_size;
         this.width = width;
         this.height = height;
 
         createBoardArray();
 
-        addNewBlock();
+        generateNewBlock();
 //        Space blockSpace = new RandomSpace();
 //        new Thread(new BlockPusher(blockSpace)).start();
 //        new Thread(new BlockPuller(blockSpace, this)).start();
     }
 
 
-    public void addNewBlock() {
-        addNewBlockC ++;
+    public void generateNewBlock() {
         currentBlock = new Block();
+        canSwap = true;
+        addBlock();
+    }
+
+    private void addBlock() {
         if(isClear((width/2)-2,0, 0)){
             insertStructureElement((width/2)-2, 0, 0);
             posX = (width/2)-2;
@@ -37,9 +45,24 @@ public class Board {
         }
     }
 
+    public void hold() {
+        if(canSwap) {
+            canSwap = false;
+            eraseStructureElement(posX, posY, deg);
+            if(heldBlock != null) {
+                Block tempBlock = currentBlock;
+                currentBlock = heldBlock;
+                heldBlock = tempBlock;
+            } else {
+                heldBlock = currentBlock;
+                currentBlock = new Block();
+            }
+            addBlock();
+        }
+    }
+
 
     private void insertStructureElement(int posX, int posY, int deg){
-        insertStructureElementC ++;
         for(int x = 0; x < 4; x++) {
             for(int y = 0; y < 4; y++) {
                 if(currentBlock.getRotations(deg)[y][x] != 0){
@@ -50,7 +73,6 @@ public class Board {
     }
 
     private boolean isClear(int posX, int posY, int deg) {
-        isClearC ++;
         for(int x = 0; x < 4; x++) {
             for(int y = 0; y < 4; y++) {
                 if(currentBlock.getRotations(deg)[y][x] != 0 && boardArray[y+posY][x+posX] != 0){
@@ -62,14 +84,7 @@ public class Board {
     }
 
 
-//    public Block getCurrentBlock() {
-//        getCurrentBlockC ++;
-//        return currentBlock;
-//    }
-
-
     private void createBoardArray() {
-        createBoardArrayC ++;
         boardArray = new int[height+1][width+2];
         for(int x = 0; x < height+1; x++) {
             for(int y = 0; y < width+2; y++) {
@@ -83,12 +98,10 @@ public class Board {
     }
 
     public int[][] getBoardArray () {
-        getBoardArrayC ++;
         return boardArray;
     }
 
     public void rotate() {
-        rotateC ++;
         eraseStructureElement(posX, posY, deg);
         if(isClear(posX, posY, (deg+1) % 4)){
             deg = (deg+1) % 4;
@@ -97,7 +110,6 @@ public class Board {
     }
 
     public void move(String dir) {
-        moveC ++;
         eraseStructureElement(posX, posY, deg);
         switch (dir) {
             case "LEFT":
@@ -124,7 +136,6 @@ public class Board {
     }
 
     private void eraseStructureElement(int posX, int posY, int deg){
-        eraseStructureElementC ++;
         for(int x = 0; x < 4; x++) {
             for(int y = 0; y < 4; y++) {
                 if(currentBlock.getRotations(deg)[y][x] != 0) {
@@ -135,42 +146,66 @@ public class Board {
     }
 
     private void placeBlock(){
-        placeBlockC ++;
         insertStructureElement(posX, posY, deg);
+
+        while(checkLine()){
+            clearLine(lineToClear);
+        }
+
         currentBlock = null;
-        System.gc();
-        addNewBlock();
+        generateNewBlock();
         App.updateView();
     }
 
     private boolean canDrop() {
-        canDropC ++;
         eraseStructureElement(posX, posY, deg);
         return isClear(posX, posY+1, deg);
     }
 
     public void drop() {
-        dropC ++;
         while (canDrop()) {
             move("DOWN");
         }
         placeBlock();
     }
 
-    public void printCalls() {
-        System.out.println("Board: " + boardC);
-        System.out.println("addNewBlock: " + addNewBlockC);
-        System.out.println("insertStructureElement: " + insertStructureElementC);
-        System.out.println("isClear: " + isClearC);
-        System.out.println("getCurrentBlock: " + getCurrentBlockC);
-        System.out.println("createBoardArray: " + createBoardArrayC);
-        System.out.println("getBoardArray: " + getBoardArrayC);
-        System.out.println("rotate: " + rotateC);
-        System.out.println("move: " + moveC);
-        System.out.println("eraseStructureElement: " + eraseStructureElementC);
-        System.out.println("placeBlock: " + placeBlockC);
-        System.out.println("canDrop: " + canDropC);
-        System.out.println("Drop: " + dropC);
-        System.out.println("CurrentBlock" + currentBlock);
+    private void clearLine(int lineNo) {
+        for(int x = 1; x < width+1; x++) {
+            boardArray[lineNo][x] = 0;
+        }
+        gravity(lineNo);
+    }
+
+    private void gravity(int lineNo) {
+        for(int y = lineNo; y > 0; y--) {
+            for (int x = 1; x < width + 1; x++) {
+                boardArray[y][x] = boardArray[y-1][x];
+            }
+        }
+    }
+
+    private boolean checkLine() {
+        for(int y = height-1; y >= 0; y--) {
+            int fillCounter = 0;
+            int emptyCounter = 0;
+            for(int x = 1; x < width+1; x++) {
+                if(boardArray[y][x] != 0){
+                    fillCounter++;
+                } else {
+                    emptyCounter++;
+                }
+                if(fillCounter == 10) {
+                    lineToClear = y;
+                    return true;
+                } else if(emptyCounter == 10) {
+                    return false;
+                }
+            }
+        }
+        return false;
+    }
+
+    public Block getHeld() {
+        return heldBlock;
     }
 }
