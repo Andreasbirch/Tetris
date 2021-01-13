@@ -28,7 +28,7 @@ public class Time {
 
         timeline.setCycleCount(Timeline.INDEFINITE);
 
-        timeline.getKeyFrames().add(new KeyFrame(Duration.millis(duration), e -> {
+        timeline.getKeyFrames().add(new KeyFrame(Duration.millis(300), e -> {
             board.move("DOWN");
             App.updateView();
         }));
