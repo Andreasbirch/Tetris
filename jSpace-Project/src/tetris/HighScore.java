@@ -43,13 +43,18 @@ public class HighScore {
         int i = 0;
 
         if (data.size() == 0) {
+            System.out.println("addHighscore1");
             data.add(0, highScoreData);
             writeHighScore();
         } else {
             while (i < data.size()) {
-                if (Integer.parseInt(data.get(i).getScore()) < Integer.parseInt(score)) {
+                System.out.println(data.get(i).getScore());
+                System.out.println(score);
+                if (Integer.parseInt(data.get(i).getScore()) > Integer.parseInt(score)) {
+                    System.out.println("addHighscore2");
                     i++;
                 } else {
+                    System.out.println("addHighscore3");
                     data.add(i, highScoreData);
                     writeHighScore();
                     break;

@@ -21,6 +21,7 @@ public class Board {
     private Block[] queue = new Block[6];
     private int score = 0;
     private int linesCleared = 0;
+    public boolean gameOver = false;
 
 
     public Board(int tile_size, int width, int height) throws InterruptedException{
@@ -54,7 +55,7 @@ public class Board {
             deg = 0;
         } else {
             System.out.println("App");
-            App.stop();
+            gameOver = true;
             System.out.println("AppStop");
             Scanner scanner = new Scanner(System.in);
             String name = scanner.nextLine();
@@ -180,16 +181,18 @@ public class Board {
     }
 
     private void placeBlock(){
-        insertStructureElement(posX, posY, deg);
+        if (!gameOver) {
+            insertStructureElement(posX, posY, deg);
 
-        while(checkLine()){
-            clearLine(lineToClear);
+            while (checkLine()) {
+                clearLine(lineToClear);
+            }
+
+            currentBlock = null;
+            addToQueue();
+            generateNewBlock();
+            App.updateView();
         }
-
-        currentBlock = null;
-        addToQueue();
-        generateNewBlock();
-        App.updateView();
     }
 
     private boolean canDrop() {

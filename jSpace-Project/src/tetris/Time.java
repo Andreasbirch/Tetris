@@ -29,6 +29,9 @@ public class Time {
         timeline.setCycleCount(Timeline.INDEFINITE);
 
         timeline.getKeyFrames().add(new KeyFrame(Duration.millis(300), e -> {
+            if (board.gameOver) {
+                timeline.stop();
+            }
             board.move("DOWN");
             App.updateView();
         }));
@@ -37,6 +40,8 @@ public class Time {
 //        System.out.print(duration + "  ");
 //        System.out.println(timeline.getKeyFrames().get(0).getTime().toMillis());
         timeline.play();
+
+
     }
 
     public Timeline getTimeline() {
