@@ -61,13 +61,11 @@ public class Board {
             deg = 0;
         } else {
             System.out.println("Game over.");
-            //alertGameOver(linesCleared);
-            System.out.println("App");
+            alertGameOver(linesCleared);
             gameOver = true;
-            System.out.println("AppStop");
-            Scanner scanner = new Scanner(System.in);
-            String name = scanner.nextLine();
-            gameOver(name);
+
+            //Scanner scanner = new Scanner(System.in);
+            //String name = scanner.nextLine();
         }
     }
 
@@ -304,6 +302,7 @@ public class Board {
         dialog.setResultConverter(dialogButton -> {
 
             if (dialogButton == ok) {
+                gameOver(name.getText());
                 dialog.close();
             }
 
