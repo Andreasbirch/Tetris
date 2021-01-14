@@ -93,8 +93,8 @@ public class App{
             e.printStackTrace();
         }
 
-
         //queueView.updateQueueView(board);
+        view.getView().requestFocus();
         updateView();
         primaryStage.setTitle("Tetris!");
         primaryStage.setScene(scene);
@@ -168,7 +168,6 @@ public class App{
         heldViewBox.getChildren().addAll(heldView.getView(), pauseBtn, newGameBtn);
 
         hBox.getChildren().addAll(heldViewBox, view.getView(), vBox, p2View.getView());
-
 
         hBox.setPrefSize(1000,600);
         hBox.setAlignment(Pos.CENTER);
