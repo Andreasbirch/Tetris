@@ -23,14 +23,12 @@
          </image>
       </ImageView>
 
-      <TableView layoutX="200.0" layoutY="400.0" prefHeight="200.0" prefWidth="200.0">
+      <TableView fx:id="table" layoutX="200.0" layoutY="400.0" prefHeight="200.0" prefWidth="200.0">
          <columns>
-            <TableColumn prefWidth="75.0" text="C1" />
-            <TableColumn prefWidth="75.0" text="C2" />
+            <TableColumn fx:id="col1" editable="false" prefWidth="75.0" text="Name" />
+            <TableColumn fx:id="col2" editable="false" prefWidth="75.0" text="Score" />
          </columns>
       </TableView>
-
-      <Label layoutX="270.0" layoutY="380.0" text="High scores" textFill="white" />
 
       <Button fx:id="controllerBtn" layoutX="257.0" layoutY="280.0" mnemonicParsing="false" onAction="#controllerB" prefHeight="27.0" prefWidth="83.0" text="Controls" />
       <Button fx:id="hostBtn" layoutX="257.0" layoutY="361.0" mnemonicParsing="false" onAction="#hostB" text="Host Game" />

@@ -9,8 +9,10 @@ import org.jspace.*;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.net.InetAddress;
 import java.net.URI;
 import java.net.URISyntaxException;
+import java.net.UnknownHostException;
 
 import org.jspace.FormalField;
 import org.jspace.SequentialSpace;
@@ -52,8 +54,8 @@ public class GameServer implements Runnable{
             repository.add("chat", chat);
 
             // Set the URI of the chat space
-
-            String uri = "tcp://192.168.0.61:9001/chat?keep";
+            String ipAddress = InetAddress.getLocalHost().getHostAddress();
+            String uri = "tcp://" + ipAddress + ":9001/chat?keep";
 //            String uri = "tcp://127.0.0.1:9001/chat?keep";
 
             // Open a gate
@@ -74,6 +76,8 @@ public class GameServer implements Runnable{
         } catch (InterruptedException e) {
             e.printStackTrace();
         } catch (URISyntaxException e) {
+            e.printStackTrace();
+        } catch (UnknownHostException e) {
             e.printStackTrace();
         }
     }
