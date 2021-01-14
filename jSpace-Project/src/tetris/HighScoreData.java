@@ -22,7 +22,7 @@ public class HighScoreData {
     }
 
     public String getScore() {
-        return score.getValue();
+        return score.get();
     }
 
     public void setName(String name) {
