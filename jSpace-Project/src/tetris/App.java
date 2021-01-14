@@ -196,4 +196,6 @@ public class App{
 
         return root;
     }
+
+    public static void stop(){}
 }
