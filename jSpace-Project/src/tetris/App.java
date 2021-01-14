@@ -5,6 +5,7 @@ import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.ImageCursor;
 import javafx.scene.Scene;
+import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
@@ -45,7 +46,13 @@ public class App{
         scoreLabel = new Label("0");
         Label linesL = new Label("LINES");
         linesClearedLabel = new Label("0");
-        scoreBox.getChildren().addAll(scoreL, scoreLabel, linesL, linesClearedLabel);
+
+        Button backBtn = new Button();
+        backBtn.setText("Back");
+        //backBtn.setLayoutX(10.0);
+        //backBtn.setLayoutY(10.0);
+
+        scoreBox.getChildren().addAll(scoreL, scoreLabel, linesL, linesClearedLabel, backBtn);
 
 
         HBox hBox = new HBox();
@@ -67,6 +74,7 @@ public class App{
         image.setLayoutX(50);
         image.setScaleX(0.5);
         image.setScaleY(0.5);
+
 
         root.setPrefSize(600,800);
         root.getChildren().addAll(image, hBox);

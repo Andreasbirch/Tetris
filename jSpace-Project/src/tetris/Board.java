@@ -1,5 +1,10 @@
 package tetris;
 
+import javafx.application.Platform;
+import javafx.geometry.Insets;
+import javafx.scene.Node;
+import javafx.scene.control.*;
+import javafx.scene.layout.GridPane;
 import org.jspace.RandomSpace;
 import org.jspace.Space;
 
@@ -51,6 +56,7 @@ public class Board {
             deg = 0;
         } else {
             System.out.println("Game over.");
+            //alertGameOver(linesCleared);
         }
     }
 
@@ -248,4 +254,49 @@ public class Board {
     }
 
     public Block[] getQueue() { return queue; }
+
+    public void alertGameOver(int clearedLines) {
+        TextField name;
+
+        //Skal nok over i view som FXML fil?
+        Dialog<String> dialog = new Dialog<>();
+        dialog.setTitle("Game over");
+        dialog.setHeaderText("You cleared " + clearedLines + " lines!");
+
+        ButtonType ok = new ButtonType("OK", ButtonBar.ButtonData.OK_DONE);
+        dialog.getDialogPane().getButtonTypes().addAll(ok);
+
+        GridPane grid = new GridPane();
+        grid.setHgap(10);
+        grid.setVgap(10);
+        grid.setPadding(new Insets(20, 20, 10, 10));
+
+        name = new TextField();
+        name.setPromptText("Your name");
+
+        grid.add(new Label("Please enter your name"), 0,0);
+        grid.add(name, 1,0);
+
+        Node okButton = dialog.getDialogPane().lookupButton(ok);
+        okButton.setDisable(true);
+
+        name.textProperty().addListener((observable, oldValue, newValue) -> {
+            okButton.setDisable(newValue.trim().isEmpty());
+        });
+
+        dialog.getDialogPane().setContent(grid);
+
+        Platform.runLater(() -> name.requestFocus());
+
+        dialog.setResultConverter(dialogButton -> {
+
+            if (dialogButton == ok) {
+                dialog.close();
+            }
+
+            return null;
+        });
+
+        dialog.show();
+    }
 }

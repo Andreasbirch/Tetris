@@ -11,6 +11,7 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
+import tetris.App;
 import tetris.GameServer;
 
 import java.io.File;
@@ -30,11 +31,8 @@ public class mainMenuController {
 
     @FXML
     private void startB() throws Exception {
-        Stage stage = (Stage) StartPage.getScene().getWindow();
-        Parent root = FXMLLoader.load(getClass().getResource("/tetris/view/TetrisPage.fxml"));
-        Scene scene = new Scene(root);
-        stage.setScene(scene);
-        stage.show();
+        Stage stage = new Stage();
+        App app = new App(stage);
     }
 
     @FXML
