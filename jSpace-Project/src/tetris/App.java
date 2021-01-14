@@ -48,7 +48,7 @@ public class App{
 
         try {
             String uri = "tcp://127.0.0.1:9001/chat?keep";
-            chat = new RemoteSpace(uri);
+//            chat = new RemoteSpace(uri);
             String name = "ABI";
 
 
@@ -67,12 +67,12 @@ public class App{
                     }
                     //queueView.updateQueueView(board);
 
-                    try {
-                        chat.put(name, board.getBoardArray());
-//                        chat.put(name, event.getCode().toString());
-                    } catch (InterruptedException e) {
-                        e.printStackTrace();
-                    }
+//                    try {
+//                        chat.put(name, board.getBoardArray());
+////                        chat.put(name, event.getCode().toString());
+//                    } catch (InterruptedException e) {
+//                        e.printStackTrace();
+//                    }
 
                     updateView();
 
@@ -88,7 +88,7 @@ public class App{
             });
 
 
-        } catch (IOException e) {
+        } catch (Exception e) {
             e.printStackTrace();
         }
 
@@ -101,11 +101,13 @@ public class App{
     }
 
     public static void updateP2View(int[][] ints) {
-        p2View.updateView(ints);
+        if(p2View != null) {
+            p2View.updateView(ints);
+        }
     }
 
     public static void getTimerUpdate() throws InterruptedException {
-        chat.put("ABI", board.getBoardArray());
+//        chat.put("ABI", board.getBoardArray());
     }
 
     public static void updateTimer() {

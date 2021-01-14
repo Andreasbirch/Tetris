@@ -53,7 +53,8 @@ public class GameServer implements Runnable{
 
             // Set the URI of the chat space
 
-            String uri = "tcp://127.0.0.1:9001/chat?keep";
+            String uri = "tcp://192.168.0.61:9001/chat?keep";
+//            String uri = "tcp://127.0.0.1:9001/chat?keep";
 
             // Open a gate
             URI myUri = new URI(uri);
@@ -63,7 +64,9 @@ public class GameServer implements Runnable{
 
             // Keep reading chat messages and printing them
             while (true) {
-                Object[] t = chat.get(new FormalField(String.class), new FormalField(int[][].class));
+//                Object[] t = chat.get(new ActualField("MAC"), new FormalField(String.class));
+                Object[] t = chat.get(new ActualField("MAC"), new FormalField(int[][].class));
+//                System.out.print(t[1]);
                 boardArray = (int[][])t[1];
                 App.updateP2View(boardArray);
             }
