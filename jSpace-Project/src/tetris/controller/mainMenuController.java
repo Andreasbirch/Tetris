@@ -29,11 +29,13 @@ public class mainMenuController {
     @FXML private Pane ControlsPage;
     @FXML private ImageView startBtnView;
 
+
     public mainMenuController() {}
 
     @FXML
     private void startB() throws Exception {
-        Stage stage = new Stage();
+        Stage stage = (Stage) StartPage.getScene().getWindow();
+        stage.close();
         App app = new App(stage);
     }
 

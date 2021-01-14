@@ -1,9 +1,13 @@
 package tetris;
 
+import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
+import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.ImageCursor;
+import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
@@ -35,17 +39,15 @@ public class App{
     private static Label scoreLabel;
     private static Label linesClearedLabel;
     private static RemoteSpace chat;
+    private static Stage primaryStage;
+    private static Scene scene;
 
     public App (Stage primaryStage) throws InterruptedException {
-
+        this.primaryStage = primaryStage;
         VBox root = javaFXSetup();
-        Scene scene = new Scene(root, 1000, 800);
+        scene = new Scene(root, 1000, 800);
         Time timer = new Time(board);
 //        timer.getTimeline().play();
-
-
-
-
 
         try {
             String uri = "tcp://127.0.0.1:9001/chat?keep";
@@ -152,9 +154,7 @@ public class App{
         linesClearedLabel = new Label("0");
         scoreBox.getChildren().addAll(scoreL, scoreLabel, linesL, linesClearedLabel);
 
-
         HBox hBox = new HBox();
-
         VBox vBox = new VBox();
         vBox.setSpacing(10);
         hBox.setSpacing(30);
@@ -179,9 +179,17 @@ public class App{
         image.setScaleY(0.5);
 
         Button backBtn = new Button("back");
+        backBtn.setOnAction(e -> {
+            try {
+                backB();
+            } catch (IOException ioException) {
+                ioException.printStackTrace();
+            }
+        });
         HBox headerBox = new HBox();
         headerBox.getChildren().addAll(backBtn, image);
         headerBox.setMargin(backBtn, new Insets(50, 50, 0, 50));
+
 
 
         VBox root = new VBox();
@@ -215,6 +223,14 @@ public class App{
         }
 
         return root;
+    }
+
+    @FXML
+    private void backB() throws IOException {
+        Parent root = FXMLLoader.load(getClass().getResource("/tetris/view/StartPage.fxml"));
+        Scene mainMenuScene= new Scene(root);
+        primaryStage.setScene(mainMenuScene);
+        primaryStage.show();
     }
 
     public static void stop(){}
