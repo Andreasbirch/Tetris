@@ -284,8 +284,8 @@ public class Board {
         name = new TextField();
         name.setPromptText("Your name");
 
-        grid.add(new Label("Please enter your name"), 0,0);
-        grid.add(name, 1,0);
+        grid.add(new Label("Please enter your name"), 0, 0);
+        grid.add(name, 1, 0);
 
         Node okButton = dialog.getDialogPane().lookupButton(ok);
         okButton.setDisable(true);
@@ -308,6 +308,9 @@ public class Board {
         });
 
         dialog.show();
+
+    }
+
     public void gameOver(String name) {
 
         System.out.println("GameOver()");
