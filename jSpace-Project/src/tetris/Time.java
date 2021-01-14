@@ -44,4 +44,7 @@ public class Time {
         timeline.play();
     }
 
+    public Timeline getTimeline() {
+        return timeline;
+    }
 }
