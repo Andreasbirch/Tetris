@@ -33,8 +33,8 @@ public class View {
         }
     }
 
-    public void updateView(Board board) {
-        int[][] boardArray = board.getBoardArray();
+    public void updateView(int[][] boardArray) {
+//        int[][] boardArray = board.getBoardArray();
 
         for(int x = 1; x < width+1; x++) {
             for(int y = 0; y < height; y++) {
