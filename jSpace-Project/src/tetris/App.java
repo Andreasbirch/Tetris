@@ -31,6 +31,8 @@ public class App{
     public static KeyCode moveLeftKey, moveRightKey, moveDownKey, rotateKey, dropKey;
     private static Label scoreLabel;
     private static Label linesClearedLabel;
+    private static Time timer;
+
     public App (Stage primaryStage) throws InterruptedException {
 
         board = new Board(TILE_SIZE, WIDTH, HEIGHT);
@@ -76,7 +78,7 @@ public class App{
 
         final Font f;
         try {
-            f = Font.loadFont(new FileInputStream(new File("src\\tetris\\res\\PressStart2P-Regular.ttf")),18);
+            f = Font.loadFont(new FileInputStream(new File("tetris/res/PressStart2P-Regular.ttf")),18);
             scoreL.setFont(f);
             scoreL.setTextFill(Color.WHITE);
             scoreLabel.setFont(f);
@@ -86,9 +88,13 @@ public class App{
             linesClearedLabel.setFont(f);
             linesClearedLabel.setTextFill(Color.WHITE);
         } catch (FileNotFoundException e) {
-            e.printStackTrace();
+            System.out.println("Couldn't load font.");
+            scoreL.setTextFill(Color.WHITE);
+            scoreLabel.setTextFill(Color.WHITE);
+            linesL.setTextFill(Color.WHITE);
+            linesClearedLabel.setTextFill(Color.WHITE);
         }
-        Time timer = new Time(board);
+        timer = new Time(board);
 //        timer.getTimeline().play();
 
         scene.setOnKeyPressed(new EventHandler<KeyEvent>() {
@@ -135,5 +141,9 @@ public class App{
         moveDownKey = KeyCode.getKeyCode(moveDownKeyS);
         rotateKey = KeyCode.getKeyCode(rotateKeyS);
         dropKey = KeyCode.getKeyCode(dropKeyS);
+    }
+
+    public static void stop() {
+        timer.getTimeline().stop();
     }
 }

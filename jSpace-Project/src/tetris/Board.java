@@ -1,10 +1,13 @@
 package tetris;
 
+import org.jspace.FormalField;
 import org.jspace.RandomSpace;
+import org.jspace.SequentialSpace;
 import org.jspace.Space;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Scanner;
 
 public class Board {
     private int tile_size, width, height;
@@ -30,9 +33,9 @@ public class Board {
         generateQueue();
         generateNewBlock();
 
-        Space blockSpace = new RandomSpace();
-        new Thread(new BlockPusher(blockSpace)).start();
-        new Thread(new BlockPuller(blockSpace, this)).start();
+//        Space blockSpace = new RandomSpace();
+//        new Thread(new BlockPusher(blockSpace)).start();
+//        new Thread(new BlockPuller(blockSpace, this)).start();
     }
 
 
@@ -50,7 +53,12 @@ public class Board {
             posY = 0;
             deg = 0;
         } else {
-            System.out.println("Game over.");
+            System.out.println("App");
+            App.stop();
+            System.out.println("AppStop");
+            Scanner scanner = new Scanner(System.in);
+            String name = scanner.nextLine();
+            gameOver(name);
         }
     }
 
@@ -75,6 +83,7 @@ public class Board {
                 Block tempBlock = currentBlock;
                 currentBlock = heldBlock;
                 heldBlock = tempBlock;
+                addBlock();
             } else {
                 heldBlock = currentBlock;
 //                currentBlock = new Block();
@@ -82,7 +91,6 @@ public class Board {
                 addToQueue();
                 generateNewBlock();
             }
-            addBlock();
         }
     }
 
@@ -248,4 +256,41 @@ public class Board {
     }
 
     public Block[] getQueue() { return queue; }
+
+    public void gameOver(String name) {
+
+        System.out.println("GameOver()");
+
+        Space channelUserScoreboard = new SequentialSpace();
+        Space channelScoreboardUser = new SequentialSpace();
+
+        try {
+            channelUserScoreboard.put(name, score);
+            System.out.println("UserToScoreboard");
+
+            if (checkScore(score)) {
+                channelScoreboardUser.put("new high score");
+                System.out.println("ScoreboardToUser");
+                addToScoreBoard(name, score);
+            } else {
+                channelScoreboardUser.put("not a high score");
+            }
+
+            System.out.println(channelScoreboardUser.get(new FormalField(String.class)));
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public boolean checkScore(int newScore) {
+        System.out.println("checkScore");
+        return true;
+    }
+
+    public void addToScoreBoard(String name, int score) {
+        System.out.println("addToScoreboard");
+        HighScore highScore = new HighScore();
+        String newScore = score + "";
+        highScore.addHighScore(name, newScore);
+    }
 }
