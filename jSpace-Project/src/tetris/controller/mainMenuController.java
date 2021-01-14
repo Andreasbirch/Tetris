@@ -11,6 +11,9 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
+import org.jspace.SequentialSpace;
+import org.jspace.Space;
+import tetris.App;
 import tetris.GameServer;
 
 import java.io.File;
@@ -49,6 +52,6 @@ public class mainMenuController {
     @FXML
     private void hostB(ActionEvent event) throws Exception {
         System.out.println("Launching server");
-        GameServer server = new GameServer();
+        App.launchHost();
     }
 }

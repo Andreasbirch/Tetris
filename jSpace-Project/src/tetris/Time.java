@@ -33,6 +33,11 @@ public class Time {
                 timeline.stop();
             }
             board.move("DOWN");
+            try {
+                App.getTimerUpdate();
+            } catch (InterruptedException interruptedException) {
+                interruptedException.printStackTrace();
+            }
             App.updateView();
         }));
 

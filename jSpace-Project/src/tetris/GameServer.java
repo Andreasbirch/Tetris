@@ -1,8 +1,10 @@
 package tetris;
 
-import org.jspace.FormalField;
-import org.jspace.SequentialSpace;
-import org.jspace.SpaceRepository;
+import javafx.animation.KeyFrame;
+import javafx.animation.Timeline;
+import javafx.scene.input.KeyCode;
+import javafx.util.Duration;
+import org.jspace.*;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -14,9 +16,28 @@ import org.jspace.FormalField;
 import org.jspace.SequentialSpace;
 import org.jspace.SpaceRepository;
 
-public class GameServer {
+public class GameServer implements Runnable{
+    private Space space;
+    private Timeline timeline;
+    private int[][] boardArray;
 
-    public static void main(String[] args) {
+    public GameServer(Space space) {
+        this.space = space;
+
+
+//        timeline = new Timeline();
+//        timeline.setCycleCount(Timeline.INDEFINITE);
+//        timeline.getKeyFrames().add(new KeyFrame(Duration.millis(300), e -> {
+//            if(boardArray != null) {
+//                App.updateP2View(boardArray);
+//            }
+//        }));
+//
+//        timeline.play();
+    }
+
+    @Override
+    public void run() {
         try {
 
             BufferedReader input = new BufferedReader(new InputStreamReader(System.in));
@@ -42,8 +63,9 @@ public class GameServer {
 
             // Keep reading chat messages and printing them
             while (true) {
-                Object[] t = chat.get(new FormalField(String.class), new FormalField(String.class));
-                System.out.println(t[0] + ": " + t[1]);
+                Object[] t = chat.get(new FormalField(String.class), new FormalField(int[][].class));
+                boardArray = (int[][])t[1];
+                App.updateP2View(boardArray);
             }
 
         } catch (InterruptedException e) {
@@ -52,5 +74,4 @@ public class GameServer {
             e.printStackTrace();
         }
     }
-
 }
