@@ -9,8 +9,7 @@ import javafx.geometry.Pos;
 import javafx.scene.ImageCursor;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.control.Button;
-import javafx.scene.control.Label;
+import javafx.scene.control.*;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.KeyCode;
@@ -162,7 +161,23 @@ public class App{
 
         VBox heldViewBox = new VBox();
         Button pauseBtn = new Button("pause");
+        pauseBtn.setOnAction(e -> {
+            try {
+                pauseB();
+            } catch (IOException ioException) {
+                ioException.printStackTrace();
+            }
+        });
+
         Button newGameBtn = new Button("new");
+        newGameBtn.setOnAction(e -> {
+            try {
+                newGameB();
+            } catch (IOException | InterruptedException ioException) {
+                ioException.printStackTrace();
+            }
+        });
+
         heldViewBox.setAlignment(Pos.CENTER);
         heldViewBox.setSpacing(30);
         heldViewBox.getChildren().addAll(heldView.getView(), pauseBtn, newGameBtn);
@@ -221,8 +236,18 @@ public class App{
             linesL.setTextFill(Color.WHITE);
             linesClearedLabel.setTextFill(Color.WHITE);
         }
-
         return root;
+    }
+
+    private void pauseB() throws IOException {
+        //Her skal spillet pauses, timeline?
+        pauseAlert();
+    }
+
+    private void newGameB() throws IOException, InterruptedException {
+        Stage stage = (Stage) primaryStage.getScene().getWindow();
+        stage.close();
+        App app = new App(stage);
     }
 
     @FXML
@@ -231,6 +256,24 @@ public class App{
         Scene mainMenuScene= new Scene(root);
         primaryStage.setScene(mainMenuScene);
         primaryStage.show();
+    }
+
+    public void pauseAlert() {
+        Alert alert = new Alert(Alert.AlertType.INFORMATION);
+        alert.setTitle("");
+        alert.setHeaderText("Game paused");
+        alert.setContentText("Press button to unpause");
+
+        ButtonType okButton = new ButtonType("Yes", ButtonBar.ButtonData.YES);
+        ButtonType cancelButton = new ButtonType("Cancel", ButtonBar.ButtonData.CANCEL_CLOSE);
+        alert.getButtonTypes().setAll(okButton,cancelButton);
+        alert.showAndWait().ifPresent(type -> {
+            if(type == okButton) {
+                //Her skal timeline startes igen
+                System.out.println("Game unpaused");
+            } else {}
+        });
+        alert.show();
     }
 
     public static void stop(){}

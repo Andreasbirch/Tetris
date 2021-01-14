@@ -1,8 +1,7 @@
-C,2212
-C,157
-Andreas,119
-C,110
-C,98
-C,157
-C,110
-Andreas,119
+ Andreas,114
+Kanne,105
+  Kanneworff,104
+Andreas,103
+Kanne,105
+ Andreas,114
+  Kanneworff,104

@@ -305,12 +305,10 @@ public class Board {
                 gameOver(name.getText());
                 dialog.close();
             }
-
             return null;
         });
 
         dialog.show();
-
     }
 
     public void gameOver(String name) {
