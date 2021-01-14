@@ -5,6 +5,7 @@ import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.ImageCursor;
 import javafx.scene.Scene;
+import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
@@ -158,7 +159,15 @@ public class App{
         vBox.setSpacing(10);
         hBox.setSpacing(30);
         vBox.getChildren().addAll(queueView1.getView(), queueView2.getView(), scoreBox);
-        hBox.getChildren().addAll(heldView.getView(), view.getView(), vBox, p2View.getView());
+
+        VBox heldViewBox = new VBox();
+        Button pauseBtn = new Button("pause");
+        Button newGameBtn = new Button("new");
+        heldViewBox.setAlignment(Pos.CENTER);
+        heldViewBox.setSpacing(30);
+        heldViewBox.getChildren().addAll(heldView.getView(), pauseBtn, newGameBtn);
+
+        hBox.getChildren().addAll(heldViewBox, view.getView(), vBox, p2View.getView());
 
 
         hBox.setPrefSize(1000,600);
@@ -170,11 +179,18 @@ public class App{
         image.setScaleX(0.5);
         image.setScaleY(0.5);
 
+        Button backBtn = new Button("back");
+        HBox headerBox = new HBox();
+        headerBox.getChildren().addAll(backBtn, image);
+        headerBox.setMargin(backBtn, new Insets(50, 50, 0, 50));
+
+
         VBox root = new VBox();
         root.setStyle("-fx-background-image: url(/tetris/res/BackgroundImage.jpg); -fx-background-repeat: repeat; -fx-background-size: cover, auto");
         root.setPrefSize(1000,800);
-        root.getChildren().addAll(image, hBox);
-        root.setMargin(image, new Insets(0, 0,0,60));
+        root.getChildren().addAll(headerBox, hBox);
+//        root.setMargin(bb, new Insets(60, 60,60,60));
+//        root.setMargin(image, new Insets(0, 0,0,60));
 
 
         final Font f;
@@ -188,6 +204,9 @@ public class App{
             linesL.setTextFill(Color.WHITE);
             linesClearedLabel.setFont(f);
             linesClearedLabel.setTextFill(Color.WHITE);
+            backBtn.setFont(f);
+            pauseBtn.setFont(f);
+            newGameBtn.setFont(f);
         } catch (FileNotFoundException e) {
             System.out.println("Couldn't load font.");
             scoreL.setTextFill(Color.WHITE);
