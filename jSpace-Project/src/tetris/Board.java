@@ -308,6 +308,7 @@ public class Board {
         });
 
         dialog.show();
+
     }
 
     public void gameOver(String name) {
