@@ -36,7 +36,6 @@ public class HighScore {
         } catch (Exception e) {
 
         }
-        System.out.println("readHighScore");
     }
 
     public void addHighScore (String name, String score) {
@@ -46,7 +45,6 @@ public class HighScore {
         int i = 0;
 
         if (data.size() == 0) {
-            System.out.println("addHighscore1");
             data.add(0, highScoreData);
             writeHighScore();
         } else {
@@ -54,22 +52,23 @@ public class HighScore {
                 System.out.println(data.get(i).getScore());
                 System.out.println(score);
                 if (Integer.parseInt(data.get(i).getScore()) > Integer.parseInt(score)) {
-                    System.out.println("addHighscore2");
                     i++;
                 } else {
-                    System.out.println("addHighscore3");
                     data.add(i, highScoreData);
                     writeHighScore();
                     break;
                 }
+            }
+
+            if (data.size() < 10) {
+                data.add((data.size()), highScoreData);
+                writeHighScore();
             }
         }
 
         if (data.size() == 11) {
             data.remove(10);
         }
-
-        System.out.println("addHighscore");
     }
 
     private void writeHighScore() {
@@ -86,8 +85,6 @@ public class HighScore {
         } catch (FileNotFoundException e) {
             e.printStackTrace();
         }
-
-        System.out.println("writeHighScore");
     }
 
     public ObservableList<HighScoreData> getData() {

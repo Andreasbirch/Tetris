@@ -7,6 +7,7 @@ import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.fxml.Initializable;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
@@ -30,21 +31,20 @@ import java.nio.file.Paths;
 import java.util.ResourceBundle;
 
 
-public class mainMenuController {
+public class mainMenuController implements Initializable {
     @FXML private Button startBtn;
     @FXML private Pane TetrisPage;
     @FXML private Pane StartPage;
     @FXML private Pane ControlsPage;
     @FXML private ImageView startBtnView;
-    @FXML private TableView table = new TableView<HighScoreData>();
-    @FXML private TableColumn col1 = new TableColumn();
-    @FXML private TableColumn col2 = new TableColumn();
+    @FXML private TableView<HighScoreData> table;
+    @FXML private TableColumn<HighScoreData, String> col1;
+    @FXML private TableColumn<HighScoreData, String> col2;
 
     ObservableList<HighScoreData> data;
     HighScore highScore = new HighScore();
 
     public mainMenuController() {
-        setTable();
     }
 
     @FXML
@@ -68,12 +68,16 @@ public class mainMenuController {
         App.launchHost();
     }
 
-    private void setTable() {
+    @Override
+    public void initialize(URL arg0, ResourceBundle arg1) {
 
-        col1.setCellValueFactory(new PropertyValueFactory<HighScoreData, String>("name"));
-        col2.setCellValueFactory(new PropertyValueFactory<HighScoreData, String>("score"));
+        col1.setCellValueFactory(
+                new PropertyValueFactory<>("name")
+        );
+        col2.setCellValueFactory(
+                new PropertyValueFactory<>("score")
+        );
 
         table.setItems(highScore.getData());
-        table.getColumns().addAll(col1, col2);
     }
 }
