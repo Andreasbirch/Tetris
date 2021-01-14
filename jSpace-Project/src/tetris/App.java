@@ -15,26 +15,128 @@ import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 import javafx.stage.Stage;
+import org.jspace.FormalField;
+import org.jspace.RemoteSpace;
+import org.jspace.SequentialSpace;
+import org.jspace.Space;
 
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
+import java.io.*;
 
 public class App{
     public final int TILE_SIZE = 28;
     public final int WIDTH = 10;
     public final int HEIGHT = 20;
     private static Board board;
-    private static View view;
+    private static View view, p2View;
     private static HeldView heldView;
     private static QueueView queueView1, queueView2;
     public static KeyCode moveLeftKey, moveRightKey, moveDownKey, rotateKey, dropKey;
     private static Label scoreLabel;
     private static Label linesClearedLabel;
+    private static RemoteSpace chat;
+
     public App (Stage primaryStage) throws InterruptedException {
 
+        VBox root = javaFXSetup();
+        Scene scene = new Scene(root, 1000, 800);
+        Time timer = new Time(board);
+//        timer.getTimeline().play();
+
+
+
+
+
+        try {
+            String uri = "tcp://127.0.0.1:9001/chat?keep";
+            chat = new RemoteSpace(uri);
+            String name = "ABI";
+
+
+            scene.setOnKeyPressed(new EventHandler<KeyEvent>() {
+                @Override
+                public void handle(KeyEvent event) {
+                    //ORs are temporary fix, remove when possible
+                    if(event.getCode() == moveLeftKey || event.getCode() == KeyCode.LEFT) {board.move("LEFT");}
+                    if(event.getCode() == moveRightKey || event.getCode() == KeyCode.RIGHT) {board.move("RIGHT");}
+                    if(event.getCode() == moveDownKey || event.getCode() == KeyCode.DOWN) {board.move( "DOWN");}
+                    if(event.getCode() == rotateKey || event.getCode() == KeyCode.UP) {board.rotate();}
+                    if(event.getCode() == dropKey || event.getCode() == KeyCode.SPACE) {board.drop();}
+                    if(event.getCode() == KeyCode.C) {
+                        board.hold();
+                        heldView.updateHeldView(board);
+                    }
+                    //queueView.updateQueueView(board);
+
+                    try {
+                        chat.put(name, board.getBoardArray());
+//                        chat.put(name, event.getCode().toString());
+                    } catch (InterruptedException e) {
+                        e.printStackTrace();
+                    }
+
+                    updateView();
+
+//                    try {
+//                        Object[] t = chat.getp(new FormalField(String.class), new FormalField(int[][].class));
+//                        updateP2View((int[][])t[1]);
+//                    } catch (InterruptedException e) {
+//                        e.printStackTrace();
+//                    }
+                    event.consume();
+
+                }
+            });
+
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+
+        //queueView.updateQueueView(board);
+        updateView();
+        primaryStage.setTitle("Tetris!");
+        primaryStage.setScene(scene);
+        primaryStage.show();
+    }
+
+    public static void updateP2View(int[][] ints) {
+        p2View.updateView(ints);
+    }
+
+    public static void getTimerUpdate() throws InterruptedException {
+        chat.put("ABI", board.getBoardArray());
+    }
+
+    public static void updateTimer() {
+//        Time timer = new Time(board);
+    }
+
+    public static void updateView() {
+        view.updateView(board.getBoardArray());
+        queueView1.updateQueueView(board);
+        queueView2.updateQueueView(board);
+        scoreLabel.setText(String.valueOf(board.getScore()));
+        linesClearedLabel.setText(String.valueOf(board.getLinesCleared()));
+    }
+
+    public static void setKeys(String moveLeftKeyS, String moveRightKeyS, String moveDownKeyS, String rotateKeyS, String dropKeyS) {
+        moveLeftKey = KeyCode.getKeyCode(moveLeftKeyS);
+        moveRightKey = KeyCode.getKeyCode(moveRightKeyS);
+        moveDownKey = KeyCode.getKeyCode(moveDownKeyS);
+        rotateKey = KeyCode.getKeyCode(rotateKeyS);
+        dropKey = KeyCode.getKeyCode(dropKeyS);
+    }
+
+    public static void launchHost() {
+        Space board = new SequentialSpace();
+        new Thread(new GameServer(board)).start();
+    }
+
+    private VBox javaFXSetup() throws InterruptedException {
         board = new Board(TILE_SIZE, WIDTH, HEIGHT);
         view = new View(TILE_SIZE, WIDTH, HEIGHT);
+        p2View = new View(TILE_SIZE, WIDTH, HEIGHT);
         heldView = new HeldView(TILE_SIZE);
         queueView1 = new QueueView(TILE_SIZE, 1);
         queueView2 = new QueueView(TILE_SIZE, 2);
@@ -54,24 +156,23 @@ public class App{
         vBox.setSpacing(10);
         hBox.setSpacing(30);
         vBox.getChildren().addAll(queueView1.getView(), queueView2.getView(), scoreBox);
-        hBox.getChildren().addAll(heldView.getView(), view.getView(), vBox);
+        hBox.getChildren().addAll(heldView.getView(), view.getView(), vBox, p2View.getView());
 
 
-        hBox.setPrefSize(600,600);
+        hBox.setPrefSize(1000,600);
         hBox.setAlignment(Pos.CENTER);
 
-        VBox root = new VBox();
-        root.setStyle("-fx-background-image: url(/tetris/res/BackgroundImage.jpg); -fx-background-repeat: repeat; -fx-background-size: cover, auto");
         ImageView image = new ImageView();
         image.setImage(new Image("/tetris/res/TetrisLogo.png"));
         image.setLayoutX(50);
         image.setScaleX(0.5);
         image.setScaleY(0.5);
 
-        root.setPrefSize(600,800);
+        VBox root = new VBox();
+        root.setStyle("-fx-background-image: url(/tetris/res/BackgroundImage.jpg); -fx-background-repeat: repeat; -fx-background-size: cover, auto");
+        root.setPrefSize(1000,800);
         root.getChildren().addAll(image, hBox);
         root.setMargin(image, new Insets(0, 0,0,60));
-        Scene scene = new Scene(root, 600, 800);
 
 
         final Font f;
@@ -86,54 +187,13 @@ public class App{
             linesClearedLabel.setFont(f);
             linesClearedLabel.setTextFill(Color.WHITE);
         } catch (FileNotFoundException e) {
-            e.printStackTrace();
+            System.out.println("Couldn't load font.");
+            scoreL.setTextFill(Color.WHITE);
+            scoreLabel.setTextFill(Color.WHITE);
+            linesL.setTextFill(Color.WHITE);
+            linesClearedLabel.setTextFill(Color.WHITE);
         }
-        Time timer = new Time(board);
-//        timer.getTimeline().play();
 
-        scene.setOnKeyPressed(new EventHandler<KeyEvent>() {
-            @Override
-            public void handle(KeyEvent event) {
-                //ORs are temporary fix, remove when possible
-                if(event.getCode() == moveLeftKey || event.getCode() == KeyCode.LEFT) {board.move("LEFT");}
-                if(event.getCode() == moveRightKey || event.getCode() == KeyCode.RIGHT) {board.move("RIGHT");}
-                if(event.getCode() == moveDownKey || event.getCode() == KeyCode.DOWN) {board.move( "DOWN");}
-                if(event.getCode() == rotateKey || event.getCode() == KeyCode.UP) {board.rotate();}
-                if(event.getCode() == dropKey || event.getCode() == KeyCode.SPACE) {board.drop();}
-                if(event.getCode() == KeyCode.C) {
-                    board.hold();
-                    heldView.updateHeldView(board);
-                }
-                //queueView.updateQueueView(board);
-                updateView();
-                event.consume();
-
-            }
-        });
-        //queueView.updateQueueView(board);
-        updateView();
-        primaryStage.setTitle("Tetris!");
-        primaryStage.setScene(scene);
-        primaryStage.show();
-    }
-
-    public static void updateTimer() {
-//        Time timer = new Time(board);
-    }
-
-    public static void updateView() {
-        view.updateView(board);
-        queueView1.updateQueueView(board);
-        queueView2.updateQueueView(board);
-        scoreLabel.setText(String.valueOf(board.getScore()));
-        linesClearedLabel.setText(String.valueOf(board.getLinesCleared()));
-    }
-
-    public static void setKeys(String moveLeftKeyS, String moveRightKeyS, String moveDownKeyS, String rotateKeyS, String dropKeyS) {
-        moveLeftKey = KeyCode.getKeyCode(moveLeftKeyS);
-        moveRightKey = KeyCode.getKeyCode(moveRightKeyS);
-        moveDownKey = KeyCode.getKeyCode(moveDownKeyS);
-        rotateKey = KeyCode.getKeyCode(rotateKeyS);
-        dropKey = KeyCode.getKeyCode(dropKeyS);
+        return root;
     }
 }

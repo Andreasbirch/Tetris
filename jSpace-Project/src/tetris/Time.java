@@ -30,6 +30,11 @@ public class Time {
 
         timeline.getKeyFrames().add(new KeyFrame(Duration.millis(300), e -> {
             board.move("DOWN");
+            try {
+                App.getTimerUpdate();
+            } catch (InterruptedException interruptedException) {
+                interruptedException.printStackTrace();
+            }
             App.updateView();
         }));
 
