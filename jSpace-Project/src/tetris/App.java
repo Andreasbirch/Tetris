@@ -49,6 +49,10 @@ public class App{
         this.multiplayer = multiplayer;
         this.primaryStage = primaryStage;
 
+        if(isClient) {
+            server.put("START", ID);
+        }
+
         if(multiplayer){
             p2Timer.play();
         }
@@ -204,13 +208,13 @@ public class App{
     }
 
     private static void joinGame(String serverIP) throws IOException, InterruptedException {
-        System.out.println("Joined server on IP " + serverIP);
         multiplayer = true;
+        isClient = true;
         String uri = "tcp://" + serverIP + ":9001/server?keep";
         ID = InetAddress.getLocalHost().getHostAddress();
         server = new RemoteSpace(uri);
         p2Timer = new P2Timer(server);
-        server.put("START", p2ID);
+        System.out.println("Joined server on IP " + serverIP);
     }
 
 

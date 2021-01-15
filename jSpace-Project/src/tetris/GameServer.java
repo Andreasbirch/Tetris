@@ -67,15 +67,17 @@ public class GameServer implements Runnable{
 //                    }
 //
 ////                }
-////                while (true) {
-////                    Object[] t = server.get(new FormalField(String.class), new FormalField(int[][].class));
-////                    System.out.println(t[0] + " " + t[1]);
-////                }
+                while (true) {
+                    Object[] t = server.get(new FormalField(String.class), new FormalField(int[][].class));
+                    System.out.println(t[0]);
+                }
 //            }
 
         } catch (URISyntaxException e) {
             e.printStackTrace();
         } catch (UnknownHostException e) {
+            e.printStackTrace();
+        } catch (InterruptedException e) {
             e.printStackTrace();
         }
     }
