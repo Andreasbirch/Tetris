@@ -25,56 +25,54 @@ public class GameServer implements Runnable{
 
     public GameServer(Space space) {
         this.space = space;
-
-
-//        timeline = new Timeline();
-//        timeline.setCycleCount(Timeline.INDEFINITE);
-//        timeline.getKeyFrames().add(new KeyFrame(Duration.millis(300), e -> {
-//            if(boardArray != null) {
-//                App.updateP2View(boardArray);
-//            }
-//        }));
-//
-//        timeline.play();
     }
 
     @Override
     public void run() {
         try {
 
-            BufferedReader input = new BufferedReader(new InputStreamReader(System.in));
-
             // Create a repository
             SpaceRepository repository = new SpaceRepository();
 
             // Create a local space for the chat messages
-            SequentialSpace chat = new SequentialSpace();
+            SequentialSpace server = new SequentialSpace();
 
             // Add the space to the repository
-            repository.add("chat", chat);
+            repository.add("server", server);
 
             // Set the URI of the chat space
             String ipAddress = InetAddress.getLocalHost().getHostAddress();
-            String uri = "tcp://" + ipAddress + ":9001/chat?keep";
+            String uri = "tcp://" + ipAddress + ":9001/server?keep";
+            System.out.println("Hosting game on address: " + uri);
 //            String uri = "tcp://127.0.0.1:9001/chat?keep";
 
             // Open a gate
             URI myUri = new URI(uri);
             String gateUri = "tcp://" + myUri.getHost() + ":" + myUri.getPort() +  "?keep" ;
-            System.out.println("Opening repository gate at " + gateUri + "...");
+//            System.out.println("Opening repository gate at " + gateUri + "...");
             repository.addGate(gateUri);
 
             // Keep reading chat messages and printing them
-            while (true) {
-//                Object[] t = chat.get(new ActualField("MAC"), new FormalField(String.class));
-                Object[] t = chat.get(new ActualField("MAC"), new FormalField(int[][].class));
-//                System.out.print(t[1]);
-                boardArray = (int[][])t[1];
-                App.updateP2View(boardArray);
-            }
+            System.out.println(App.getP2ID());
+//            while (true) {
+////                Object[] t = chat.get(new ActualField("MAC"), new FormalField(String.class));
+////                Object[] t = server.queryp(new FormalField(String.class), new FormalField(int[][].class));
+////                if(t != null && t[0] != App.getID()) {
+//                    if (App.getP2ID() != null) {
+//                        Object[] arr = server.getp(new ActualField(App.getP2ID()), new FormalField(int[][].class));
+//                        if(arr != null) {
+//                            boardArray = (int[][])arr[1];
+//                            App.updateP2View(boardArray);
+//                        }
+//                    }
+//
+////                }
+////                while (true) {
+////                    Object[] t = server.get(new FormalField(String.class), new FormalField(int[][].class));
+////                    System.out.println(t[0] + " " + t[1]);
+////                }
+//            }
 
-        } catch (InterruptedException e) {
-            e.printStackTrace();
         } catch (URISyntaxException e) {
             e.printStackTrace();
         } catch (UnknownHostException e) {

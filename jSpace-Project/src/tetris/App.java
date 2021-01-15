@@ -1,12 +1,10 @@
 package tetris;
 
-import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
-import javafx.scene.ImageCursor;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
@@ -20,12 +18,10 @@ import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 import javafx.stage.Stage;
-import org.jspace.FormalField;
-import org.jspace.RemoteSpace;
-import org.jspace.SequentialSpace;
-import org.jspace.Space;
+import org.jspace.*;
 
 import java.io.*;
+import java.net.InetAddress;
 
 public class App{
     public final int TILE_SIZE = 28;
@@ -38,23 +34,35 @@ public class App{
     public static KeyCode moveLeftKey, moveRightKey, moveDownKey, rotateKey, dropKey;
     private static Label scoreLabel;
     private static Label linesClearedLabel;
-    private static RemoteSpace chat;
+    private static RemoteSpace server;
     private static Stage primaryStage;
     private static Scene scene;
+    private static String ID;
+    private static boolean multiplayer;
+    private static String p2ID;
+    private static P2Timer p2Timer;
 
     public App (Stage primaryStage) throws InterruptedException {
+        this.multiplayer = multiplayer;
         this.primaryStage = primaryStage;
+
+        if(multiplayer){
+            p2Timer.play();
+        }
+//        if(multiplayer) {
+//            Object[] t = server.get(new ActualField("START"), new FormalField(String.class));
+//            if (t != null) {
+//                p2ID = (String) t[1];
+//                System.out.println(p2ID);
+//            }
+//        }
+
         VBox root = javaFXSetup();
         scene = new Scene(root, 1000, 800);
         Time timer = new Time(board);
 //        timer.getTimeline().play();
 
         try {
-            String uri = "tcp://127.0.0.1:9001/chat?keep";
-//            chat = new RemoteSpace(uri);
-            String name = "ABI";
-
-
             scene.setOnKeyPressed(new EventHandler<KeyEvent>() {
                 @Override
                 public void handle(KeyEvent event) {
@@ -70,21 +78,15 @@ public class App{
                     }
                     //queueView.updateQueueView(board);
 
-//                    try {
-//                        chat.put(name, board.getBoardArray());
-////                        chat.put(name, event.getCode().toString());
-//                    } catch (InterruptedException e) {
-//                        e.printStackTrace();
-//                    }
+                    if(multiplayer){
+                        try {
+                            server.put(ID, board.getBoardArray());
+                        } catch (InterruptedException e) {
+                            e.printStackTrace();
+                        }
+                    }
 
                     updateView();
-
-//                    try {
-//                        Object[] t = chat.getp(new FormalField(String.class), new FormalField(int[][].class));
-//                        updateP2View((int[][])t[1]);
-//                    } catch (InterruptedException e) {
-//                        e.printStackTrace();
-//                    }
                     event.consume();
 
                 }
@@ -110,7 +112,9 @@ public class App{
     }
 
     public static void getTimerUpdate() throws InterruptedException {
-//        chat.put("ABI", board.getBoardArray());
+        if(multiplayer) {
+            server.put(ID, board.getBoardArray());
+        }
     }
 
     public static void updateTimer() {
@@ -133,15 +137,20 @@ public class App{
         dropKey = KeyCode.getKeyCode(dropKeyS);
     }
 
-    public static void launchHost() {
+    public static void launchHost() throws IOException {
+        //Sets ID to be equiv to ipAddress. Only works locally.
+        multiplayer = true;
+        ID = InetAddress.getLocalHost().getHostAddress();
         Space board = new SequentialSpace();
         new Thread(new GameServer(board)).start();
+        String uri = "tcp://" + ID + ":9001/server?keep";
+        server = new RemoteSpace(uri);
+        p2Timer = new P2Timer(server);
     }
 
     private VBox javaFXSetup() throws InterruptedException {
         board = new Board(TILE_SIZE, WIDTH, HEIGHT);
         view = new View(TILE_SIZE, WIDTH, HEIGHT);
-        p2View = new View(TILE_SIZE, WIDTH, HEIGHT);
         heldView = new HeldView(TILE_SIZE);
         queueView1 = new QueueView(TILE_SIZE, 1);
         queueView2 = new QueueView(TILE_SIZE, 2);
@@ -167,7 +176,12 @@ public class App{
         heldViewBox.setSpacing(30);
         heldViewBox.getChildren().addAll(heldView.getView(), pauseBtn, newGameBtn);
 
-        hBox.getChildren().addAll(heldViewBox, view.getView(), vBox, p2View.getView());
+        if(multiplayer){
+            p2View = new View(TILE_SIZE, WIDTH, HEIGHT);
+            hBox.getChildren().addAll(heldViewBox, view.getView(), vBox, p2View.getView());
+        } else {
+            hBox.getChildren().addAll(heldViewBox, view.getView(), vBox);
+        }
 
         hBox.setPrefSize(1000,600);
         hBox.setAlignment(Pos.CENTER);
@@ -231,6 +245,16 @@ public class App{
         Scene mainMenuScene= new Scene(root);
         primaryStage.setScene(mainMenuScene);
         primaryStage.show();
+    }
+
+    public static String getID() {
+        return ID;
+    }
+
+    public static String getP2ID() {
+        //Hardcoded, working on fix.
+        return "MAC";
+//        return p2ID;
     }
 
     public static void stop(){}
