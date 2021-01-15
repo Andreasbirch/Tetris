@@ -5,11 +5,10 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
-import tetris.controller.mainMenuController;
 
 import java.io.IOException;
 
-public class mainMenu extends Application {
+public class MainMenu extends Application {
 
     @Override
     public void start(Stage primaryStage) throws IOException {

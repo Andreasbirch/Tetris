@@ -20,9 +20,9 @@ import tetris.App;
 import java.net.URL;
 import java.util.ResourceBundle;
 
-public class controlsController implements Initializable {
+public class ControlsController implements Initializable {
 
-    public controlsController() {}
+    public ControlsController() {}
 
     DB DB = new DB();
 

@@ -10,8 +10,8 @@ import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
 import tetris.App;
 
-public class tetrisPageController {
-    public tetrisPageController() {}
+public class TetrisPageController {
+    public TetrisPageController() {}
 
     @FXML
     private Button backBtn;

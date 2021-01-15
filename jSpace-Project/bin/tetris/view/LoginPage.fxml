@@ -7,7 +7,7 @@
 
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.control.Label?>
-<Pane fx:id="loginPage" fx:controller="tetris.controller.loginController" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1">
+<Pane fx:id="LoginPage" fx:controller="tetris.controller.LoginController" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1">
    <children>
       <TextField fx:id="usernameTF" layoutX="220.0" layoutY="136.0" />
       <PasswordField fx:id="passwordPF" layoutX="220.0" layoutY="187.0" />

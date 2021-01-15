@@ -9,7 +9,7 @@
 <?import javafx.scene.control.TableView?>
 <?import javafx.scene.control.TableColumn?>
 <?import javafx.scene.control.Label?>
-<Pane fx:id="StartPage" fx:controller="tetris.controller.mainMenuController" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="800.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" style="-fx-background-image: url(/tetris/res/BackgroundImage.jpg); -fx-background-repeat: repeat; -fx-background-size: cover, auto">
+<Pane fx:id="StartPage" fx:controller="tetris.controller.MainMenuController" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="800.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" style="-fx-background-image: url(/tetris/res/BackgroundImage.jpg); -fx-background-repeat: repeat; -fx-background-size: cover, auto">
    <children>
       <ImageView id="logoView" layoutX="110.0" layoutY="20.0" pickOnBounds="true" preserveRatio="true">
          <image>

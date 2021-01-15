@@ -6,7 +6,7 @@
 
 
 <?import javafx.scene.control.CheckBox?>
-<Pane fx:id="ControlsPage" fx:controller="tetris.controller.controlsController" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="800.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" style="-fx-background-image: url(/tetris/res/BackgroundImage.jpg); -fx-background-repeat: repeat; -fx-background-size: cover, auto">
+<Pane fx:id="ControlsPage" fx:controller="tetris.controller.ControlsController" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="800.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" style="-fx-background-image: url(/tetris/res/BackgroundImage.jpg); -fx-background-repeat: repeat; -fx-background-size: cover, auto">
    <children>
       <Button fx:id="backBtn" layoutX="29.0" layoutY="30.0" mnemonicParsing="false" onAction="#backB" text="Back" />
       <Button fx:id="defaultBtn" layoutX="29.0" layoutY="60.0" mnemonicParsing="false" onAction="#defaultB" text="Set to default" />

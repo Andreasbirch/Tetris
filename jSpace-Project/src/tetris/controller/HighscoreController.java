@@ -9,9 +9,9 @@ import javafx.scene.control.Button;
 import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
 
-public class highscoreController {
+public class HighscoreController {
 
-    public highscoreController() {}
+    public HighscoreController() {}
 
     @FXML
     private Button backBtn;

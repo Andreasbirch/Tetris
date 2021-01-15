@@ -32,7 +32,7 @@ import java.nio.file.Paths;
 import java.util.ResourceBundle;
 
 
-public class mainMenuController implements Initializable {
+public class MainMenuController implements Initializable {
     @FXML private Button startBtn;
     @FXML private Pane TetrisPage;
     @FXML private Pane StartPage;
@@ -45,7 +45,7 @@ public class mainMenuController implements Initializable {
     ObservableList<HighScoreData> data;
     HighScore highScore = new HighScore();
 
-    public mainMenuController() {
+    public MainMenuController() {
     }
 
     @FXML
