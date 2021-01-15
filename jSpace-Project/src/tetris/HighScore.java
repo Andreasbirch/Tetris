@@ -2,14 +2,11 @@ package tetris;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-import javafx.fxml.FXML;
 
 import java.io.*;
 
 
 public class HighScore {
-
-    @FXML
 
     File file = new  File("highScore.txt");
     ObservableList<HighScoreData> data = FXCollections.observableArrayList();
@@ -41,6 +38,7 @@ public class HighScore {
     public void addHighScore (String name, String score) {
 
         HighScoreData highScoreData = new HighScoreData(name, score);
+        boolean added = false;
 
         int i = 0;
 
@@ -54,13 +52,14 @@ public class HighScore {
                 if (Integer.parseInt(data.get(i).getScore()) > Integer.parseInt(score)) {
                     i++;
                 } else {
+                    added = true;
                     data.add(i, highScoreData);
                     writeHighScore();
                     break;
                 }
             }
 
-            if (data.size() < 10) {
+            if (data.size() < 10 && added == false) {
                 data.add((data.size()), highScoreData);
                 writeHighScore();
             }
