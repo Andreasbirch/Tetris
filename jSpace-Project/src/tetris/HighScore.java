@@ -2,14 +2,11 @@ package tetris;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-import javafx.fxml.FXML;
 
 import java.io.*;
 
 
 public class HighScore {
-
-    @FXML
 
     File file = new  File("highScore.txt");
     ObservableList<HighScoreData> data = FXCollections.observableArrayList();

@@ -61,8 +61,8 @@ public class Board {
             deg = 0;
         } else {
             System.out.println("Game over.");
-            alertGameOver(linesCleared);
             gameOver = true;
+            alertGameOver(linesCleared);
 
             //Scanner scanner = new Scanner(System.in);
             //String name = scanner.nextLine();
