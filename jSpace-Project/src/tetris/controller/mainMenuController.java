@@ -69,6 +69,12 @@ public class mainMenuController implements Initializable {
         App.launchHost();
     }
 
+    @FXML
+    private void joinB(ActionEvent event) throws Exception {
+        System.out.println("Attempting to join game");
+        App.joinGameDialog();
+    }
+
     @Override
     public void initialize(URL arg0, ResourceBundle arg1) {
 
