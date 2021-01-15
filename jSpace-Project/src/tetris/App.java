@@ -225,15 +225,12 @@ public class App{
         headerBox.getChildren().addAll(backBtn, image);
         headerBox.setMargin(backBtn, new Insets(50, 50, 0, 50));
 
-
-
         VBox root = new VBox();
         root.setStyle("-fx-background-image: url(/tetris/res/BackgroundImage.jpg); -fx-background-repeat: repeat; -fx-background-size: cover, auto");
         root.setPrefSize(1000,800);
         root.getChildren().addAll(headerBox, hBox);
 //        root.setMargin(bb, new Insets(60, 60,60,60));
 //        root.setMargin(image, new Insets(0, 0,0,60));
-
 
         final Font f;
         try {
@@ -301,11 +298,9 @@ public class App{
         alert.getButtonTypes().setAll(okButton,cancelButton);
         alert.showAndWait().ifPresent(type -> {
             if(type == okButton) {
-                //Her skal timeline startes igen
                 board.pause = false;
                 timer.getTimeline().play();
                 view.getView().requestFocus();
-                System.out.println("Game unpaused");
             } else {}
         });
     }
