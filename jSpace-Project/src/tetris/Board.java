@@ -28,6 +28,7 @@ public class Board {
     private int score = 0;
     private int linesCleared = 0;
     public boolean gameOver = false;
+    public boolean pause = false;
 
 
     public Board(int tile_size, int width, int height) throws InterruptedException{
@@ -54,7 +55,7 @@ public class Board {
     }
 
     private void addBlock() {
-        if(isClear((width/2)-2,0, 0)){
+        if(isClear((width/2)-2,0, 0) && !pause){
             insertStructureElement((width/2)-2, 0, 0);
             posX = (width/2)-2;
             posY = 0;
@@ -150,29 +151,31 @@ public class Board {
     }
 
     public void move(String dir) {
-        eraseStructureElement(posX, posY, deg);
-        switch (dir) {
-            case "LEFT":
-                if(isClear(posX-1, posY, deg)){
-                    posX --;
-                }
-                insertStructureElement(posX, posY, deg);
-                break;
-            case "RIGHT":
-                if(isClear(posX+1, posY, deg)){
-                    posX ++;
-                }
-                insertStructureElement(posX, posY, deg);
-                break;
-            case "DOWN":
-                if(isClear(posX, posY+1, deg)){
-                    posY++;
+        if (!pause) {
+            eraseStructureElement(posX, posY, deg);
+            switch (dir) {
+                case "LEFT":
+                    if (isClear(posX - 1, posY, deg)) {
+                        posX--;
+                    }
                     insertStructureElement(posX, posY, deg);
-                    score++;
-                } else {
-                    placeBlock();
-                }
-                break;
+                    break;
+                case "RIGHT":
+                    if (isClear(posX + 1, posY, deg)) {
+                        posX++;
+                    }
+                    insertStructureElement(posX, posY, deg);
+                    break;
+                case "DOWN":
+                    if (isClear(posX, posY + 1, deg)) {
+                        posY++;
+                        insertStructureElement(posX, posY, deg);
+                        score++;
+                    } else {
+                        placeBlock();
+                    }
+                    break;
+            }
         }
     }
 
@@ -187,7 +190,7 @@ public class Board {
     }
 
     private void placeBlock(){
-        if (!gameOver) {
+        if (!gameOver && !pause) {
             insertStructureElement(posX, posY, deg);
 
             while (checkLine()) {

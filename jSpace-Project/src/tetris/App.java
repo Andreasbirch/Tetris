@@ -40,12 +40,13 @@ public class App{
     private static RemoteSpace chat;
     private static Stage primaryStage;
     private static Scene scene;
+    private Time timer;
 
     public App (Stage primaryStage) throws InterruptedException {
         this.primaryStage = primaryStage;
         VBox root = javaFXSetup();
         scene = new Scene(root, 1000, 800);
-        Time timer = new Time(board);
+        timer = new Time(board);
 //        timer.getTimeline().play();
 
         try {
@@ -163,6 +164,8 @@ public class App{
         Button pauseBtn = new Button("pause");
         pauseBtn.setOnAction(e -> {
             try {
+                board.pause = false;
+                timer.getTimeline().pause();
                 pauseB();
             } catch (IOException ioException) {
                 ioException.printStackTrace();
@@ -270,11 +273,11 @@ public class App{
         alert.showAndWait().ifPresent(type -> {
             if(type == okButton) {
                 //Her skal timeline startes igen
+                board.pause = false;
+                timer.getTimeline().play();
+                view.getView().requestFocus();
                 System.out.println("Game unpaused");
             } else {}
         });
-        alert.show();
     }
-
-    public static void stop(){}
 }
