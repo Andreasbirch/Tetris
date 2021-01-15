@@ -26,6 +26,7 @@ import tetris.HighScore;
 import tetris.HighScoreData;
 
 import java.io.File;
+import java.io.IOException;
 import java.net.URL;
 import java.nio.file.Paths;
 import java.util.ResourceBundle;
@@ -86,5 +87,13 @@ public class mainMenuController implements Initializable {
         );
 
         table.setItems(highScore.getData());
+    }
+
+    public void loginB(ActionEvent event) throws IOException {
+        Stage stage = (Stage) StartPage.getScene().getWindow();
+        Parent root = FXMLLoader.load(getClass().getResource("/tetris/view/LoginPage.fxml"));
+        Scene scene = new Scene(root);
+        stage.setScene(scene);
+        stage.show();
     }
 }

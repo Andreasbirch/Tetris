@@ -61,6 +61,7 @@ public class Board {
             posY = 0;
             deg = 0;
         } else {
+            gameOver = true;
             System.out.println("Game over.");
             gameOver = true;
             alertGameOver(linesCleared);
