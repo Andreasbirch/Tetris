@@ -47,7 +47,8 @@ public class App{
         VBox root = javaFXSetup();
         scene = new Scene(root, 1000, 800);
         timer = new Time(board);
-//        timer.getTimeline().play();
+        board.pause = false;
+        timer.getTimeline().play();
 
         try {
             String uri = "tcp://127.0.0.1:9001/chat?keep";
@@ -199,6 +200,8 @@ public class App{
         Button backBtn = new Button("back");
         backBtn.setOnAction(e -> {
             try {
+                board.pause = true;
+                timer.getTimeline().pause();
                 backB();
             } catch (IOException ioException) {
                 ioException.printStackTrace();
