@@ -1,10 +1,12 @@
 package tetris;
 
+import javafx.application.Platform;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
+import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
@@ -12,6 +14,7 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
+import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
@@ -37,7 +40,7 @@ public class App{
     private static Stage primaryStage;
     private static Scene scene;
     private static String ID;
-    private static boolean multiplayer;
+    private static boolean multiplayer, isClient;
     private static String p2ID;
     private static P2Timer p2Timer;
     private Time timer;
@@ -45,6 +48,10 @@ public class App{
     public App (Stage primaryStage) throws InterruptedException {
         this.multiplayer = multiplayer;
         this.primaryStage = primaryStage;
+
+        if(isClient) {
+            server.put("START", ID);
+        }
 
         if(multiplayer){
             p2Timer.play();
@@ -148,6 +155,69 @@ public class App{
         server = new RemoteSpace(uri);
         p2Timer = new P2Timer(server);
     }
+
+    public static void joinGameDialog() {
+        TextField serverIP;
+
+        //Skal nok over i view som FXML fil?
+        Dialog<String> dialog = new Dialog<>();
+        dialog.setTitle("Join Game");
+        dialog.setHeaderText("Pleaser enter the server IP address: ");
+
+        ButtonType ok = new ButtonType("Connect", ButtonBar.ButtonData.OK_DONE);
+        dialog.getDialogPane().getButtonTypes().addAll(ok);
+
+        GridPane grid = new GridPane();
+        grid.setHgap(10);
+        grid.setVgap(10);
+        grid.setPadding(new Insets(20, 20, 10, 10));
+
+        serverIP = new TextField();
+        serverIP.setPromptText("IP Address");
+
+        grid.add(new Label("Pleaser enter the server IP address: "), 0, 0);
+        grid.add(serverIP, 1, 0);
+
+        Node okButton = dialog.getDialogPane().lookupButton(ok);
+        okButton.setDisable(true);
+
+        serverIP.textProperty().addListener((observable, oldValue, newValue) -> {
+            okButton.setDisable(newValue.trim().isEmpty());
+        });
+
+        dialog.getDialogPane().setContent(grid);
+
+        Platform.runLater(() -> serverIP.requestFocus());
+
+        dialog.setResultConverter(dialogButton -> {
+
+            if (dialogButton == ok) {
+                try {
+                    joinGame(serverIP.getText());
+                } catch (IOException e) {
+                    e.printStackTrace();
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
+                dialog.close();
+            }
+            return null;
+        });
+
+        dialog.show();
+    }
+
+    private static void joinGame(String serverIP) throws IOException, InterruptedException {
+        multiplayer = true;
+        isClient = true;
+        String uri = "tcp://" + serverIP + ":9001/server?keep";
+        ID = InetAddress.getLocalHost().getHostAddress();
+        server = new RemoteSpace(uri);
+        p2Timer = new P2Timer(server);
+        System.out.println("Joined server on IP " + serverIP);
+    }
+
+
 
     private VBox javaFXSetup() throws InterruptedException {
         board = new Board(TILE_SIZE, WIDTH, HEIGHT);
