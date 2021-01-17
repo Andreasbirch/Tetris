@@ -11,7 +11,7 @@ public class DB {
     private static String Hold = "C";
     private static Boolean enableGhostBlock = true;
     private static Boolean enableMusic = true;
-
+    private static int score = 0, linesCleared = 0;
     public DB() {}
 
     //Getters
@@ -32,6 +32,8 @@ public class DB {
     }
     public static Boolean getEnableGhostBlock() { return enableGhostBlock; }
     public static Boolean getEnableMusic() { return enableMusic; }
+    public static int getScore() { return score; }
+    public static int getLinesCleared() { return linesCleared; }
 
     //setters
     public void setMoveRightKey(String key) {
@@ -61,4 +63,7 @@ public class DB {
     public void setEnableMusic(Boolean bool) {
         enableMusic = bool;
     }
+    public void setScore(int scoreIn) { score = scoreIn; }
+    public void setLinesCleared(int linesClearedIn) { linesCleared = linesClearedIn; }
+
 }

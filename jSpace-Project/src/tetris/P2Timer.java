@@ -6,7 +6,6 @@ import javafx.util.Duration;
 import org.jspace.ActualField;
 import org.jspace.FormalField;
 import org.jspace.RemoteSpace;
-import org.jspace.SequentialSpace;
 
 public class P2Timer {
 
@@ -32,7 +31,7 @@ public class P2Timer {
                 }
                 if(arr != null) {
                     boardArray = (int[][])arr[1];
-                    App.updateP2View(boardArray);
+                    App.setP2View(boardArray);
                 }
             }
         }));

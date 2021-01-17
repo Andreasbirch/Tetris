@@ -31,12 +31,12 @@ public class TetrisPageController {
     @FXML
     private void startB(ActionEvent event) throws Exception {
         Stage stage = new Stage();
-        App app = new App(stage);
+        App app = new App();
     }
 
     @FXML
     private void restartB(ActionEvent event) throws Exception {
         Stage stage = new Stage();
-        App app = new App(stage);
+        App app = new App();
     }
 }

@@ -10,6 +10,7 @@ import org.jspace.FormalField;
 import org.jspace.RandomSpace;
 import org.jspace.SequentialSpace;
 import org.jspace.Space;
+import tetris.controller.DB;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -224,7 +225,6 @@ public class Board {
         score += 200;
         linesCleared++;
         gravity(lineNo);
-        App.updateTimer();
     }
 
     private void gravity(int lineNo) {
