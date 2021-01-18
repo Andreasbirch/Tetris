@@ -86,6 +86,7 @@ public class App{
         ID = InetAddress.getLocalHost().getHostAddress();
         server = new RemoteSpace(uri);
         System.out.println("Joined server on IP " + serverIP);
+        server.put("CONNECTED", ID);
     }
 
     public static void parseInput(KeyEvent event) {
