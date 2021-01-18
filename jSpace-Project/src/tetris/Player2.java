@@ -1,15 +1,9 @@
 package tetris;
 
-import javafx.animation.KeyFrame;
-import javafx.animation.Timeline;
-import javafx.scene.layout.Pane;
-import javafx.util.Duration;
 import org.jspace.ActualField;
 import org.jspace.FormalField;
 import org.jspace.RemoteSpace;
-
 import java.io.IOException;
-import java.rmi.Remote;
 
 public class Player2 implements Runnable {
     private RemoteSpace server;

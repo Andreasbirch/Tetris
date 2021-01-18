@@ -16,7 +16,6 @@ public class View {
         this.height = height;
         tileArray = new Rectangle[height][width];
 
-
         for(int x = 1; x < width+1; x++) {
             for(int y = 0; y < height; y++) {
                 Rectangle tile = new Rectangle();
@@ -34,8 +33,6 @@ public class View {
     }
 
     public void updateView(int[][] boardArray) {
-//        int[][] boardArray = board.getBoardArray();
-
         for(int x = 1; x < width+1; x++) {
             for(int y = 0; y < height; y++) {
                 switch (boardArray[y][x]) {
@@ -71,7 +68,6 @@ public class View {
                         tileArray[y][x-1].setFill(Color.YELLOW);
                         tileArray[y][x-1].setStroke(Color.DARKGRAY);
                         break;
-
                 }
             }
         }

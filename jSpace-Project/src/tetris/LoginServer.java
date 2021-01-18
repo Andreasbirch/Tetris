@@ -12,12 +12,12 @@ public class LoginServer implements Runnable {
 
     Space channelUserServer = new SequentialSpace();
     Space channelServerUser = new SequentialSpace();
-    String username, password;
+    String username, password, resp;
     Object[] response, credentials;
     File file = new  File("credentials.txt");
     ObservableList<LoginData> data = FXCollections.observableArrayList();
     String[] parts;
-    private boolean canLogin = false;
+    private boolean canLogin;
 
     public LoginServer (String username, String password) {
         this.username = username;
@@ -32,10 +32,13 @@ public class LoginServer implements Runnable {
         try {
             channelUserServer.put(username, password);
             credentials = channelUserServer.get(new FormalField(String.class), new FormalField(String.class));
-            channelServerUser.put(check(credentials));
+            resp = check(credentials);
+            channelServerUser.put(resp);
             response = channelServerUser.get(new FormalField(String.class));
             if (response[0].equals("ok")) {
                 canLogin = true;
+            } else {
+                canLogin = false;
             }
 
         } catch (Exception e) {
@@ -70,14 +73,10 @@ public class LoginServer implements Runnable {
                 LoginData loginData = new LoginData(parts[0], parts[1]);
                 data.add(loginData);
             }
-
-        } catch (Exception e) {
-
-        }
+        } catch (Exception e) {}
     }
 
     public void writeUser() {
-
         LoginData loginData = new LoginData(username, password);
         data.add(loginData);
 
@@ -86,7 +85,6 @@ public class LoginServer implements Runnable {
             for (int i = 0; i < data.size(); i++) {
                 pw.println(data.get(i).getUsername() + "," + data.get(i).getPassword());
             }
-
             pw.flush();
             pw.close();
 

@@ -8,7 +8,6 @@ public class HighScoreData {
     private final SimpleStringProperty score;
 
     public HighScoreData(String name, String score) {
-
         this.name = new SimpleStringProperty(name);
         this.score = new SimpleStringProperty(score);
     }

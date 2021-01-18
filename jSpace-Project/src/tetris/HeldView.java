@@ -1,6 +1,5 @@
 package tetris;
 
-import javafx.scene.layout.Border;
 import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
@@ -27,7 +26,6 @@ public class HeldView {
                 pane.getChildren().add(tileArray[y][x]);
             }
         }
-
     }
 
     public void updateHeldView(Board board) {
@@ -68,7 +66,6 @@ public class HeldView {
                         tileArray[y][x].setFill(Color.YELLOW);
                         tileArray[y][x].setStroke(Color.DARKGRAY);
                         break;
-
                 }
             }
         }

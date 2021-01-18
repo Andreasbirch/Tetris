@@ -2,9 +2,7 @@ package tetris;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-
 import java.io.*;
-
 
 public class HighScore {
 
@@ -27,10 +25,7 @@ public class HighScore {
                 HighScoreData highScoreData = new HighScoreData(parts[0], parts[1]);
                 data.add(highScoreData);
             }
-
-        } catch (Exception e) {
-
-        }
+        } catch (Exception e) {}
     }
 
     public void addHighScore (String name, String score) {
@@ -82,7 +77,6 @@ public class HighScore {
     }
 
     private void writeHighScore() {
-
         try {
             PrintWriter pw = new PrintWriter(file);
             for (int i = 0; i < data.size(); i++) {

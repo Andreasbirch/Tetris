@@ -4,8 +4,6 @@ import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
 import javafx.util.Duration;
 
-import java.security.Key;
-
 public class Time {
 
     private Timeline timeline;
@@ -42,8 +40,6 @@ public class Time {
         }));
 
         timeline.play();
-
-
     }
 
     public Timeline getTimeline() {
