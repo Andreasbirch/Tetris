@@ -53,7 +53,7 @@ public class HighScore {
                     writeHighScore();
                     break;
                 }
-            }
+            } 
 
             if (data.size() < 10 && added == false) {
                 data.add((data.size()), highScoreData);

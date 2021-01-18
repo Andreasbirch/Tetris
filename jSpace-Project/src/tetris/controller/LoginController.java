@@ -60,7 +60,6 @@ public class LoginController {
         stage.show();
     }
 
-
     @FXML
     public void backBtn (ActionEvent event) throws IOException {
         Stage stage = (Stage) NewUserPage.getScene().getWindow();

@@ -9,6 +9,7 @@ import javafx.scene.layout.GridPane;
 import org.jspace.FormalField;
 import org.jspace.SequentialSpace;
 import org.jspace.Space;
+import tetris.controller.GamePageController;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -165,6 +166,7 @@ public class Board {
                         posY++;
                         insertStructureElement(posX, posY, deg);
                         score++;
+                        App.setScore(score);
                     } else {
                         placeBlock();
                     }
@@ -216,6 +218,8 @@ public class Board {
         }
         score += 200;
         linesCleared++;
+        App.setScore(score);
+        App.setLinesCleared(linesCleared);
         gravity(lineNo);
     }
 

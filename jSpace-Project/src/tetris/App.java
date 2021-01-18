@@ -123,7 +123,10 @@ public class App{
     }
 
     //Getters
-    public static String getScore() { return String.valueOf(score); }
+    public static String getScore() {
+        //System.out.println(String.valueOf(score));
+        return String.valueOf(score);
+    }
     public static String getLinesCleared() { return String.valueOf(linesCleared); }
     public static Pane getHeldView() { return heldView.getView(); }
     public static Pane getGameView() { return view.getView(); }
@@ -147,8 +150,13 @@ public class App{
 
 
     //Setters
-    public void setScore(int score) { this.score = score; }
-    public void setLinesCleared(int linesCleared) { this.linesCleared = linesCleared; }
+    public static void setScore(int sc) {
+        score = sc;
+        System.out.println(score);
+    }
+    public static void setLinesCleared(int LC) {
+        linesCleared = LC;
+    }
     public static void updateHeldView() { heldView.updateHeldView(board); }
     public static void setP2View(int[][] ints) {
         if(p2View != null) {

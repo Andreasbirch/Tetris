@@ -12,7 +12,7 @@ public class MainMenu extends Application {
 
     @Override
     public void start(Stage primaryStage) throws IOException {
-        Parent root = FXMLLoader.load(getClass().getResource("/tetris/view/LoginPage.fxml"));
+        Parent root = FXMLLoader.load(getClass().getResource("/tetris/view/StartPage.fxml"));
 
         primaryStage.setTitle("Tetris!");
         primaryStage.setScene(new Scene(root));
