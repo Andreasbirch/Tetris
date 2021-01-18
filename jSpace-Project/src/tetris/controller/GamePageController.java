@@ -60,7 +60,7 @@ public class GamePageController {
         gameContainer.getChildren().remove(0);
         gameContainer.getChildren().remove(0);
         if(App.getMultiplayer()){
-            gameContainer.getChildren().addAll(leftGameContainer, gameView, rightGameContainer, new View(28, 10, 20).getView());
+            gameContainer.getChildren().addAll(leftGameContainer, gameView, rightGameContainer, App.getp2ViewPane());
         } else {
             gameContainer.getChildren().addAll(leftGameContainer, gameView, rightGameContainer);
         }

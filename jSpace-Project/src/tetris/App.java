@@ -22,21 +22,37 @@ public class App{
     public static KeyCode moveLeftKey, moveRightKey, moveDownKey, rotateKey, dropKey;
     private static RemoteSpace server;
     private static String ID, p2ID;
-    private static P2Timer p2Timer;
     private static Time timer;
 
 
     public App () throws InterruptedException {
-        if(isClient) {
-            server.put("START", ID);
-        }
+
         if(multiplayer){
-            p2Timer.play();
+            //Following code only applicable for p2p services
+            p2View = new View(TILE_SIZE, WIDTH, HEIGHT);
+            if(isClient) {
+                server.put("START", ID);
+            } else {
+                Object[] t = server.query(new ActualField("START"), new FormalField(String.class));
+                    while (t == null) {
+                        t = server.query(new ActualField("START"), new FormalField(String.class));
+                    }
+                    p2ID = (String) t[1];
+                    new Thread(new Player2(ID,p2ID)).start();
+            }
         }
 
         initializations();
 
         updateView();
+    }
+
+    public static Pane getp2ViewPane() {
+        return p2View.getView();
+    }
+
+    public static void updateP2View(int[][] boardArray) {
+        p2View.updateView(boardArray);
     }
 
     private void initializations() throws InterruptedException {
@@ -50,6 +66,7 @@ public class App{
         timer = new Time(board);
         board.pause = false;
         timer.getTimeline().play();
+        view.getView().requestFocus();
     }
 
     public static void launchHost() throws IOException {
@@ -60,7 +77,6 @@ public class App{
         new Thread(new GameServer(board)).start();
         String uri = "tcp://" + ID + ":9001/server?keep";
         server = new RemoteSpace(uri);
-        p2Timer = new P2Timer(server);
     }
 
     public static void joinGame(String serverIP) throws IOException, InterruptedException {
@@ -69,7 +85,6 @@ public class App{
         String uri = "tcp://" + serverIP + ":9001/server?keep";
         ID = InetAddress.getLocalHost().getHostAddress();
         server = new RemoteSpace(uri);
-        p2Timer = new P2Timer(server);
         System.out.println("Joined server on IP " + serverIP);
     }
 
