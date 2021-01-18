@@ -5,12 +5,8 @@ import javafx.geometry.Insets;
 import javafx.scene.Node;
 import javafx.scene.control.*;
 import javafx.scene.layout.GridPane;
-
-import org.jspace.FormalField;
 import org.jspace.SequentialSpace;
 import org.jspace.Space;
-import tetris.controller.GamePageController;
-
 import java.util.ArrayList;
 import java.util.List;
 
@@ -30,7 +26,7 @@ public class Board {
     public boolean pause = false;
 
 
-    public Board(int tile_size, int width, int height) throws InterruptedException{
+    public Board(int tile_size, int width, int height) {
         this.tile_size = tile_size;
         this.width = width;
         this.height = height;
@@ -39,10 +35,6 @@ public class Board {
 
         generateQueue();
         generateNewBlock();
-
-//        Space blockSpace = new RandomSpace();
-//        new Thread(new BlockPusher(blockSpace)).start();
-//        new Thread(new BlockPuller(blockSpace, this)).start();
     }
 
 
@@ -89,14 +81,12 @@ public class Board {
                 addBlock();
             } else {
                 heldBlock = currentBlock;
-//                currentBlock = new Block();
                 currentBlock = null;
                 addToQueue();
                 generateNewBlock();
             }
         }
     }
-
 
     private void insertStructureElement(int posX, int posY, int deg){
         for(int x = 0; x < 4; x++) {
@@ -269,7 +259,6 @@ public class Board {
     public void alertGameOver(int clearedLines) {
         TextField name;
 
-        //Skal nok over i view som FXML fil?
         Dialog<String> dialog = new Dialog<>();
         dialog.setTitle("Game over");
         dialog.setHeaderText("You cleared " + clearedLines + " lines!");

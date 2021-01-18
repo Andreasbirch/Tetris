@@ -41,9 +41,7 @@ public class App{
                     new Thread(new Player2(ID,p2ID)).start();
             }
         }
-
         initializations();
-
         updateView();
     }
 
@@ -113,11 +111,15 @@ public class App{
     }
 
     public static void pauseGame() throws IOException {
-        //Her skal spillet pauses, timeline?
         board.pause = true;
         timer.getTimeline().pause();
         pauseAlert();
     }
+    public static void pauseGameNoAlert() throws IOException {
+        board.pause = true;
+        timer.getTimeline().pause();
+    }
+
 
     public static void pauseAlert() {
         Alert alert = new Alert(Alert.AlertType.INFORMATION);
@@ -138,10 +140,7 @@ public class App{
     }
 
     //Getters
-    public static String getScore() {
-        //System.out.println(String.valueOf(score));
-        return String.valueOf(score);
-    }
+    public static String getScore() { return String.valueOf(score); }
     public static String getLinesCleared() { return String.valueOf(linesCleared); }
     public static Pane getHeldView() { return heldView.getView(); }
     public static Pane getGameView() { return view.getView(); }
@@ -163,14 +162,9 @@ public class App{
         dropKey = KeyCode.getKeyCode(dropKeyS);
     }
 
-
     //Setters
-    public static void setScore(int sc) {
-        score = sc;
-    }
-    public static void setLinesCleared(int LC) {
-        linesCleared = LC;
-    }
+    public static void setScore(int sc) { score = sc; }
+    public static void setLinesCleared(int LC) { linesCleared = LC; }
     public static void updateHeldView() { heldView.updateHeldView(board); }
     public static void setP2View(int[][] ints) {
         if(p2View != null) {

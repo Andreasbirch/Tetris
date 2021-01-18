@@ -71,7 +71,6 @@ public class QueueView {
                         tileArray[y][x].setFill(Color.YELLOW);
                         tileArray[y][x].setStroke(Color.DARKGRAY);
                         break;
-
                 }
             }
         }

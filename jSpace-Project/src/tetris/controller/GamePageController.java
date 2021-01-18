@@ -14,8 +14,6 @@ import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 import tetris.App;
-import tetris.View;
-
 import java.io.IOException;
 
 public class GamePageController {
@@ -74,6 +72,7 @@ public class GamePageController {
     }
 
     public void backBtnClick(ActionEvent event) throws IOException {
+        App.pauseGameNoAlert();
         Stage stage = (Stage) GamePage.getScene().getWindow();
         Parent root = FXMLLoader.load(getClass().getResource("/tetris/view/StartPage.fxml"));
         Scene scene = new Scene(root);
@@ -85,8 +84,12 @@ public class GamePageController {
         App.pauseGame();
     }
 
-    public void newGameBtnClick(ActionEvent event) {
-
+    public void newGameBtnClick(ActionEvent event) throws IOException {
+        Stage stage = (Stage) GamePage.getScene().getWindow();
+        Parent root = FXMLLoader.load(getClass().getResource("/tetris/view/GamePage.fxml"));
+        Scene scene = new Scene(root);
+        stage.setScene(scene);
+        stage.show();
     }
 
     public void updateLabels() {
