@@ -32,6 +32,7 @@ public class LoginServer implements Runnable {
 
     @Override
     public void run() {
+
         try {
             System.out.println("run");
 
@@ -57,6 +58,8 @@ public class LoginServer implements Runnable {
             }
 
         } catch (InterruptedException | IOException e) {
+            e.printStackTrace();
+        } catch (Exception e) {
             e.printStackTrace();
         }
     }

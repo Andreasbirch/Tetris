@@ -29,14 +29,15 @@ public class LoginController {
         passwordPF.setPromptText("Password");
     }
 
-    public void login(ActionEvent event) {
+
+    public void login(ActionEvent event) throws Exception {
         server = new LoginServer(usernameTF.getText(), passwordPF.getText());
-        server.run();
+        loginSuccess();
     }
 
-    public void loginSuccess () throws IOException {
+    @FXML
+    public void loginSuccess() throws Exception {
         Stage stage = (Stage) LoginPage.getScene().getWindow();
-
         Parent root = FXMLLoader.load(getClass().getResource("/tetris/view/StartPage.fxml"));
         Scene scene = new Scene(root);
         stage.setScene(scene);
