@@ -43,7 +43,7 @@ public class GamePageController {
         gameView = App.getGameView();
 
         queueView1 = App.getQueueView1();
-        queueView1 = App.getQueueView2();
+        queueView2 = App.getQueueView2();
 
         scoreLabel.setText(App.getScore());
         linesLabel.setText(App.getLinesCleared());

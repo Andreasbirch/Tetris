@@ -122,10 +122,6 @@ public class App{
         });
     }
 
-
-
-
-
     //Getters
     public static String getScore() { return String.valueOf(score); }
     public static String getLinesCleared() { return String.valueOf(linesCleared); }

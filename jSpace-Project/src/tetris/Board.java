@@ -7,14 +7,11 @@ import javafx.scene.control.*;
 import javafx.scene.layout.GridPane;
 
 import org.jspace.FormalField;
-import org.jspace.RandomSpace;
 import org.jspace.SequentialSpace;
 import org.jspace.Space;
-import tetris.controller.DB;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Scanner;
 
 public class Board {
     private int tile_size, width, height;
@@ -49,7 +46,6 @@ public class Board {
 
 
     public void generateNewBlock() {
-        //currentBlock = new Block();
         currentBlock = queue[0];
         canSwap = true;
         addBlock();
@@ -63,12 +59,8 @@ public class Board {
             deg = 0;
         } else {
             gameOver = true;
-            System.out.println("Game over.");
             gameOver = true;
             alertGameOver(linesCleared);
-
-            //Scanner scanner = new Scanner(System.in);
-            //String name = scanner.nextLine();
         }
     }
 
@@ -317,36 +309,29 @@ public class Board {
 
     public void gameOver(String name) {
 
-        System.out.println("GameOver()");
-
         Space channelUserScoreboard = new SequentialSpace();
         Space channelScoreboardUser = new SequentialSpace();
 
         try {
             channelUserScoreboard.put(name, score);
-            System.out.println("UserToScoreboard");
 
             if (checkScore(score)) {
                 channelScoreboardUser.put("new high score");
-                System.out.println("ScoreboardToUser");
                 addToScoreBoard(name, score);
             } else {
                 channelScoreboardUser.put("not a high score");
             }
-
-            System.out.println(channelScoreboardUser.get(new FormalField(String.class)));
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
     }
 
     public boolean checkScore(int newScore) {
-        System.out.println("checkScore");
-        return true;
+        HighScore highScore = new HighScore();
+        return highScore.isHighScore(newScore);
     }
 
     public void addToScoreBoard(String name, int score) {
-        System.out.println("addToScoreboard");
         HighScore highScore = new HighScore();
         String newScore = score + "";
         highScore.addHighScore(name, newScore);

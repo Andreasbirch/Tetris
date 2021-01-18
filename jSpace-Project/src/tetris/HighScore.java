@@ -28,8 +28,6 @@ public class HighScore {
                 data.add(highScoreData);
             }
 
-            System.out.println(data.toString());
-
         } catch (Exception e) {
 
         }
@@ -47,8 +45,6 @@ public class HighScore {
             writeHighScore();
         } else {
             while (i < data.size()) {
-                System.out.println(data.get(i).getScore());
-                System.out.println(score);
                 if (Integer.parseInt(data.get(i).getScore()) > Integer.parseInt(score)) {
                     i++;
                 } else {
@@ -68,6 +64,21 @@ public class HighScore {
         if (data.size() == 11) {
             data.remove(10);
         }
+    }
+
+    public boolean isHighScore (int score) {
+        int i = 0;
+        if (data.size() < 10) {
+            return true;
+        }
+        while (i < data.size()) {
+            if (Integer.parseInt(data.get(i).getScore()) > score) {
+                i++;
+            } else {
+                return true;
+            }
+        }
+        return false;
     }
 
     private void writeHighScore() {

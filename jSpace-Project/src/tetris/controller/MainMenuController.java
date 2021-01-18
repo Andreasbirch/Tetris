@@ -143,13 +143,4 @@ public class MainMenuController implements Initializable {
         dialog.show();
 
     }
-
-    @FXML
-    public void loginB(ActionEvent event) throws IOException {
-        Stage stage = (Stage) StartPage.getScene().getWindow();
-        Parent root = FXMLLoader.load(getClass().getResource("/tetris/view/LoginPage.fxml"));
-        Scene scene = new Scene(root);
-        stage.setScene(scene);
-        stage.show();
-    }
 }

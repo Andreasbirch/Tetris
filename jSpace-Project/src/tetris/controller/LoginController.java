@@ -16,8 +16,6 @@ import java.io.IOException;
 
 public class LoginController {
 
-    LoginServer server;
-
     public LoginController() {}
 
     @FXML private Pane LoginPage;
@@ -26,8 +24,10 @@ public class LoginController {
     @FXML private PasswordField passwordPF;
     @FXML private Button makeUserBtn;
     @FXML private Button backBtn;
+    @FXML private TextField usernameNew;
+    @FXML private PasswordField passwordNew;
 
-
+    LoginServer server;
 
     @FXML
     public void initialize() {}
@@ -62,7 +62,7 @@ public class LoginController {
 
 
     @FXML
-    public void back(ActionEvent event) throws IOException {
+    public void backBtn (ActionEvent event) throws IOException {
         Stage stage = (Stage) NewUserPage.getScene().getWindow();
         Parent root = FXMLLoader.load(getClass().getResource("/tetris/view/LoginPage.fxml"));
         Scene scene = new Scene(root);
@@ -70,7 +70,15 @@ public class LoginController {
         stage.show();
     }
 
-    public void makeUser(ActionEvent event) {
-        //her
+    @FXML
+    public void makeUser(ActionEvent event) throws Exception {
+        server = new LoginServer(usernameNew.getText(), passwordNew.getText());
+        server.writeUser();
+
+        Stage stage = (Stage) NewUserPage.getScene().getWindow();
+        Parent root = FXMLLoader.load(getClass().getResource("/tetris/view/LoginPage.fxml"));
+        Scene scene = new Scene(root);
+        stage.setScene(scene);
+        stage.show();
     }
 }

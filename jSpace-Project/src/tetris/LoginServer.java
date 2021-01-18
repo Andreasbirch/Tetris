@@ -5,13 +5,8 @@ import javafx.collections.ObservableList;
 import org.jspace.FormalField;
 import org.jspace.SequentialSpace;
 import org.jspace.Space;
-import org.jspace.SpaceRepository;
-import tetris.controller.LoginController;
 
-import java.io.BufferedReader;
-import java.io.File;
-import java.io.FileReader;
-import java.io.IOException;
+import java.io.*;
 
 public class LoginServer implements Runnable {
 
@@ -25,7 +20,6 @@ public class LoginServer implements Runnable {
     private boolean canLogin = false;
 
     public LoginServer (String username, String password) {
-        System.out.println("constructor");
         this.username = username;
         this.password = password;
         readLoginData();
@@ -50,8 +44,6 @@ public class LoginServer implements Runnable {
     }
 
     public String check(Object[] credentials) {
-
-        System.out.println("check");
 
         username = credentials[0].toString();
         password = credentials[1].toString();
@@ -79,10 +71,27 @@ public class LoginServer implements Runnable {
                 data.add(loginData);
             }
 
-            System.out.println(data.toString());
-
         } catch (Exception e) {
 
+        }
+    }
+
+    public void writeUser() {
+
+        LoginData loginData = new LoginData(username, password);
+        data.add(loginData);
+
+        try {
+            PrintWriter pw = new PrintWriter(file);
+            for (int i = 0; i < data.size(); i++) {
+                pw.println(data.get(i).getUsername() + "," + data.get(i).getPassword());
+            }
+
+            pw.flush();
+            pw.close();
+
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
         }
     }
 
