@@ -20,7 +20,7 @@ import org.jspace.SpaceRepository;
 
 public class GameServer implements Runnable{
 
-    public GameServer(Space space) {
+    public GameServer() {
 
     }
 

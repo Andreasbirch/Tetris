@@ -73,8 +73,7 @@ public class App{
         //Sets ID to be equiv to ipAddress. Only works locally.
         multiplayer = true;
         ID = InetAddress.getLocalHost().getHostAddress();
-        Space board = new SequentialSpace();
-        new Thread(new GameServer(board)).start();
+        new Thread(new GameServer()).start();
         String uri = "tcp://" + ID + ":9001/server?keep";
         server = new RemoteSpace(uri);
     }
