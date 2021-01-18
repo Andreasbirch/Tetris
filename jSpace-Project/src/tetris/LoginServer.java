@@ -22,43 +22,28 @@ public class LoginServer implements Runnable {
     File file = new  File("credentials.txt");
     ObservableList<LoginData> data = FXCollections.observableArrayList();
     String[] parts;
+    private boolean canLogin = false;
 
     public LoginServer (String username, String password) {
         System.out.println("constructor");
         this.username = username;
         this.password = password;
         readLoginData();
+        run();
     }
 
     @Override
     public void run() {
 
         try {
-            System.out.println("run");
-
             channelUserServer.put(username, password);
-            System.out.println("run1");
-
             credentials = channelUserServer.get(new FormalField(String.class), new FormalField(String.class));
-            System.out.println("run3");
             channelServerUser.put(check(credentials));
-
-            System.out.println("run2");
-
             response = channelServerUser.get(new FormalField(String.class));
-
-            System.out.println(response[0]);
-            System.out.println("run4");
-
-            if (response[0].equals("ko")) {
-                LoginController loginController = new LoginController();
-                loginController.loginSuccess();
-            } else {
-                //Start login forfra med fejlbesked
+            if (response[0].equals("ok")) {
+                canLogin = true;
             }
 
-        } catch (InterruptedException | IOException e) {
-            e.printStackTrace();
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -99,5 +84,9 @@ public class LoginServer implements Runnable {
         } catch (Exception e) {
 
         }
+    }
+
+    public boolean getCanLogin() {
+        return canLogin;
     }
 }

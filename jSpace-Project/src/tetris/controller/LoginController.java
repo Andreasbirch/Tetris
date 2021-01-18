@@ -32,7 +32,11 @@ public class LoginController {
 
     public void login(ActionEvent event) throws Exception {
         server = new LoginServer(usernameTF.getText(), passwordPF.getText());
-        loginSuccess();
+        if (server.getCanLogin()) {
+            loginSuccess();
+        } else {
+            System.out.println("Incorrect username or password. Try again.");
+        }
     }
 
     @FXML
