@@ -152,7 +152,6 @@ public class App{
     //Setters
     public static void setScore(int sc) {
         score = sc;
-        System.out.println(score);
     }
     public static void setLinesCleared(int LC) {
         linesCleared = LC;
