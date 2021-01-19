@@ -34,6 +34,7 @@ public class App{
                 server.put("START", ID);
                 p2ID = serverID;
             } else {
+                serverID = ID;
                 Object[] t = server.query(new ActualField("START"), new FormalField(String.class));
                     while (t == null) {
                         t = server.query(new ActualField("START"), new FormalField(String.class));
