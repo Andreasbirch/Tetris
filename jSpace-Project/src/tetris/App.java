@@ -182,4 +182,35 @@ public class App{
         queueView1.updateQueueView(board);
         queueView2.updateQueueView(board);
     }
+
+    public static void winAlert() {
+        board.pause = true;
+        timer.getTimeline().pause();
+        
+        Alert alert = new Alert(Alert.AlertType.WARNING);
+        alert.setTitle("Winner");
+        alert.setHeaderText("You have won the game!");
+        alert.show();
+    }
+
+    public static void lossAlert() {
+        board.pause = true;
+        timer.getTimeline().pause();
+
+        Alert alert = new Alert(Alert.AlertType.WARNING);
+        alert.setTitle("Loser");
+        alert.setHeaderText("You have lost the game!");
+        alert.show();
+    }
+
+    public static void leaveAlert(String name) {
+        board.pause = true;
+        timer.getTimeline().pause();
+
+        Alert alert = new Alert(Alert.AlertType.WARNING);
+        alert.setTitle("Winner");
+        alert.setHeaderText(name + " left the game");
+        alert.setContentText("You have won!");
+        alert.show();
+    }
 }
