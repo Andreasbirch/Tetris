@@ -175,6 +175,7 @@ public class App{
         queueView1.updateQueueView(board);
         queueView2.updateQueueView(board);
     }
+
     public static void updateP2View(int[][] boardArray) {
         p2View.updateView(boardArray);
     }
@@ -184,5 +185,36 @@ public class App{
         moveDownKey = KeyCode.getKeyCode(moveDownKeyS);
         rotateKey = KeyCode.getKeyCode(rotateKeyS);
         dropKey = KeyCode.getKeyCode(dropKeyS);
+
+
+    public static void winAlert() {
+        board.pause = true;
+        timer.getTimeline().pause();
+        
+        Alert alert = new Alert(Alert.AlertType.WARNING);
+        alert.setTitle("Winner");
+        alert.setHeaderText("You have won the game!");
+        alert.show();
+    }
+
+    public static void lossAlert() {
+        board.pause = true;
+        timer.getTimeline().pause();
+
+        Alert alert = new Alert(Alert.AlertType.WARNING);
+        alert.setTitle("Loser");
+        alert.setHeaderText("You have lost the game!");
+        alert.show();
+    }
+
+    public static void leaveAlert(String name) {
+        board.pause = true;
+        timer.getTimeline().pause();
+
+        Alert alert = new Alert(Alert.AlertType.WARNING);
+        alert.setTitle("Winner");
+        alert.setHeaderText(name + " left the game");
+        alert.setContentText("You have won!");
+        alert.show();
     }
 }
