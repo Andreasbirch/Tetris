@@ -8,4 +8,5 @@ Andreas,147
 Caroline,106
 Caroline,99
 s,97
+1,90
 Test,90

@@ -34,15 +34,15 @@ public class App{
             //Following code only applicable for p2p services
             p2View = new View(TILE_SIZE, WIDTH, HEIGHT);
             if(isClient) {
-                server.put("START", ID);
+                server.put("CLIENTSTART", ID);
                 p2ID = serverID;
+                Object[] t = server.query(new ActualField("HOSTSTART"), new FormalField(String.class));
+                p2ID = (String) t[1];
             } else {
+                server.put("HOSTSTART", ID);
                 serverID = ID;
-                Object[] t = server.query(new ActualField("START"), new FormalField(String.class));
-                    while (t == null) {
-                        t = server.query(new ActualField("START"), new FormalField(String.class));
-                    }
-                    p2ID = (String) t[1];
+                Object[] t = server.query(new ActualField("CLIENTSTART"), new FormalField(String.class));
+                p2ID = (String) t[1];
             }
             new Thread(new Player2(ID,p2ID,serverID)).start();
         }
