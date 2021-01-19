@@ -36,10 +36,6 @@ public class GameServer implements Runnable{
             Object[] connectedMsg = server.query(new ActualField("CONNECTED"), new FormalField(String.class));
             System.out.println(connectedMsg[0] + "  " + connectedMsg[1]);
 
-            while (true) {
-                Object[] t = server.get(new FormalField(String.class), new FormalField(int[][].class));
-            }
-
 
         } catch (InterruptedException e) {
             e.printStackTrace();
