@@ -73,6 +73,8 @@ public class GamePageController {
 
     public void backBtnClick(ActionEvent event) throws IOException {
         App.pauseGameNoAlert();
+        App.setScore(0);
+        App.setLinesCleared(0);
         Stage stage = (Stage) GamePage.getScene().getWindow();
         Parent root = FXMLLoader.load(getClass().getResource("/tetris/view/StartPage.fxml"));
         Scene scene = new Scene(root);
@@ -85,6 +87,9 @@ public class GamePageController {
     }
 
     public void newGameBtnClick(ActionEvent event) throws IOException {
+        App.pauseGameNoAlert();
+        App.setScore(0);
+        App.setLinesCleared(0);
         Stage stage = (Stage) GamePage.getScene().getWindow();
         Parent root = FXMLLoader.load(getClass().getResource("/tetris/view/GamePage.fxml"));
         Scene scene = new Scene(root);
