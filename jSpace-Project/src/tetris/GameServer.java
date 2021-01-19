@@ -12,7 +12,9 @@ import org.jspace.SpaceRepository;
 
 public class GameServer implements Runnable{
 
-    public GameServer(Space space) {}
+    public GameServer() {
+
+    }
 
     @Override
     public void run() {
@@ -29,13 +31,11 @@ public class GameServer implements Runnable{
             String gateUri = "tcp://" + myUri.getHost() + ":" + myUri.getPort() +  "?keep" ;
             repository.addGate(gateUri);
 
+
             //Print IP of client when a connection is made.
             Object[] connectedMsg = server.query(new ActualField("CONNECTED"), new FormalField(String.class));
             System.out.println(connectedMsg[0] + "  " + connectedMsg[1]);
 
-            while (true) {
-                Object[] t = server.get(new FormalField(String.class), new FormalField(int[][].class));
-            }
 
         } catch (InterruptedException e) {
             e.printStackTrace();
