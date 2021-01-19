@@ -27,7 +27,12 @@ public class App{
     private static long blockSeed = new Random().nextLong();
 
     public App () throws InterruptedException {
+        multiplayer();
+        initializations();
+        updateView();
+    }
 
+    private void multiplayer() throws InterruptedException {
         if(multiplayer){
             Object[] seedT = server.query(new ActualField("SEED"), new FormalField(Long.class));
             this.blockSeed = (long) seedT[1];
@@ -46,8 +51,6 @@ public class App{
             }
             new Thread(new Player2(ID,p2ID,serverID)).start();
         }
-        initializations();
-        updateView();
     }
 
     private void initializations() throws InterruptedException {
@@ -64,7 +67,7 @@ public class App{
         view.getView().requestFocus();
     }
 
-    public static void launchHost() throws IOException {
+    public static void hostGame() throws IOException {
         //Sets ID to be equiv to ipAddress. Only works locally.
         multiplayer = true;
         ID = InetAddress.getLocalHost().getHostAddress();
@@ -156,7 +159,7 @@ public class App{
         }
     }
     public static boolean getMultiplayer() { return multiplayer; }
-    public static Pane getp2ViewPane() {
+    public static Pane getP2ViewPane() {
         return p2View.getView();
     }
 
@@ -164,12 +167,6 @@ public class App{
     //Setters
     public static void setScore(int sc) { score = sc; }
     public static void setLinesCleared(int LC) { linesCleared = LC; }
-    public static void updateHeldView() { heldView.updateHeldView(board); }
-    public static void setP2View(int[][] ints) {
-        if(p2View != null) {
-            p2View.updateView(ints);
-        }
-    }
     public static void updateView() {
         view.updateView(board.getBoardArray());
         queueView1.updateQueueView(board);

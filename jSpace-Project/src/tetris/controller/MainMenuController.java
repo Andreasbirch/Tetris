@@ -12,7 +12,6 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
-import javafx.scene.image.ImageView;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
@@ -69,7 +68,7 @@ public class MainMenuController implements Initializable {
     @FXML
     private void hostB(ActionEvent event) throws Exception {
         System.out.println("Launching server");
-        App.launchHost();
+        App.hostGame();
     }
 
     @FXML
