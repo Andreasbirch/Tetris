@@ -40,7 +40,7 @@ public class App{
                     }
                     p2ID = (String) t[1];
             }
-            new Thread(new Player2(ID,p2ID)).start();
+            new Thread(new Player2(ID,p2ID,serverID)).start();
         }
         initializations();
         updateView();

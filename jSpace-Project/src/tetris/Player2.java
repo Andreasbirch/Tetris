@@ -7,16 +7,17 @@ import java.io.IOException;
 
 public class Player2 implements Runnable {
     private RemoteSpace server;
-    private String p1ID, p2ID;
+    private String p1ID, p2ID, serverID;
 
-    public Player2(String p1ID, String p2ID) {
+    public Player2(String p1ID, String p2ID, String serverID) {
         this.p1ID = p1ID;
         this.p2ID = p2ID;
+        this.serverID = serverID;
     }
 
     @Override
     public void run() {
-        String uri = "tcp://" + p1ID + ":9001/server?keep";
+        String uri = "tcp://" + serverID + ":9001/server?keep";
         try {
             server = new RemoteSpace(uri);
             timer();
