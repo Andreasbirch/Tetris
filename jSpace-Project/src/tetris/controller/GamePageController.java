@@ -58,17 +58,13 @@ public class GamePageController {
         gameContainer.getChildren().remove(0);
         gameContainer.getChildren().remove(0);
         if(App.getMultiplayer()){
-            gameContainer.getChildren().addAll(leftGameContainer, gameView, rightGameContainer, App.getp2ViewPane());
+            gameContainer.getChildren().addAll(leftGameContainer, gameView, rightGameContainer, App.getP2ViewPane());
+            leftGameContainer.getChildren().remove(1);
         } else {
             gameContainer.getChildren().addAll(leftGameContainer, gameView, rightGameContainer);
         }
 
-        Platform.runLater(new Runnable() {
-            @Override
-            public void run() {
-                gameView.requestFocus();
-            }
-        });
+        Platform.runLater(() -> gameView.requestFocus());
     }
 
     public void backBtnClick(ActionEvent event) throws IOException {
@@ -82,7 +78,7 @@ public class GamePageController {
         stage.show();
     }
 
-    public void pauseBtnClick(ActionEvent event) throws IOException {
+    public void pauseBtnClick(ActionEvent event) {
         App.pauseGame();
     }
 
@@ -98,8 +94,8 @@ public class GamePageController {
     }
 
     public void updateLabels() {
-        scoreLabel.setText(String.valueOf(App.getScore()));
-        linesLabel.setText(String.valueOf(App.getLinesCleared()));
+        scoreLabel.setText(App.getScore());
+        linesLabel.setText(App.getLinesCleared());
     }
 
     public void gameViewInputs(KeyEvent event) {

@@ -28,7 +28,4 @@ public class HighScoreData {
         this.name.set(name);
     }
 
-    public void setScore(String score) {
-        this.score.set(score);
-    }
 }

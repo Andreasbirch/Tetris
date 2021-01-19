@@ -7,8 +7,6 @@ import javafx.scene.control.*;
 import javafx.scene.layout.GridPane;
 import org.jspace.SequentialSpace;
 import org.jspace.Space;
-import java.util.ArrayList;
-import java.util.List;
 import java.util.Random;
 
 public class Board {
@@ -17,7 +15,6 @@ public class Board {
     private int deg;
     private int lineToClear;
     private int[][] boardArray;
-    private List<Block> blockQueue = new ArrayList<Block>();
     private boolean canSwap;
     private Block currentBlock, heldBlock;
     private Block[] queue = new Block[6];
@@ -246,10 +243,6 @@ public class Board {
 
     public Block getHeld() {
         return heldBlock;
-    }
-
-    public int getScore() {
-        return score;
     }
 
     public int getLinesCleared() {

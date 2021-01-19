@@ -40,5 +40,4 @@ public class Player2 implements Runnable {
             }
         }
     }
-
 }

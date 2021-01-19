@@ -5,8 +5,7 @@ import java.util.List;
 
 public class LBlock {
     private int[][] structureElement;
-    List<int[][]> rotations = new ArrayList<int[][]>();
-    private int[] center = {1,1};
+    List<int[][]> rotations = new ArrayList<>();
 
     public LBlock() {
         rotations.add(new int[][]{
@@ -34,10 +33,6 @@ public class LBlock {
                 {0, 0, 0, 0}
         });
         structureElement = rotations.get(0);
-    }
-
-    public int[] getCenter(){
-        return center;
     }
 
     public int[][] getStructureElement() {

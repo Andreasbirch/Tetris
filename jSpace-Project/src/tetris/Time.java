@@ -10,10 +10,6 @@ public class Time {
 
 
     public Time(Board board) {
-        int duration = 1000-(board.getLinesCleared());
-        if(duration <= 200) {
-            duration = 200;
-        }
         if (timeline != null) {
             timeline.stop();
         }
