@@ -9,6 +9,7 @@ import org.jspace.SequentialSpace;
 import org.jspace.Space;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Random;
 
 public class Board {
     private int tile_size, width, height;
@@ -24,12 +25,14 @@ public class Board {
     private int linesCleared = 0;
     public boolean gameOver = false;
     public boolean pause = false;
+    Random random;
 
 
-    public Board(int tile_size, int width, int height) {
+    public Board(int tile_size, int width, int height, long blockSeed) {
         this.tile_size = tile_size;
         this.width = width;
         this.height = height;
+        random = new Random(blockSeed);
 
         createBoardArray();
 
@@ -52,14 +55,13 @@ public class Board {
             deg = 0;
         } else {
             gameOver = true;
-            gameOver = true;
             alertGameOver(linesCleared);
         }
     }
 
     public void generateQueue() {
         for (int i = 0; i < 6; i++) {
-            queue[i] = new Block();
+            queue[i] = new Block(random.nextInt(7)+1);
         }
     }
 
@@ -67,7 +69,7 @@ public class Board {
         for (int i = 1; i < 6; i++) {
             queue[i - 1] = queue[i];
         }
-        queue[5] = new Block();
+        queue[5] = new Block(random.nextInt(7)+1);
     }
 
     public void hold() {

@@ -10,10 +10,7 @@ public class Block {
     List<int[][]> rotations = new ArrayList<int[][]>();
     private int[][] structureElement;
 
-    public Block() {
-        Random random = new Random();
-        int randomBlock = random.nextInt(7)+1;
-
+    public Block(int randomBlock) {
         switch (randomBlock){
             case 1:
                 TBlock tBlock = new TBlock();

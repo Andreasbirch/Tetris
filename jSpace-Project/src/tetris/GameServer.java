@@ -5,6 +5,7 @@ import java.net.InetAddress;
 import java.net.URI;
 import java.net.URISyntaxException;
 import java.net.UnknownHostException;
+import java.util.Random;
 
 import org.jspace.FormalField;
 import org.jspace.SequentialSpace;
@@ -31,6 +32,11 @@ public class GameServer implements Runnable{
             String gateUri = "tcp://" + myUri.getHost() + ":" + myUri.getPort() +  "?keep" ;
             repository.addGate(gateUri);
 
+
+            //Generate a seed for blocks
+            Random random = new Random();
+            long seed = random.nextLong();
+            server.put("SEED", seed);
 
             //Print IP of client when a connection is made.
             Object[] connectedMsg = server.query(new ActualField("CONNECTED"), new FormalField(String.class));
