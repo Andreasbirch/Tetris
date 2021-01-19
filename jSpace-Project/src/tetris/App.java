@@ -50,16 +50,6 @@ public class App{
         updateView();
     }
 
-    public static long getBlockSeed() { return blockSeed; }
-
-    public static Pane getp2ViewPane() {
-        return p2View.getView();
-    }
-
-    public static void updateP2View(int[][] boardArray) {
-        p2View.updateView(boardArray);
-    }
-
     private void initializations() throws InterruptedException {
         board = new Board(TILE_SIZE, WIDTH, HEIGHT, blockSeed);
         view = new View(TILE_SIZE, WIDTH, HEIGHT);
@@ -81,6 +71,14 @@ public class App{
         new Thread(new GameServer()).start();
         String uri = "tcp://" + ID + ":9001/server?keep";
         server = new RemoteSpace(uri);
+    }
+
+    public static void gameLost() {
+        try {
+            server.put("LOST", ID);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
     }
 
     public static void joinGame(String serverIP) throws IOException, InterruptedException {
@@ -157,16 +155,11 @@ public class App{
             server.put(ID, board.getBoardArray());
         }
     }
-    public static String getID() { return ID; }
-    public static String getP2ID() { return "MAC"; }
     public static boolean getMultiplayer() { return multiplayer; }
-    public static void setKeys(String moveLeftKeyS, String moveRightKeyS, String moveDownKeyS, String rotateKeyS, String dropKeyS) {
-        moveLeftKey = KeyCode.getKeyCode(moveLeftKeyS);
-        moveRightKey = KeyCode.getKeyCode(moveRightKeyS);
-        moveDownKey = KeyCode.getKeyCode(moveDownKeyS);
-        rotateKey = KeyCode.getKeyCode(rotateKeyS);
-        dropKey = KeyCode.getKeyCode(dropKeyS);
+    public static Pane getp2ViewPane() {
+        return p2View.getView();
     }
+
 
     //Setters
     public static void setScore(int sc) { score = sc; }
@@ -181,5 +174,15 @@ public class App{
         view.updateView(board.getBoardArray());
         queueView1.updateQueueView(board);
         queueView2.updateQueueView(board);
+    }
+    public static void updateP2View(int[][] boardArray) {
+        p2View.updateView(boardArray);
+    }
+    public static void setKeys(String moveLeftKeyS, String moveRightKeyS, String moveDownKeyS, String rotateKeyS, String dropKeyS) {
+        moveLeftKey = KeyCode.getKeyCode(moveLeftKeyS);
+        moveRightKey = KeyCode.getKeyCode(moveRightKeyS);
+        moveDownKey = KeyCode.getKeyCode(moveDownKeyS);
+        rotateKey = KeyCode.getKeyCode(rotateKeyS);
+        dropKey = KeyCode.getKeyCode(dropKeyS);
     }
 }
