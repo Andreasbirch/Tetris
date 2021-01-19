@@ -179,13 +179,14 @@ public class App{
     public static void updateP2View(int[][] boardArray) {
         p2View.updateView(boardArray);
     }
+
     public static void setKeys(String moveLeftKeyS, String moveRightKeyS, String moveDownKeyS, String rotateKeyS, String dropKeyS) {
         moveLeftKey = KeyCode.getKeyCode(moveLeftKeyS);
         moveRightKey = KeyCode.getKeyCode(moveRightKeyS);
         moveDownKey = KeyCode.getKeyCode(moveDownKeyS);
         rotateKey = KeyCode.getKeyCode(rotateKeyS);
         dropKey = KeyCode.getKeyCode(dropKeyS);
-
+    }
 
     public static void winAlert() {
         board.pause = true;
