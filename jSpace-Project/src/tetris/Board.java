@@ -156,7 +156,6 @@ public class Board {
                         posY++;
                         insertStructureElement(posX, posY, deg);
                         score++;
-                        App.setScore(score);
                     } else {
                         placeBlock();
                     }
@@ -184,6 +183,7 @@ public class Board {
             }
 
             currentBlock = null;
+            App.setScore(score);
             addToQueue();
             generateNewBlock();
             App.updateView();

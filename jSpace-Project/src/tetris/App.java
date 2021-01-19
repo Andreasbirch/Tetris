@@ -121,7 +121,6 @@ public class App{
         timer.getTimeline().pause();
     }
 
-
     public static void pauseAlert() {
         Alert alert = new Alert(Alert.AlertType.INFORMATION);
         alert.setTitle("");
