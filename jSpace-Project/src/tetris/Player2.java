@@ -35,15 +35,9 @@ public class Player2 implements Runnable {
                     App.updateP2View((int[][]) arr[1]);
                 }
 
-                Object[] gameLost = server.getp(new ActualField("LOST"), new FormalField(String.class));
-                if( gameLost != null ) {
-                    App.winAlert();
-                }
-
             } catch (InterruptedException e) {
                 e.printStackTrace();
             }
         }
     }
-
 }

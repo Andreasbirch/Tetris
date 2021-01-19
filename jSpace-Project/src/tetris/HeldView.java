@@ -71,15 +71,6 @@ public class HeldView {
         }
     }
 
-    private void clearView() {
-        for(int x = 0; x < 4; x++) {
-            for (int y = 0; y < 4; y++) {
-                tileArray[y][x].setFill(Color.BLACK);
-                tileArray[y][x].setStroke(Color.DARKGRAY);
-            }
-        }
-    }
-
     public Pane getView() {
         return pane;
     }

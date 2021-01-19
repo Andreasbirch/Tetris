@@ -25,7 +25,6 @@ public class ControlsController implements Initializable {
 
     DB DB = new DB();
 
-    @FXML private Button backBtn;
     @FXML private Label moveRight;
     @FXML private Label moveLeft;
     @FXML private Label rotateRight;
@@ -108,7 +107,7 @@ public class ControlsController implements Initializable {
     }
 
     public void saveB(ActionEvent actionEvent) {
-        //Her skal selve spillet hente de controls der er blevet sat
+        //Sets the actual gamekeys to be that of the control panel
         App.setKeys(moveLeft.getText(), moveRight.getText(), softDrop.getText(), rotateRight.getText(), hardDrop.getText() );
 
         //Updating DB with saved values
@@ -375,20 +374,6 @@ public class ControlsController implements Initializable {
 
         saveChanges.setText("");
         saveDefaultChanges.setText("");
-    }
-
-    //not working probably, hard to implement with calling database and updating individual labels.
-    public void dialog(Label label, String name) {
-
-        final Stage dialog = new Stage();
-        dialog.initModality(Modality.APPLICATION_MODAL);
-        VBox dialogVbox = new VBox(80);
-        dialogVbox.getChildren().add(new Text("Press key for " + name));
-        dialogVbox.getChildren().add(new Label("Current key is: " + label.getText()));
-
-        Scene dialogScene = new Scene(dialogVbox, 300, 200);
-        dialog.setScene(dialogScene);
-        dialog.show();
     }
 
 }

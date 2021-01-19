@@ -11,9 +11,7 @@ import java.net.InetAddress;
 import java.util.Random;
 
 public class App{
-    public final int TILE_SIZE = 28;
-    public final int WIDTH = 10;
-    public final int HEIGHT = 20;
+    public final int TILE_SIZE = 28, WIDTH = 10, HEIGHT = 20;
     private static int score = 0, linesCleared = 0;
     private static boolean multiplayer, isClient;
     private static Board board;
@@ -27,11 +25,24 @@ public class App{
     private static long blockSeed = new Random().nextLong();
 
     public App () throws InterruptedException {
-        multiplayer();
         initializations();
+        multiplayer();
         updateView();
     }
 
+    private void initializations() {
+        board = new Board(TILE_SIZE, WIDTH, HEIGHT, blockSeed);
+        view = new View(TILE_SIZE, WIDTH, HEIGHT);
+        heldView = new HeldView(TILE_SIZE);
+        queueView1 = new QueueView(TILE_SIZE, 1);
+        queueView2 = new QueueView(TILE_SIZE, 2);
+
+
+        timer = new Time(board);
+        board.pause = false;
+        timer.getTimeline().play();
+        view.getView().requestFocus();
+    }
     private void multiplayer() throws InterruptedException {
         if(multiplayer){
             Object[] seedT = server.query(new ActualField("SEED"), new FormalField(Long.class));
@@ -50,29 +61,6 @@ public class App{
                 p2ID = (String) t[1];
             }
             new Thread(new Player2(ID,p2ID,serverID)).start();
-        }
-    }
-    private void initializations() {
-        board = new Board(TILE_SIZE, WIDTH, HEIGHT, blockSeed);
-        view = new View(TILE_SIZE, WIDTH, HEIGHT);
-        heldView = new HeldView(TILE_SIZE);
-        queueView1 = new QueueView(TILE_SIZE, 1);
-        queueView2 = new QueueView(TILE_SIZE, 2);
-
-
-        timer = new Time(board);
-        board.pause = false;
-        timer.getTimeline().play();
-        view.getView().requestFocus();
-    }
-
-
-
-    public static void gameLost() {
-        try {
-            server.put("LOST", ID);
-        } catch (InterruptedException e) {
-            e.printStackTrace();
         }
     }
 
@@ -94,7 +82,6 @@ public class App{
         System.out.println("Joined server on IP " + serverIP);
         server.put("CONNECTED", ID);
     }
-
     public static void parseInput(KeyEvent event) {
         if(event.getCode() == moveLeftKey || event.getCode() == KeyCode.LEFT) {board.move("LEFT");}
         if(event.getCode() == moveRightKey || event.getCode() == KeyCode.RIGHT) {board.move("RIGHT");}
@@ -117,7 +104,6 @@ public class App{
 
         event.consume();
     }
-
     public static void pauseGame() {
         board.pause = true;
         timer.getTimeline().pause();
@@ -127,10 +113,6 @@ public class App{
         board.pause = true;
         timer.getTimeline().pause();
     }
-
-
-
-
 
     //Getters
     public static String getScore() { return String.valueOf(score); }
@@ -148,7 +130,6 @@ public class App{
     public static Pane getP2ViewPane() {
         return p2View.getView();
     }
-
 
     //Setters
     public static void setScore(int sc) { score = sc; }
@@ -169,36 +150,7 @@ public class App{
         dropKey = KeyCode.getKeyCode(dropKeyS);
     }
 
-
     //Alerts
-    public static void winAlert() {
-        board.pause = true;
-        timer.getTimeline().pause();
-
-        Alert alert = new Alert(Alert.AlertType.WARNING);
-        alert.setTitle("Winner");
-        alert.setHeaderText("You have won the game!");
-        alert.show();
-    }
-    public static void lossAlert() {
-        board.pause = true;
-        timer.getTimeline().pause();
-
-        Alert alert = new Alert(Alert.AlertType.WARNING);
-        alert.setTitle("Loser");
-        alert.setHeaderText("You have lost the game!");
-        alert.show();
-    }
-    public static void leaveAlert(String name) {
-        board.pause = true;
-        timer.getTimeline().pause();
-
-        Alert alert = new Alert(Alert.AlertType.WARNING);
-        alert.setTitle("Winner");
-        alert.setHeaderText(name + " left the game");
-        alert.setContentText("You have won!");
-        alert.show();
-    }
     public static void pauseAlert() {
         Alert alert = new Alert(Alert.AlertType.INFORMATION);
         alert.setTitle("");

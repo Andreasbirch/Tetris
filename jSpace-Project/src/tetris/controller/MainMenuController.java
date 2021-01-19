@@ -29,7 +29,6 @@ public class MainMenuController implements Initializable {
     @FXML private TableColumn<HighScoreData, String> col1;
     @FXML private TableColumn<HighScoreData, String> col2;
 
-    ObservableList<HighScoreData> data;
     HighScore highScore = new HighScore();
 
     public MainMenuController() {}

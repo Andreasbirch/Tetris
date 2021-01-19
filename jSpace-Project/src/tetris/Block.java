@@ -1,13 +1,11 @@
 package tetris;
 
 import tetris.Blocks.*;
-
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Random;
 
 public class Block {
-    List<int[][]> rotations = new ArrayList<int[][]>();
+    List<int[][]> rotations = new ArrayList<>();
     private int[][] structureElement;
 
     public Block(int randomBlock) {
@@ -57,22 +55,5 @@ public class Block {
 
     public int[][] getRotations(int i) {
         return rotations.get(i);
-    }
-
-    public void rotate(int deg) {
-        switch (deg) {
-            case 0:
-                structureElement = rotations.get(0);
-                break;
-            case 90:
-                structureElement = rotations.get(1);
-                break;
-            case 180:
-                structureElement = rotations.get(2);
-                break;
-            case 270:
-                structureElement = rotations.get(3);
-                break;
-        }
     }
 }

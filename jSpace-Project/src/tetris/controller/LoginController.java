@@ -6,7 +6,6 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;
-import javafx.scene.control.Button;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.Pane;
@@ -23,8 +22,6 @@ public class LoginController {
     @FXML private Pane NewUserPage;
     @FXML private TextField usernameTF;
     @FXML private PasswordField passwordPF;
-    @FXML private Button makeUserBtn;
-    @FXML private Button backBtn;
     @FXML private TextField usernameNew;
     @FXML private PasswordField passwordNew;
 
@@ -32,7 +29,6 @@ public class LoginController {
 
     @FXML
     public void initialize() {}
-
 
     public void login(ActionEvent event) throws Exception {
         server = new LoginServer(usernameTF.getText(), passwordPF.getText());

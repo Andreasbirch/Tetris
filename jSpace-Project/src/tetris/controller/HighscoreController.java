@@ -13,11 +13,7 @@ public class HighscoreController {
 
     public HighscoreController() {}
 
-    @FXML
-    private Button backBtn;
-
-    @FXML
-    private Pane HighScoresPage;
+    @FXML private Pane HighScoresPage;
 
     @FXML
     private void backB(ActionEvent event) throws Exception {

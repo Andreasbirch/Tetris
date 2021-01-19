@@ -13,9 +13,7 @@ import org.jspace.SpaceRepository;
 
 public class GameServer implements Runnable{
 
-    public GameServer() {
-
-    }
+    public GameServer() { }
 
     @Override
     public void run() {
@@ -31,7 +29,6 @@ public class GameServer implements Runnable{
             URI myUri = new URI(uri);
             String gateUri = "tcp://" + myUri.getHost() + ":" + myUri.getPort() +  "?keep" ;
             repository.addGate(gateUri);
-
 
             //Generate a seed for blocks
             Random random = new Random();

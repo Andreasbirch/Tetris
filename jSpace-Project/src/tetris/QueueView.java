@@ -35,7 +35,7 @@ public class QueueView {
         Block[] queue = board.getQueue();
         int[][] boardArray;
 
-        boardArray = queue[this.i].getStructureElement();
+        boardArray = queue[i].getStructureElement();
         for(int x = 0; x < 4; x++) {
             for (int y = 0; y < 4; y++) {
                 switch (boardArray[y][x]) {
