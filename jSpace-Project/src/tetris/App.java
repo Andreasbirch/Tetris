@@ -186,7 +186,7 @@ public class App{
     public static void winAlert() {
         board.pause = true;
         timer.getTimeline().pause();
-        
+
         Alert alert = new Alert(Alert.AlertType.WARNING);
         alert.setTitle("Winner");
         alert.setHeaderText("You have won the game!");
