@@ -52,8 +52,7 @@ public class App{
             new Thread(new Player2(ID,p2ID,serverID)).start();
         }
     }
-
-    private void initializations() throws InterruptedException {
+    private void initializations() {
         board = new Board(TILE_SIZE, WIDTH, HEIGHT, blockSeed);
         view = new View(TILE_SIZE, WIDTH, HEIGHT);
         heldView = new HeldView(TILE_SIZE);
@@ -67,14 +66,7 @@ public class App{
         view.getView().requestFocus();
     }
 
-    public static void hostGame() throws IOException {
-        //Sets ID to be equiv to ipAddress. Only works locally.
-        multiplayer = true;
-        ID = InetAddress.getLocalHost().getHostAddress();
-        new Thread(new GameServer()).start();
-        String uri = "tcp://" + ID + ":9001/server?keep";
-        server = new RemoteSpace(uri);
-    }
+
 
     public static void gameLost() {
         try {
@@ -84,6 +76,14 @@ public class App{
         }
     }
 
+    public static void hostGame() throws IOException {
+        //Sets ID to be equiv to ipAddress. Only works locally.
+        multiplayer = true;
+        ID = InetAddress.getLocalHost().getHostAddress();
+        new Thread(new GameServer()).start();
+        String uri = "tcp://" + ID + ":9001/server?keep";
+        server = new RemoteSpace(uri);
+    }
     public static void joinGame(String serverIP) throws IOException, InterruptedException {
         multiplayer = true;
         isClient = true;
@@ -118,33 +118,19 @@ public class App{
         event.consume();
     }
 
-    public static void pauseGame() throws IOException {
+    public static void pauseGame() {
         board.pause = true;
         timer.getTimeline().pause();
         pauseAlert();
     }
-    public static void pauseGameNoAlert() throws IOException {
+    public static void pauseGameNoAlert() {
         board.pause = true;
         timer.getTimeline().pause();
     }
 
-    public static void pauseAlert() {
-        Alert alert = new Alert(Alert.AlertType.INFORMATION);
-        alert.setTitle("");
-        alert.setHeaderText("Game paused");
-        alert.setContentText("Press button to unpause");
 
-        ButtonType okButton = new ButtonType("Yes", ButtonBar.ButtonData.YES);
-        ButtonType cancelButton = new ButtonType("Cancel", ButtonBar.ButtonData.CANCEL_CLOSE);
-        alert.getButtonTypes().setAll(okButton,cancelButton);
-        alert.showAndWait().ifPresent(type -> {
-            if(type == okButton) {
-                board.pause = false;
-                timer.getTimeline().play();
-                view.getView().requestFocus();
-            } else {}
-        });
-    }
+
+
 
     //Getters
     public static String getScore() { return String.valueOf(score); }
@@ -172,11 +158,9 @@ public class App{
         queueView1.updateQueueView(board);
         queueView2.updateQueueView(board);
     }
-
     public static void updateP2View(int[][] boardArray) {
         p2View.updateView(boardArray);
     }
-
     public static void setKeys(String moveLeftKeyS, String moveRightKeyS, String moveDownKeyS, String rotateKeyS, String dropKeyS) {
         moveLeftKey = KeyCode.getKeyCode(moveLeftKeyS);
         moveRightKey = KeyCode.getKeyCode(moveRightKeyS);
@@ -185,16 +169,17 @@ public class App{
         dropKey = KeyCode.getKeyCode(dropKeyS);
     }
 
+
+    //Alerts
     public static void winAlert() {
         board.pause = true;
         timer.getTimeline().pause();
-        
+
         Alert alert = new Alert(Alert.AlertType.WARNING);
         alert.setTitle("Winner");
         alert.setHeaderText("You have won the game!");
         alert.show();
     }
-
     public static void lossAlert() {
         board.pause = true;
         timer.getTimeline().pause();
@@ -204,7 +189,6 @@ public class App{
         alert.setHeaderText("You have lost the game!");
         alert.show();
     }
-
     public static void leaveAlert(String name) {
         board.pause = true;
         timer.getTimeline().pause();
@@ -214,5 +198,22 @@ public class App{
         alert.setHeaderText(name + " left the game");
         alert.setContentText("You have won!");
         alert.show();
+    }
+    public static void pauseAlert() {
+        Alert alert = new Alert(Alert.AlertType.INFORMATION);
+        alert.setTitle("");
+        alert.setHeaderText("Game paused");
+        alert.setContentText("Press button to unpause");
+
+        ButtonType okButton = new ButtonType("Yes", ButtonBar.ButtonData.YES);
+        ButtonType cancelButton = new ButtonType("Cancel", ButtonBar.ButtonData.CANCEL_CLOSE);
+        alert.getButtonTypes().setAll(okButton,cancelButton);
+        alert.showAndWait().ifPresent(type -> {
+            if(type == okButton) {
+                board.pause = false;
+                timer.getTimeline().play();
+                view.getView().requestFocus();
+            } else {}
+        });
     }
 }
