@@ -8,6 +8,7 @@ import org.jspace.*;
 
 import java.io.*;
 import java.net.InetAddress;
+import java.util.Random;
 
 public class App{
     public final int TILE_SIZE = 28;
@@ -23,17 +24,20 @@ public class App{
     private static RemoteSpace server;
     private static String ID, p2ID, serverID;
     private static Time timer;
-
+    private static long blockSeed = new Random().nextLong();
 
     public App () throws InterruptedException {
 
         if(multiplayer){
+            Object[] seedT = server.query(new ActualField("SEED"), new FormalField(Long.class));
+            this.blockSeed = (long) seedT[1];
             //Following code only applicable for p2p services
             p2View = new View(TILE_SIZE, WIDTH, HEIGHT);
             if(isClient) {
                 server.put("START", ID);
                 p2ID = serverID;
             } else {
+                serverID = ID;
                 Object[] t = server.query(new ActualField("START"), new FormalField(String.class));
                     while (t == null) {
                         t = server.query(new ActualField("START"), new FormalField(String.class));
@@ -46,6 +50,8 @@ public class App{
         updateView();
     }
 
+    public static long getBlockSeed() { return blockSeed; }
+
     public static Pane getp2ViewPane() {
         return p2View.getView();
     }
@@ -55,7 +61,7 @@ public class App{
     }
 
     private void initializations() throws InterruptedException {
-        board = new Board(TILE_SIZE, WIDTH, HEIGHT);
+        board = new Board(TILE_SIZE, WIDTH, HEIGHT, blockSeed);
         view = new View(TILE_SIZE, WIDTH, HEIGHT);
         heldView = new HeldView(TILE_SIZE);
         queueView1 = new QueueView(TILE_SIZE, 1);
