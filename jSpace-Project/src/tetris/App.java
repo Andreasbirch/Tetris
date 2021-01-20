@@ -35,7 +35,6 @@ public class App{
         if(multiplayer){
             Object[] seedT = server.query(new ActualField("SEED"), new FormalField(Long.class));
             blockSeed = (long) seedT[1];
-            System.out.println(blockSeed);
             //Following code only applicable for p2p services
             p2View = new View(TILE_SIZE, WIDTH, HEIGHT);
             if(isClient) {

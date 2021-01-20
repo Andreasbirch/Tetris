@@ -35,7 +35,6 @@ public class Board {
 
         generateQueue();
         generateNewBlock();
-        System.out.println(blockSeed);
     }
 
 
