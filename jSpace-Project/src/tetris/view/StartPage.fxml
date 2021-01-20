@@ -17,22 +17,22 @@
          </image>
       </ImageView>
 
-      <ImageView id="startBtnView" layoutX="-25.0" layoutY="150.0" scaleX="0.25" scaleY="0.25" onMouseClicked="#startB" pickOnBounds="true" preserveRatio="true">
+      <ImageView id="startBtnView" layoutX="-23.0" layoutY="150.0" scaleX="0.25" scaleY="0.25" onMouseClicked="#startB" pickOnBounds="true" preserveRatio="true">
          <image>
             <Image url="/tetris/res/play.png"/>
          </image>
       </ImageView>
 
-      <TableView fx:id="table" layoutX="200.0" layoutY="500.0" prefHeight="200.0" prefWidth="200.0">
+      <TableView fx:id="table" layoutX="224.0" layoutY="440.0" prefHeight="280.0" prefWidth="150.0">
          <columns>
             <TableColumn fx:id="col1" editable="false" prefWidth="75.0" text="Name" />
             <TableColumn fx:id="col2" editable="false" prefWidth="75.0" text="Score" />
          </columns>
       </TableView>
 
-      <Button fx:id="controllerBtn" layoutX="257.0" layoutY="280.0" mnemonicParsing="false" onAction="#controllerB" prefHeight="27.0" prefWidth="83.0" text="Controls" />
-      <Button fx:id="hostBtn" layoutX="257.0" layoutY="361.0" mnemonicParsing="false" onAction="#hostB" text="Host Game" />
-      <Button fx:id="joinBtn" layoutX="257.0" layoutY="390.0" mnemonicParsing="false" onAction="#joinB" text="Join Game" />
+      <Button fx:id="controllerBtn" layoutX="224.0" layoutY="280.0" mnemonicParsing="false" onAction="#controllerB" prefHeight="30.0" prefWidth="150.0" text="Controls" />
+      <Button fx:id="hostBtn" layoutX="224.0" layoutY="320.0" mnemonicParsing="false" onAction="#hostB" prefHeight="30.0" prefWidth="150.0" text="Host Game" />
+      <Button fx:id="joinBtn" layoutX="224.0" layoutY="360.0" mnemonicParsing="false" onAction="#joinB" prefHeight="30.0" prefWidth="150.0" text="Join Game" />
 
    </children>
 </Pane>

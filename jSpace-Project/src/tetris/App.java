@@ -43,6 +43,7 @@ public class App{
         timer.getTimeline().play();
         view.getView().requestFocus();
     }
+
     private void multiplayer() throws InterruptedException {
         if(multiplayer){
             Object[] seedT = server.query(new ActualField("SEED"), new FormalField(Long.class));
@@ -71,7 +72,10 @@ public class App{
         new Thread(new GameServer()).start();
         String uri = "tcp://" + ID + ":9001/server?keep";
         server = new RemoteSpace(uri);
+
+
     }
+
     public static void joinGame(String serverIP) throws IOException, InterruptedException {
         multiplayer = true;
         isClient = true;

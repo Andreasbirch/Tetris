@@ -14,6 +14,7 @@ import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Pane;
+import javafx.scene.text.Font;
 import javafx.stage.Stage;
 import tetris.App;
 import tetris.HighScore;
@@ -28,6 +29,10 @@ public class MainMenuController implements Initializable {
     @FXML private TableView<HighScoreData> table;
     @FXML private TableColumn<HighScoreData, String> col1;
     @FXML private TableColumn<HighScoreData, String> col2;
+    @FXML private TableColumn<HighScoreData, String> col3;
+    @FXML private Button controllerBtn;
+    @FXML private Button hostBtn;
+    @FXML private Button joinBtn;
 
     HighScore highScore = new HighScore();
 
@@ -35,6 +40,10 @@ public class MainMenuController implements Initializable {
 
     @Override
     public void initialize(URL arg0, ResourceBundle arg1) {
+
+        controllerBtn.setFont(Font.loadFont(getClass().getResourceAsStream("/tetris/res/PressStart2P-Regular.ttf"), 14));
+        hostBtn.setFont(Font.loadFont(getClass().getResourceAsStream("/tetris/res/PressStart2P-Regular.ttf"), 14));
+        joinBtn.setFont(Font.loadFont(getClass().getResourceAsStream("/tetris/res/PressStart2P-Regular.ttf"), 14));
 
         col1.setCellValueFactory(
                 new PropertyValueFactory<>("name")

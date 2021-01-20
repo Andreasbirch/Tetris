@@ -8,11 +8,16 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.control.TextField;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
+import javafx.scene.text.Font;
 import javafx.stage.Stage;
+import org.jspace.RemoteSpace;
+import org.jspace.SequentialSpace;
+import org.jspace.SpaceRepository;
 import tetris.App;
 import java.io.IOException;
 
@@ -30,13 +35,20 @@ public class GamePageController {
     @FXML Button newGameBtn;
     @FXML Label scoreLabel;
     @FXML Label linesLabel;
+    @FXML TextField chatTF;
 
-    public GamePageController() throws InterruptedException {
+    public GamePageController() throws InterruptedException, IOException {
         App app = new App();
     }
 
     @FXML
     public void initialize() {
+
+        backBtn.setFont(Font.loadFont(getClass().getResourceAsStream("/tetris/res/PressStart2P-Regular.ttf"), 14));
+        pauseBtn.setFont(Font.loadFont(getClass().getResourceAsStream("/tetris/res/PressStart2P-Regular.ttf"), 14));
+        newGameBtn.setFont(Font.loadFont(getClass().getResourceAsStream("/tetris/res/PressStart2P-Regular.ttf"), 14));
+
+
         heldView = App.getHeldView();
         gameView = App.getGameView();
 

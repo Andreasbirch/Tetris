@@ -6,4 +6,5 @@ Bjørch,7810
 Andreas,6484
 Max,4032
 Jacob,3022
+Andreas,409
 Kanne,208
