@@ -25,29 +25,17 @@ public class App{
     private static long blockSeed = new Random().nextLong();
 
     public App () throws InterruptedException {
-        initializations();
         multiplayer();
+        initializations();
         updateView();
     }
 
-    private void initializations() {
-        board = new Board(TILE_SIZE, WIDTH, HEIGHT, blockSeed);
-        view = new View(TILE_SIZE, WIDTH, HEIGHT);
-        heldView = new HeldView(TILE_SIZE);
-        queueView1 = new QueueView(TILE_SIZE, 1);
-        queueView2 = new QueueView(TILE_SIZE, 2);
-
-
-        timer = new Time(board);
-        board.pause = false;
-        timer.getTimeline().play();
-        view.getView().requestFocus();
-    }
 
     private void multiplayer() throws InterruptedException {
         if(multiplayer){
             Object[] seedT = server.query(new ActualField("SEED"), new FormalField(Long.class));
-            this.blockSeed = (long) seedT[1];
+            blockSeed = (long) seedT[1];
+            System.out.println(blockSeed);
             //Following code only applicable for p2p services
             p2View = new View(TILE_SIZE, WIDTH, HEIGHT);
             if(isClient) {
@@ -63,6 +51,20 @@ public class App{
             }
             new Thread(new Player2(ID,p2ID,serverID)).start();
         }
+
+    }
+
+    private void initializations() {
+        board = new Board(TILE_SIZE, WIDTH, HEIGHT, blockSeed);
+        view = new View(TILE_SIZE, WIDTH, HEIGHT);
+        heldView = new HeldView(TILE_SIZE);
+        queueView1 = new QueueView(TILE_SIZE, 1);
+        queueView2 = new QueueView(TILE_SIZE, 2);
+
+        timer = new Time(board);
+        board.pause = false;
+        timer.getTimeline().play();
+        view.getView().requestFocus();
     }
 
     public static void hostGame() throws IOException {
