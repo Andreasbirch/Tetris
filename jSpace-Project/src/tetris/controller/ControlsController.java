@@ -12,6 +12,7 @@ import javafx.scene.control.Alert.AlertType;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
+import javafx.scene.text.Font;
 import javafx.scene.text.Text;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
@@ -25,6 +26,9 @@ public class ControlsController implements Initializable {
 
     DB DB = new DB();
 
+    @FXML private Button backBtn;
+    @FXML private Button defaultBtn;
+    @FXML private Button saveChangesBtn;
     @FXML private Label moveRight;
     @FXML private Label moveLeft;
     @FXML private Label rotateRight;
@@ -40,10 +44,10 @@ public class ControlsController implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-        setInitial();
-    }
+        backBtn.setFont(Font.loadFont(getClass().getResourceAsStream("/tetris/res/PressStart2P-Regular.ttf"), 10));
+        defaultBtn.setFont(Font.loadFont(getClass().getResourceAsStream("/tetris/res/PressStart2P-Regular.ttf"), 10));
+        saveChangesBtn.setFont(Font.loadFont(getClass().getResourceAsStream("/tetris/res/PressStart2P-Regular.ttf"), 10));
 
-    public void setInitial() {
         moveRight.setText(DB.getMoveRightControl());
         moveLeft.setText(DB.getMoveLeftControl());
         rotateRight.setText(DB.getRotateRightControl());

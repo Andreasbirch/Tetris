@@ -8,9 +8,9 @@
 <?import javafx.scene.control.CheckBox?>
 <Pane fx:id="ControlsPage" fx:controller="tetris.controller.ControlsController" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="800.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" style="-fx-background-image: url(/tetris/res/BackgroundImage.jpg); -fx-background-repeat: repeat; -fx-background-size: cover, auto">
    <children>
-      <Button fx:id="backBtn" layoutX="29.0" layoutY="30.0" mnemonicParsing="false" onAction="#backB" text="Back" />
-      <Button fx:id="defaultBtn" layoutX="29.0" layoutY="60.0" mnemonicParsing="false" onAction="#defaultB" text="Set to default" />
-      <Button fx:id="saveChangesBtn" layoutX="29.0" layoutY="90.0" mnemonicParsing="false" onAction="#saveB" text="Save changes" />
+      <Button fx:id="backBtn" layoutX="29.0" layoutY="20.0" mnemonicParsing="false" prefHeight="20.0" prefWidth="60.0" onAction="#backB" text="Back" />
+      <Button fx:id="defaultBtn" layoutX="29.0" layoutY="60.0" mnemonicParsing="false" prefHeight="20.0" prefWidth="170.0" onAction="#defaultB" text="Set to default" />
+      <Button fx:id="saveChangesBtn" layoutX="29.0" layoutY="90.0" mnemonicParsing="false" prefHeight="20.0" prefWidth="170.0" onAction="#saveB" text="Save changes" />
       <Button fx:id="moveRightBtn" prefWidth="83.0" layoutX="240.0" layoutY="120.0" mnemonicParsing="false" onAction="#moveRightB" text="Move right" />
       <Button fx:id="moveLeftBtn" prefWidth="83.0" layoutX="240.0" layoutY="150.0" mnemonicParsing="false" onAction="#moveLeftB" text="Move left" />
       <Button fx:id="RotateRightBtn" prefWidth="83.0" layoutX="240.0" layoutY="180.0" mnemonicParsing="false" onAction="#RotateRightB" text="Rotate right" />
@@ -19,8 +19,8 @@
       <Button fx:id="HardDropBtn" prefWidth="83.0" layoutX="240.0" layoutY="270.0" mnemonicParsing="false" onAction="#HardDropB" text="Hard drop" />
       <Button fx:id="HoldBtn" prefWidth="83.0" layoutX="240.0" layoutY="300.0" mnemonicParsing="false" onAction="#HoldB" text="Hold" />
 
-      <Label layoutX="125.0" layoutY="63.0" text="" textFill="white" fx:id="saveDefaultChanges" />
-      <Label layoutX="125.0" layoutY="93.0" text="" textFill="white" fx:id="saveChanges" />
+      <Label layoutX="205.0" layoutY="63.0" text="" textFill="white" fx:id="saveDefaultChanges" />
+      <Label layoutX="205.0" layoutY="93.0" text="" textFill="white" fx:id="saveChanges" />
       <Label layoutX="330.0" layoutY="123.0" text="" textFill="white" fx:id="moveRight" />
       <Label layoutX="330.0" layoutY="153.0" text="" textFill="white" fx:id="moveLeft" />
       <Label layoutX="330.0" layoutY="183.0" text="" textFill="white" fx:id="rotateRight" />

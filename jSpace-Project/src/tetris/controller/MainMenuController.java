@@ -33,6 +33,7 @@ public class MainMenuController implements Initializable {
     @FXML private Button controllerBtn;
     @FXML private Button hostBtn;
     @FXML private Button joinBtn;
+    @FXML private Button logoutBtn;
 
     HighScore highScore = new HighScore();
 
@@ -44,6 +45,7 @@ public class MainMenuController implements Initializable {
         controllerBtn.setFont(Font.loadFont(getClass().getResourceAsStream("/tetris/res/PressStart2P-Regular.ttf"), 14));
         hostBtn.setFont(Font.loadFont(getClass().getResourceAsStream("/tetris/res/PressStart2P-Regular.ttf"), 14));
         joinBtn.setFont(Font.loadFont(getClass().getResourceAsStream("/tetris/res/PressStart2P-Regular.ttf"), 14));
+        logoutBtn.setFont(Font.loadFont(getClass().getResourceAsStream("/tetris/res/PressStart2P-Regular.ttf"), 10));
 
         col1.setCellValueFactory(
                 new PropertyValueFactory<>("name")
@@ -130,5 +132,13 @@ public class MainMenuController implements Initializable {
         });
 
         dialog.show();
+    }
+
+    public void logoutB(ActionEvent event) throws IOException {
+        Stage stage = (Stage) StartPage.getScene().getWindow();
+        Parent root = FXMLLoader.load(getClass().getResource("/tetris/view/LoginPage.fxml"));
+        Scene scene = new Scene(root);
+        stage.setScene(scene);
+        stage.show();
     }
 }

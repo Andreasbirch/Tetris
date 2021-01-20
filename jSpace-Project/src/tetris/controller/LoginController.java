@@ -6,9 +6,11 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;
+import javafx.scene.control.Button;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.Pane;
+import javafx.scene.text.Font;
 import javafx.stage.Stage;
 import tetris.LoginServer;
 
@@ -24,11 +26,17 @@ public class LoginController {
     @FXML private PasswordField passwordPF;
     @FXML private TextField usernameNew;
     @FXML private PasswordField passwordNew;
+    @FXML private Button loginBtn;
+    @FXML private Button createUserBtn;
 
     LoginServer server;
 
     @FXML
-    public void initialize() {}
+    public void initialize() {
+        loginBtn.setFont(Font.loadFont(getClass().getResourceAsStream("/tetris/res/PressStart2P-Regular.ttf"), 14));
+        createUserBtn.setFont(Font.loadFont(getClass().getResourceAsStream("/tetris/res/PressStart2P-Regular.ttf"), 14));
+
+    }
 
     public void login(ActionEvent event) throws Exception {
         server = new LoginServer(usernameTF.getText(), passwordPF.getText());
@@ -36,6 +44,8 @@ public class LoginController {
             loginSuccess();
         } else {
             wrongLoginAlert();
+            usernameTF.setText("");
+            passwordPF.setText("");
         }
     }
 

@@ -33,6 +33,7 @@
       <Button fx:id="controllerBtn" layoutX="224.0" layoutY="280.0" mnemonicParsing="false" onAction="#controllerB" prefHeight="30.0" prefWidth="150.0" text="Controls" />
       <Button fx:id="hostBtn" layoutX="224.0" layoutY="320.0" mnemonicParsing="false" onAction="#hostB" prefHeight="30.0" prefWidth="150.0" text="Host Game" />
       <Button fx:id="joinBtn" layoutX="224.0" layoutY="360.0" mnemonicParsing="false" onAction="#joinB" prefHeight="30.0" prefWidth="150.0" text="Join Game" />
+      <Button fx:id="logoutBtn" layoutX="5.0" layoutY="5.0" mnemonicParsing="false" onAction="#logoutB" prefHeight="20.0" prefWidth="80.0" text="Logout" />
 
    </children>
 </Pane>
