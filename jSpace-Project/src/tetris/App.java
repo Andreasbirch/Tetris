@@ -143,7 +143,9 @@ public class App{
         queueView1.updateQueueView(board);
         queueView2.updateQueueView(board);
     }
-
+    public static void generateNewSeed() {
+        blockSeed = new Random().nextLong();
+    }
     public static void updateP2View(int[][] boardArray) {
         p2View.updateView(boardArray);
 
