@@ -98,6 +98,7 @@ public class GamePageController {
         App.pauseGameNoAlert();
         App.setScore(0);
         App.setLinesCleared(0);
+        App.generateNewSeed();
         Stage stage = (Stage) GamePage.getScene().getWindow();
         Parent root = FXMLLoader.load(getClass().getResource("/tetris/view/GamePage.fxml"));
         Scene scene = new Scene(root);
