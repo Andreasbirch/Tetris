@@ -15,10 +15,9 @@ import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Font;
 import javafx.stage.Stage;
-import org.jspace.RemoteSpace;
-import org.jspace.SequentialSpace;
-import org.jspace.SpaceRepository;
 import tetris.App;
+
+import javax.sound.sampled.*;
 import java.io.IOException;
 
 public class GamePageController {
@@ -37,17 +36,22 @@ public class GamePageController {
     @FXML Label linesLabel;
     @FXML TextField chatTF;
 
-    public GamePageController() throws InterruptedException, IOException {
+    //Sound
+    Boolean musicOff;
+    Clip clip;
+
+    public GamePageController() throws InterruptedException, UnsupportedAudioFileException, IOException, LineUnavailableException {
         App app = new App();
+        musicOff = DB.getDisableMusic();
+
     }
 
     @FXML
-    public void initialize() {
+    public void initialize() throws UnsupportedAudioFileException, IOException, LineUnavailableException {
 
         backBtn.setFont(Font.loadFont(getClass().getResourceAsStream("/tetris/res/PressStart2P-Regular.ttf"), 14));
         pauseBtn.setFont(Font.loadFont(getClass().getResourceAsStream("/tetris/res/PressStart2P-Regular.ttf"), 14));
         newGameBtn.setFont(Font.loadFont(getClass().getResourceAsStream("/tetris/res/PressStart2P-Regular.ttf"), 14));
-
 
         heldView = App.getHeldView();
         gameView = App.getGameView();
@@ -76,6 +80,13 @@ public class GamePageController {
             gameContainer.getChildren().addAll(leftGameContainer, gameView, rightGameContainer);
         }
 
+        if(!musicOff) {
+            AudioInputStream music = AudioSystem.getAudioInputStream(getClass().getResource("/tetris/res/Tetris_Battle_Music.wav"));
+            clip = AudioSystem.getClip();
+            clip.open(music);
+            clip.start();
+        }
+
         Platform.runLater(() -> gameView.requestFocus());
     }
 
@@ -83,6 +94,11 @@ public class GamePageController {
         App.pauseGameNoAlert();
         App.setScore(0);
         App.setLinesCleared(0);
+
+        if(!musicOff) {
+            clip.stop();
+        }
+
         Stage stage = (Stage) GamePage.getScene().getWindow();
         Parent root = FXMLLoader.load(getClass().getResource("/tetris/view/StartPage.fxml"));
         Scene scene = new Scene(root);
@@ -111,8 +127,12 @@ public class GamePageController {
         linesLabel.setText(App.getLinesCleared());
     }
 
-    public void gameViewInputs(KeyEvent event) {
+    public void gameViewInputs(KeyEvent event) throws UnsupportedAudioFileException, IOException, LineUnavailableException {
         App.parseInput(event);
         updateLabels();
+    }
+
+    public void musicPlayer() throws IOException, UnsupportedAudioFileException, LineUnavailableException {
+
     }
 }

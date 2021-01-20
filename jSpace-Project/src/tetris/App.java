@@ -6,6 +6,8 @@ import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.Pane;
 import org.jspace.*;
 
+import javax.sound.sampled.LineUnavailableException;
+import javax.sound.sampled.UnsupportedAudioFileException;
 import java.io.*;
 import java.net.InetAddress;
 import java.util.Random;
@@ -24,7 +26,7 @@ public class App{
     private static Time timer;
     private static long blockSeed = new Random().nextLong();
 
-    public App () throws InterruptedException {
+    public App () throws InterruptedException, UnsupportedAudioFileException, IOException, LineUnavailableException {
         initializations();
         multiplayer();
         updateView();
@@ -72,8 +74,6 @@ public class App{
         new Thread(new GameServer()).start();
         String uri = "tcp://" + ID + ":9001/server?keep";
         server = new RemoteSpace(uri);
-
-
     }
 
     public static void joinGame(String serverIP) throws IOException, InterruptedException {
@@ -86,7 +86,7 @@ public class App{
         System.out.println("Joined server on IP " + serverIP);
         server.put("CONNECTED", ID);
     }
-    public static void parseInput(KeyEvent event) {
+    public static void parseInput(KeyEvent event) throws UnsupportedAudioFileException, IOException, LineUnavailableException {
         if(event.getCode() == moveLeftKey || event.getCode() == KeyCode.LEFT) {board.move("LEFT");}
         if(event.getCode() == moveRightKey || event.getCode() == KeyCode.RIGHT) {board.move("RIGHT");}
         if(event.getCode() == moveDownKey || event.getCode() == KeyCode.DOWN) {board.move( "DOWN");}

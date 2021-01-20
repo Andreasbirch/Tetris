@@ -29,8 +29,8 @@
       <Label layoutX="330.0" layoutY="273.0" text="" textFill="white" fx:id="hardDrop" />
       <Label layoutX="330.0" layoutY="303.0" text="" textFill="white" fx:id="hold" />
 
-      <CheckBox fx:id="ghostBlockCB" layoutX="240.0" layoutY="350.0" text="Enable ghostblock" textFill="white" />
-      <CheckBox fx:id="musicCB" layoutX="240.0" layoutY="380.0" text="Enable music" textFill="white" />
+      <CheckBox fx:id="soundCB" layoutX="240.0" layoutY="350.0" text="Disable game sounds" textFill="white" />
+      <CheckBox fx:id="musicCB" layoutX="240.0" layoutY="380.0" text="Disable music" textFill="white" />
 
    </children>
 </Pane>

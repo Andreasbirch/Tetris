@@ -7,6 +7,10 @@ import javafx.scene.control.*;
 import javafx.scene.layout.GridPane;
 import org.jspace.SequentialSpace;
 import org.jspace.Space;
+import tetris.controller.DB;
+
+import javax.sound.sampled.*;
+import java.io.IOException;
 import java.util.Random;
 
 public class Board {
@@ -23,6 +27,7 @@ public class Board {
     public boolean gameOver = false;
     public boolean pause = false;
     Random random;
+    Boolean disableSound;
 
 
     public Board(int tile_size, int width, int height, long blockSeed) {
@@ -30,6 +35,8 @@ public class Board {
         this.width = width;
         this.height = height;
         random = new Random(blockSeed);
+
+        disableSound = DB.getDisableSound();
 
         createBoardArray();
 
@@ -134,7 +141,7 @@ public class Board {
         insertStructureElement(posX, posY, deg);
     }
 
-    public void move(String dir) {
+    public void move(String dir) throws UnsupportedAudioFileException, IOException, LineUnavailableException {
         if (!pause) {
             eraseStructureElement(posX, posY, deg);
             switch (dir) {
@@ -173,7 +180,7 @@ public class Board {
         }
     }
 
-    private void placeBlock(){
+    private void placeBlock() throws UnsupportedAudioFileException, IOException, LineUnavailableException {
         if (!gameOver && !pause) {
             insertStructureElement(posX, posY, deg);
 
@@ -187,6 +194,9 @@ public class Board {
             generateNewBlock();
             App.updateView();
         }
+        if(!disableSound) {
+            placeBlockSound();
+        }
     }
 
     private boolean canDrop() {
@@ -194,19 +204,23 @@ public class Board {
         return isClear(posX, posY+1, deg);
     }
 
-    public void drop() {
+    public void drop() throws UnsupportedAudioFileException, IOException, LineUnavailableException {
         while (canDrop()) {
             move("DOWN");
         }
         placeBlock();
     }
 
-    private void clearLine(int lineNo) {
+    private void clearLine(int lineNo) throws UnsupportedAudioFileException, IOException, LineUnavailableException {
         for(int x = 1; x < width+1; x++) {
             boardArray[lineNo][x] = 0;
         }
         score += 200;
         linesCleared++;
+
+        if(!disableSound) {
+            clearLineSound();
+        }
         App.setScore(score);
         App.setLinesCleared(linesCleared);
         gravity(lineNo);
@@ -239,6 +253,20 @@ public class Board {
             }
         }
         return false;
+    }
+
+    public void placeBlockSound() throws LineUnavailableException, IOException, UnsupportedAudioFileException {
+        AudioInputStream music = AudioSystem.getAudioInputStream(getClass().getResource("/tetris/res/drop.wav"));
+        Clip clip = AudioSystem.getClip();
+        clip.open(music);
+        clip.start();
+    }
+
+    public void clearLineSound() throws IOException, UnsupportedAudioFileException, LineUnavailableException {
+        AudioInputStream music = AudioSystem.getAudioInputStream(getClass().getResource("/tetris/res/lineClear.wav"));
+        Clip clip = AudioSystem.getClip();
+        clip.open(music);
+        clip.start();
     }
 
     public Block getHeld() {

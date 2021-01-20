@@ -38,7 +38,7 @@ public class ControlsController implements Initializable {
     @FXML private Label hold;
     @FXML private Label saveChanges;
     @FXML private Label saveDefaultChanges;
-    @FXML private CheckBox ghostBlockCB;
+    @FXML private CheckBox soundCB;
     @FXML private CheckBox musicCB;
     @FXML private Pane ControlsPage;
 
@@ -56,8 +56,8 @@ public class ControlsController implements Initializable {
         hardDrop.setText(DB.getHardDropControl());
         hold.setText(DB.getHoldControl());
 
-        ghostBlockCB.setSelected(DB.getEnableGhostBlock());
-        musicCB.setSelected(DB.getEnableMusic());
+        soundCB.setSelected(DB.getDisableSound());
+        musicCB.setSelected(DB.getDisableMusic());
     }
 
     @FXML
@@ -98,11 +98,11 @@ public class ControlsController implements Initializable {
                 DB.setHoldKey("C");
 
                 //Updating checkboxes
-                ghostBlockCB.setSelected(true);
-                musicCB.setSelected(true);
+                soundCB.setSelected(true);
+                musicCB.setSelected(false);
 
-                DB.setEnableGhostBlock(true);
-                DB.setEnableMusic(true);
+                DB.setDisableSound(false);
+                DB.setDisableMusic(false);
 
                 saveDefaultChanges.setText("Controls saved as default");
                 saveChanges.setText("");
@@ -123,8 +123,8 @@ public class ControlsController implements Initializable {
         DB.setHardDropKey(hardDrop.getText());
         DB.setHoldKey(hold.getText());
 
-        DB.setEnableGhostBlock(ghostBlockCB.isSelected());
-        DB.setEnableMusic(musicCB.isSelected());
+        DB.setDisableSound(soundCB.isSelected());
+        DB.setDisableMusic(musicCB.isSelected());
 
         saveChanges.setText("Controls saved!");
         saveDefaultChanges.setText("");

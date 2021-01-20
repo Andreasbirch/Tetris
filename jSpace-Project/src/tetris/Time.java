@@ -4,6 +4,10 @@ import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
 import javafx.util.Duration;
 
+import javax.sound.sampled.LineUnavailableException;
+import javax.sound.sampled.UnsupportedAudioFileException;
+import java.io.IOException;
+
 public class Time {
 
     private Timeline timeline;
@@ -26,7 +30,15 @@ public class Time {
             if (board.gameOver) {
                 timeline.stop();
             }
-            board.move("DOWN");
+            try {
+                board.move("DOWN");
+            } catch (UnsupportedAudioFileException unsupportedAudioFileException) {
+                unsupportedAudioFileException.printStackTrace();
+            } catch (IOException ioException) {
+                ioException.printStackTrace();
+            } catch (LineUnavailableException lineUnavailableException) {
+                lineUnavailableException.printStackTrace();
+            }
             App.updateView();
             try {
                 App.getTimerUpdate();

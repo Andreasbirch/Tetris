@@ -23,7 +23,7 @@
          </image>
       </ImageView>
 
-      <TableView fx:id="table" layoutX="224.0" layoutY="440.0" prefHeight="280.0" prefWidth="150.0">
+      <TableView fx:id="table" layoutX="224.0" layoutY="400.0" prefHeight="280.0" prefWidth="150.0">
          <columns>
             <TableColumn fx:id="col1" editable="false" prefWidth="75.0" text="Name" />
             <TableColumn fx:id="col2" editable="false" prefWidth="75.0" text="Score" />
