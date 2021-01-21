@@ -40,7 +40,7 @@ public class GamePageController {
     Boolean musicOff;
     Clip clip;
 
-    public GamePageController() throws InterruptedException, UnsupportedAudioFileException, IOException, LineUnavailableException {
+    public GamePageController() throws InterruptedException {
         App app = new App();
         musicOff = DB.getDisableMusic();
 
@@ -130,9 +130,5 @@ public class GamePageController {
     public void gameViewInputs(KeyEvent event) throws UnsupportedAudioFileException, IOException, LineUnavailableException {
         App.parseInput(event);
         updateLabels();
-    }
-
-    public void musicPlayer() throws IOException, UnsupportedAudioFileException, LineUnavailableException {
-
     }
 }

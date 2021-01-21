@@ -14,8 +14,7 @@
       <Button fx:id="loginBtn" layoutX="210.0" layoutY="263.0" mnemonicParsing="false" prefWidth="175.0" onAction="#login" defaultButton="true" text="Login" />
       <Button fx:id="createUserBtn" layoutX="210.0" layoutY="300.0" mnemonicParsing="false" prefWidth="175.0" onAction="#createUser" text="Create user" />
 
-      <Label layoutX="220.0" layoutY="116.0" textFill="WHITE" text="Username" />
-      <Label layoutX="220.0" layoutY="167.0" textFill="WHITE" text="Password" />
-
+      <Label fx:id="usernameL" layoutX="220.0" layoutY="122.0" textFill="WHITE" text="Username" />
+      <Label fx:id="passwordL" layoutX="220.0" layoutY="173.0" textFill="WHITE" text="Password" />
    </children>
 </Pane>

@@ -5,15 +5,11 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.control.Alert;
-import javafx.scene.control.Button;
-import javafx.scene.control.PasswordField;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
 import javafx.scene.layout.Pane;
 import javafx.scene.text.Font;
 import javafx.stage.Stage;
 import tetris.LoginServer;
-
 import java.io.IOException;
 
 public class LoginController {
@@ -28,14 +24,30 @@ public class LoginController {
     @FXML private PasswordField passwordNew;
     @FXML private Button loginBtn;
     @FXML private Button createUserBtn;
+    @FXML private Button BackBtn;
+    @FXML private Button SignUpBtn;
+    @FXML private Label usernameL;
+    @FXML private Label passwordL;
 
     LoginServer server;
 
     @FXML
     public void initialize() {
-        loginBtn.setFont(Font.loadFont(getClass().getResourceAsStream("/tetris/res/PressStart2P-Regular.ttf"), 14));
-        createUserBtn.setFont(Font.loadFont(getClass().getResourceAsStream("/tetris/res/PressStart2P-Regular.ttf"), 14));
+        try {
+            loginBtn.setFont(Font.loadFont(getClass().getResourceAsStream("/tetris/res/PressStart2P-Regular.ttf"), 14));
+            createUserBtn.setFont(Font.loadFont(getClass().getResourceAsStream("/tetris/res/PressStart2P-Regular.ttf"), 14));
+            usernameL.setFont(Font.loadFont(getClass().getResourceAsStream("/tetris/res/PressStart2P-Regular.ttf"), 10));
+            passwordL.setFont(Font.loadFont(getClass().getResourceAsStream("/tetris/res/PressStart2P-Regular.ttf"), 10));
 
+
+        } catch(NullPointerException e){}
+
+        try {
+            BackBtn.setFont(Font.loadFont(getClass().getResourceAsStream("/tetris/res/PressStart2P-Regular.ttf"), 10));
+            SignUpBtn.setFont(Font.loadFont(getClass().getResourceAsStream("/tetris/res/PressStart2P-Regular.ttf"), 14));
+            usernameL.setFont(Font.loadFont(getClass().getResourceAsStream("/tetris/res/PressStart2P-Regular.ttf"), 10));
+            passwordL.setFont(Font.loadFont(getClass().getResourceAsStream("/tetris/res/PressStart2P-Regular.ttf"), 10));
+        } catch(NullPointerException e) {}
     }
 
     public void login(ActionEvent event) throws Exception {
